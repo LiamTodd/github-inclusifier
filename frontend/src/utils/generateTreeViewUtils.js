@@ -2,7 +2,7 @@ import TreeView from '@mui/lab/TreeView';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import TreeItem from '@mui/lab/TreeItem';
-import { DARK_GREY, WHITE } from '../constants';
+import { DARK_GREY, LIGHT_PURPLE, WHITE } from '../constants';
 import { createElement } from 'react';
 
 export const generateTreeView = (repoData) => {
@@ -38,12 +38,38 @@ const generateTreeViewAux = (parent) => {
     }
   }
 
+  const SSPMFlags = countSSPMFlags(parent);
+
   return createElement(
     TreeItem,
     {
       nodeId: parent.file_path,
-      label: parent.file_name,
+      key: parent.file_path,
+      label: (
+        <div>
+          {parent.file_name}{' '}
+          {SSPMFlags > 0 ? (
+            <a style={{ color: LIGHT_PURPLE }} href='https://google.com'>
+              {SSPMFlags} instance{SSPMFlags > 1 ? 's ' : ' '}
+              of non-inclusive language has been flagged
+            </a>
+          ) : null}
+        </div>
+      ),
     },
-    children
+    [...children]
   );
+};
+
+const countSSPMFlags = (file) => {
+  let count = 0;
+  if (file.sspm_matches) {
+    for (const category of Object.keys(file.sspm_matches)) {
+      for (const term of Object.keys(file.sspm_matches[category])) {
+        count += file.sspm_matches[category][term].length;
+      }
+    }
+  }
+
+  return count;
 };
