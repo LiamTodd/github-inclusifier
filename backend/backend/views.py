@@ -44,6 +44,7 @@ def get_inclusive_language_report(request):
     return Response(
         {
             "message": f"Successful inclusive language analysis conducted on {repo_owner}/{repo_name}",
+            "repo": f"{repo_owner}/{repo_name}",
             "data": result,
         }
     )

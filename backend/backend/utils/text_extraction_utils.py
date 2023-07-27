@@ -17,10 +17,15 @@ def get_repo_file_data(repo_name):
 
 def extract_file_contents(file_path, file_data, parent):
     full_file_path = os.path.join(TEMP_REPO_STORAGE_LOCATION, file_path)
+    # store shortened file name for display (exclude path)
+    file_name = (
+        file_path.replace(f"{parent}/", "", 1) if parent is not None else file_path
+    )
     # recursive case: file is a directory
     if os.path.isdir(full_file_path):
         file_data[file_path] = {
             "file_path": file_path,
+            "file_name": file_name,
             "parent": parent,
             "content": None,
             "is_dir": True,
@@ -50,6 +55,7 @@ def extract_file_contents(file_path, file_data, parent):
 
         file_data[file_path] = {
             "file_path": file_path,
+            "file_name": file_name,
             "parent": parent,
             "content": content,
             "is_dir": False,

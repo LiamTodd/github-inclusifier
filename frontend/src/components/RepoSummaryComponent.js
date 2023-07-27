@@ -1,26 +1,24 @@
 import { useState, useEffect } from 'react';
 import {
   BLACK,
-  DARK_GREY,
   LOCAL_HOST_INCLUSIVE_LANGUAGE_REPORT_URL,
   WHITE,
 } from '../constants';
-import { processRepoData } from '../utils/repoDataProcessing';
-import TreeView from '@mui/lab/TreeView';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import { generateTreeView } from '../utils/generateTreeViewUtils';
 import Box from '@mui/material/Box';
-import TreeItem from '@mui/lab/TreeItem';
 import Typography from '@mui/material/Typography';
 
 function RepoSummaryComponent() {
-  const [repoData, setRepoData] = useState(null);
+  const [repoTreeView, setRepoTreeView] = useState(null);
+  const [repoName, setRepoName] = useState(null);
 
   useEffect(() => {
     fetch(LOCAL_HOST_INCLUSIVE_LANGUAGE_REPORT_URL)
       .then((res) => res.json())
-      .then((data) => setRepoData(processRepoData(data)));
-    console.log(repoData);
+      .then((data) => {
+        setRepoName(data.repo);
+        return setRepoTreeView(generateTreeView(data.data));
+      });
   });
   return (
     <Box sx={{ backgroundColor: BLACK }}>
@@ -29,7 +27,7 @@ function RepoSummaryComponent() {
         gutterBottom
         sx={{ fontSize: '2rem', padding: '1vw', color: WHITE }}
       >
-        User/RepoName
+        {repoName}
       </Typography>
       <Box
         sx={{
@@ -39,32 +37,7 @@ function RepoSummaryComponent() {
           marginX: 'auto',
         }}
       >
-        <TreeView
-          aria-label='file system navigator'
-          defaultCollapseIcon={<ExpandMoreIcon />}
-          defaultExpandIcon={<ChevronRightIcon />}
-          sx={{
-            height: 0.7,
-            width: 0.7,
-            overflow: 'auto',
-            backgroundColor: DARK_GREY,
-            color: WHITE,
-            display: 'flex',
-            flexDirection: 'column',
-            paddingLeft: '2%',
-            paddingRight: '2%',
-          }}
-        >
-          <TreeItem nodeId='1' label='Applications'>
-            <TreeItem nodeId='2' label='Calendar' />
-          </TreeItem>
-          <TreeItem nodeId='3' label='Documents'>
-            <TreeItem nodeId='4' label='OSS' />
-            <TreeItem nodeId='5' label='MUI'>
-              <TreeItem nodeId='4' label='index.js' />
-            </TreeItem>
-          </TreeItem>
-        </TreeView>
+        {repoTreeView}
       </Box>
     </Box>
   );
