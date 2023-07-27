@@ -2,6 +2,7 @@ import shutil
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 import os
+from backend.utils.reconstruct_file_structure_utils import reconstruct_file_structure
 from backend.utils.language_analysis_utils import (
     sub_string_pattern_match,
     word_boundary_pattern_match,
@@ -34,12 +35,15 @@ def get_inclusive_language_report(request):
     sub_string_pattern_match(file_data)
     word_boundary_pattern_match(file_data)
 
+    # reconstruct file structure
+    result = reconstruct_file_structure(file_data, repo_name)
+
     # delete repo
     shutil.rmtree(repo_path)
 
     return Response(
         {
             "message": f"Successful inclusive language analysis conducted on {repo_owner}/{repo_name}",
-            "data": file_data,
+            "data": result,
         }
     )
