@@ -1,18 +1,13 @@
 import { generateTreeView } from '../utils/generateTreeViewUtils';
-import Box from '@mui/material/Box';
 
-function RepoSummaryComponent({ rawFileData }) {
+function RepoSummaryComponent({ rawFileData, handleSetSelectedFile }) {
   return (
-    <Box
-      sx={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        marginX: 'auto',
-      }}
-    >
-      {rawFileData ? generateTreeView(rawFileData) : null}
-    </Box>
+    <>
+      {' '}
+      {rawFileData && handleSetSelectedFile
+        ? generateTreeView(rawFileData, handleSetSelectedFile)
+        : null}
+    </>
   );
 }
 

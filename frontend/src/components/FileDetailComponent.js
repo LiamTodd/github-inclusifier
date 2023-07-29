@@ -1,5 +1,7 @@
-function FileDetailComponent({ testProp }) {
-  return <h1>Hello World</h1>;
+import { WHITE } from '../constants';
+
+function FileDetailComponent({ fileData }) {
+  return <pre>{fileData.content}</pre>;
 }
 
 export default FileDetailComponent;
