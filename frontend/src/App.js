@@ -1,7 +1,7 @@
 import './App.css';
-import RepoSummaryComponent from './components/RepoSummaryComponent';
+import AppBackgroundComponent from './components/AppBackgroundComponent';
 function App() {
-  return <RepoSummaryComponent />;
+  return <AppBackgroundComponent></AppBackgroundComponent>;
 }
 
 export default App;

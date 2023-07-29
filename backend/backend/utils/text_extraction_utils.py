@@ -17,6 +17,7 @@ def get_repo_file_data(repo_name):
 
 def extract_file_contents(file_path, file_data, parent):
     full_file_path = os.path.join(TEMP_REPO_STORAGE_LOCATION, file_path)
+
     # store shortened file name for display (exclude path)
     file_name = (
         file_path.replace(f"{parent}/", "", 1) if parent is not None else file_path

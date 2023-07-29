@@ -5,8 +5,8 @@ import TreeItem from '@mui/lab/TreeItem';
 import { DARK_GREY, LIGHT_PURPLE, WHITE } from '../constants';
 import { createElement } from 'react';
 
-export const generateTreeView = (repoData) => {
-  const tree = generateTreeViewAux(repoData[0]);
+export const generateTreeView = (fileData) => {
+  const tree = generateTreeViewAux(fileData[0]);
 
   return (
     <TreeView
@@ -51,7 +51,8 @@ const generateTreeViewAux = (parent) => {
           {SSPMFlags > 0 ? (
             <a style={{ color: LIGHT_PURPLE }} href='https://google.com'>
               {SSPMFlags} instance{SSPMFlags > 1 ? 's ' : ' '}
-              of non-inclusive language has been flagged
+              of non-inclusive language ha{SSPMFlags > 1 ? 've ' : 's '} been
+              flagged
             </a>
           ) : null}
         </div>
