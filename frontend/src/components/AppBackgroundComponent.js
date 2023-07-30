@@ -10,6 +10,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import RepoSummaryComponent from './RepoSummaryComponent.js';
 import FileDetailComponent from './FileDetailComponent';
+import { generateHeaderFromDoubleRootPath } from '../utils/stringUtils';
 
 function AppBackgroundComponent() {
   const [repoName, setRepoName] = useState(null);
@@ -41,7 +42,10 @@ function AppBackgroundComponent() {
         sx={{ fontSize: '2rem', padding: '1vw', color: WHITE }}
       >
         {selectedFileData
-          ? `${repoName}/${selectedFileData.file_name}`
+          ? generateHeaderFromDoubleRootPath(
+              repoName,
+              selectedFileData.file_path
+            )
           : repoName}
       </Typography>
       <Box
