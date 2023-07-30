@@ -54,7 +54,7 @@ FAILED_FILE_READ_WARNING = (
 )
 
 NON_INCLUSIVE_LANGUAGE_TERMS = {
-    "ABLEIST LANGUAGE TERMS": [
+    "ABLEIST LANGUAGE": [
         "crazy",
         "sane",
         "insane",
@@ -76,7 +76,7 @@ NON_INCLUSIVE_LANGUAGE_TERMS = {
         "unsighted",
         "visually challenged",
     ],
-    "GENDERED LANGUAGE TEMRS": [
+    "GENDERED LANGUAGE": [
         "man-hours",
         "man hours",
         "manhours",
@@ -101,7 +101,7 @@ NON_INCLUSIVE_LANGUAGE_TERMS = {
         "male connector",
         "gender bender",
     ],
-    "VIOLENT LANGUAGE TERMS": [
+    "VIOLENT LANGUAGE": [
         "stonith",
         "hang",
         "hung",
@@ -112,8 +112,8 @@ NON_INCLUSIVE_LANGUAGE_TERMS = {
         "nuke",
         "terminate",
     ],
-    "AGEIST LANGUAGE TERMS": ["the elderly", "the aged", "seniors", "senior citizen"],
-    "RACIALLY CHARGED LANGUAGE TERMS": [
+    "AGEIST LANGUAGE": ["the elderly", "the aged", "seniors", "senior citizen"],
+    "RACIALLY CHARGED LANGUAGE": [
         "whitelist",
         "white list",
         "white-list",
@@ -156,7 +156,7 @@ NON_INCLUSIVE_LANGUAGE_TERMS = {
         "white-label",
         "quantum supremacy",
     ],
-    "BIASED LANGUAGE TERMS": [
+    "BIASED LANGUAGE": [
         "normal",
         "healthy",
         "health check",
@@ -174,14 +174,14 @@ NON_INCLUSIVE_LANGUAGE_TERMS = {
         "handicapped",
         "average user",
     ],
-    "MILITARY LANGUAGE TERMS": [
+    "MILITARY LANGUAGE": [
         "demilitarized zone",
         "outpost",
         "war room",
         "warroom",
         "war-room",
     ],
-    "OTHER TERMS": [
+    "OTHER": [
         "chubby",
         "denigrate",
         "fat",

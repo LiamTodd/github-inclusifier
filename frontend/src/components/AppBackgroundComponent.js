@@ -40,7 +40,9 @@ function AppBackgroundComponent() {
         gutterBottom
         sx={{ fontSize: '2rem', padding: '1vw', color: WHITE }}
       >
-        {repoName}
+        {selectedFileData
+          ? `${repoName}/${selectedFileData.file_name}`
+          : repoName}
       </Typography>
       <Box
         sx={{
