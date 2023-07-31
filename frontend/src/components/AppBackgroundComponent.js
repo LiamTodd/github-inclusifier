@@ -1,16 +1,11 @@
-import { useState, useEffect, useCallback } from 'react';
-import {
-  BLACK,
-  DARK_GREY,
-  LOCAL_HOST_INCLUSIVE_LANGUAGE_REPORT_URL,
-  TEST_DATA,
-  WHITE,
-} from '../constants';
+import { useState, useCallback } from 'react';
+import { APP_NAME, BLACK, DARK_GREY, WHITE } from '../constants';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import RepoSummaryComponent from './RepoSummaryComponent.js';
 import FileDetailComponent from './FileDetailComponent';
 import { generateHeaderFromDoubleRootPath } from '../utils/stringUtils';
+import LinkToRepoComponent from './LinkToRepoComponent';
 
 function AppBackgroundComponent() {
   const [repoName, setRepoName] = useState(null);
@@ -24,29 +19,34 @@ function AppBackgroundComponent() {
     [setSelectedFileData]
   );
 
-  useEffect(() => {
-    // fetch(LOCAL_HOST_INCLUSIVE_LANGUAGE_REPORT_URL)
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     setRepoName(data.repo);
-    //     setRawFileData(data.data);
-    //   });
-    setRepoName(TEST_DATA.repo);
-    setRawFileData(TEST_DATA.data);
-  });
+  const wrapperSetRepoName = useCallback(
+    (val) => setRepoName(val),
+    [setRepoName]
+  );
+  const wrapperSetRawFileData = useCallback(
+    (val) => setRawFileData(val),
+    [setRawFileData]
+  );
   return (
     <Box sx={{ backgroundColor: BLACK }}>
       <Typography
         variant='h1'
         gutterBottom
-        sx={{ fontSize: '2rem', padding: '1vw', color: WHITE }}
+        sx={{
+          fontSize: '2rem',
+          padding: '1vw',
+          color: WHITE,
+          backgroundColor: BLACK,
+        }}
       >
         {selectedFileData
           ? generateHeaderFromDoubleRootPath(
               repoName,
               selectedFileData.file_path
             )
-          : repoName}
+          : repoName
+          ? repoName
+          : APP_NAME}
       </Typography>
       <Box
         sx={{
@@ -71,10 +71,15 @@ function AppBackgroundComponent() {
         >
           {selectedFileData ? (
             <FileDetailComponent fileData={selectedFileData} />
-          ) : (
+          ) : rawFileData ? (
             <RepoSummaryComponent
               rawFileData={rawFileData}
               handleSetSelectedFile={wrapperSetSelectedFile}
+            />
+          ) : (
+            <LinkToRepoComponent
+              handleSetRepoName={wrapperSetRepoName}
+              handleSetRawFileData={wrapperSetRawFileData}
             />
           )}
         </Box>

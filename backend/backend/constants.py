@@ -7,6 +7,12 @@ GITHUB_URL_BITS = {
     "zip_file_tail": "/archive/master.zip",
 }
 
+
+REPO_OWNER_PARAM = "repo-owner"
+REPO_NAME_PARAM = "repo-name"
+ACCESS_TOKEN_PARAM = "access-token"
+
+
 DEFAULT_UNREADABLE_FILE_TYPES = [
     #    image formats
     "apng",

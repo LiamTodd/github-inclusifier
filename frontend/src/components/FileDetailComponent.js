@@ -1,5 +1,11 @@
 import { Box } from '@mui/material';
-import { BLACK, DARK_GREY, ERROR, WHITE } from '../constants';
+import {
+  BLACK,
+  DARK_GREY,
+  DETAIL_TABLE_COLUMNS,
+  ERROR,
+  WHITE,
+} from '../constants';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -35,21 +41,6 @@ function FileDetailComponent({ fileData }) {
     }
   }
 
-  const columns = [
-    { field: 'term', headerName: 'Non-inclusive Term' },
-    { field: 'category', headerName: 'Category' },
-    {
-      field: 'SSPMoccurrences',
-      headerName: 'Number of Occurrences (sub-string pattern matching)',
-      type: 'number',
-    },
-    {
-      field: 'WBPMoccurrences',
-      headerName: 'Number of Occurrences (word-boundary pattern matching)',
-      type: 'number',
-    },
-  ];
-
   return (
     <Box>
       <TableContainer
@@ -59,7 +50,7 @@ function FileDetailComponent({ fileData }) {
         <Table aria-label='simple table'>
           <TableHead>
             <TableRow>
-              {columns.map((column, index) => {
+              {DETAIL_TABLE_COLUMNS.map((column, index) => {
                 return (
                   <TableCell
                     key={column.headerName}

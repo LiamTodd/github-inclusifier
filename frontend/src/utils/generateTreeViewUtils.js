@@ -3,7 +3,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import TreeItem from '@mui/lab/TreeItem';
 import { Chip } from '@mui/material';
-import { ERROR, LIGHT_PURPLE, SSPM_FLAG, WBPM_FLAG } from '../constants';
+import { LIGHT_PURPLE } from '../constants';
 import { createElement } from 'react';
 import { generateMatchCountDisplay } from './stringUtils';
 
@@ -51,7 +51,7 @@ const generateTreeViewAux = (parent, handleSetSelectedFile) => {
             <Chip
               label={generateMatchCountDisplay(SSPMFlags, WBPMFlags)}
               onClick={() => {
-                handleSetSelectedFile(parent, SSPM_FLAG);
+                handleSetSelectedFile(parent);
               }}
               variant='outlined'
               sx={{ borderColor: LIGHT_PURPLE, color: LIGHT_PURPLE }}
