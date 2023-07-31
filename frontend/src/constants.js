@@ -9,6 +9,9 @@ export const LIGHT_PURPLE = '#BB86FC';
 export const DARK_PURPLE = '#3700B3';
 export const TURQOISE = '#03DAC6';
 
+export const SSPM_FLAG = 'sspm';
+export const WBPM_FLAG = 'wbpm';
+
 export const TEST_DATA = {
   message:
     'Successful inclusive language analysis conducted on LiamTodd/human-centric-issue-visualiser',
@@ -31,6 +34,16 @@ export const TEST_DATA = {
             '# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.\n\n# dependencies\n/node_modules\n/.pnp\n.pnp.js\n\n# testing\n/coverage\n\n# production\n/build\n\n# misc\n.DS_Store\n.env.local\n.env.development.local\n.env.test.local\n.env.production.local\n\nnpm-debug.log*\nyarn-debug.log*\nyarn-error.log*\n\n# prettier\n.prettierrc\n\n# test credentials\ntestCredentials.txt\n\n# mock data\nmockData.txt\n',
           is_dir: false,
           sspm_matches: {
+            'ABLEIST LANGUAGE': {},
+            'GENDERED LANGUAGE': {},
+            'VIOLENT LANGUAGE': {},
+            'AGEIST LANGUAGE': {},
+            'RACIALLY CHARGED LANGUAGE': {},
+            'BIASED LANGUAGE': {},
+            'MILITARY LANGUAGE': {},
+            OTHER: {},
+          },
+          wbpm_matches: {
             'ABLEIST LANGUAGE': {},
             'GENDERED LANGUAGE': {},
             'VIOLENT LANGUAGE': {},
@@ -111,6 +124,26 @@ export const TEST_DATA = {
               lame: [509516, 1073867],
             },
           },
+          wbpm_matches: {
+            'ABLEIST LANGUAGE': {},
+            'GENDERED LANGUAGE': {},
+            'VIOLENT LANGUAGE': {},
+            'AGEIST LANGUAGE': {},
+            'RACIALLY CHARGED LANGUAGE': {
+              native: [
+                137239, 137361, 137403, 138941, 772959, 773081, 773123, 774311,
+              ],
+              primitive: [
+                273612, 274398, 275545, 275637, 275655, 620305, 620397, 620415,
+                620697, 644375, 644473, 644497, 885285, 886071, 887029, 887121,
+                887139, 1162610, 1162702, 1162720, 1162998, 1182347, 1182445,
+                1182469,
+              ],
+            },
+            'BIASED LANGUAGE': {},
+            'MILITARY LANGUAGE': {},
+            OTHER: {},
+          },
         },
         {
           file_path:
@@ -122,6 +155,16 @@ export const TEST_DATA = {
             '{\n  "name": "human-centric-issue-visualiser",\n  "version": "0.1.0",\n  "homepage": "https://LiamTodd.github.io/human-centric-issue-visualiser",\n  "private": true,\n  "dependencies": {\n    "@octokit/request": "^6.2.0",\n    "@octokit/rest": "^18.12.0",\n    "@testing-library/jest-dom": "^5.16.4",\n    "@testing-library/react": "^13.3.0",\n    "@testing-library/user-event": "^13.5.0",\n    "bootstrap": "^5.1.3",\n    "chart.js": "^3.8.0",\n    "multiselect-react-dropdown": "^2.0.25",\n    "react": "^18.1.0",\n    "react-bootstrap": "^2.4.0",\n    "react-chartjs-2": "^4.2.0",\n    "react-dom": "^18.1.0",\n    "react-router-dom": "^6.3.0",\n    "react-scripts": "5.0.1",\n    "uuid": "^8.3.2",\n    "web-vitals": "^2.1.4"\n  },\n  "scripts": {\n    "predeploy": "npm run build",\n    "deploy":"gh-pages -d build", \n    "start": "react-scripts start",\n    "build": "react-scripts build",\n    "test": "react-scripts test",\n    "eject": "react-scripts eject"\n  },\n  "browserslist": {\n    "production": [\n      ">0.2%",\n      "not dead",\n      "not op_mini all"\n    ],\n    "development": [\n      "last 1 chrome version",\n      "last 1 firefox version",\n      "last 1 safari version"\n    ]\n  },\n  "devDependencies": {\n    "gh-pages": "^4.0.0",\n    "prettier": "^2.6.2"\n  }\n}\n',
           is_dir: false,
           sspm_matches: {
+            'ABLEIST LANGUAGE': {},
+            'GENDERED LANGUAGE': {},
+            'VIOLENT LANGUAGE': {},
+            'AGEIST LANGUAGE': {},
+            'RACIALLY CHARGED LANGUAGE': {},
+            'BIASED LANGUAGE': {},
+            'MILITARY LANGUAGE': {},
+            OTHER: {},
+          },
+          wbpm_matches: {
             'ABLEIST LANGUAGE': {},
             'GENDERED LANGUAGE': {},
             'VIOLENT LANGUAGE': {},
@@ -161,6 +204,16 @@ export const TEST_DATA = {
                 '<!DOCTYPE html>\n<html lang="en">\n  <head>\n    <meta charset="utf-8" />\n    <link rel="icon" href="%PUBLIC_URL%/logo.png" />\n    <meta name="viewport" content="width=device-width, initial-scale=1" />\n    <meta name="theme-color" content="#000000" />\n    <meta\n      name="description"\n      content="Web site created using create-react-app"\n    />\n    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo.png" />\n    <!--\n      manifest.json provides metadata used when your web app is installed on a\n      user\'s mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/\n    -->\n    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />\n    <!--\n      Notice the use of %PUBLIC_URL% in the tags above.\n      It will be replaced with the URL of the `public` folder during the build.\n      Only files inside the `public` folder can be referenced from the HTML.\n\n      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will\n      work correctly both with client-side routing and a non-root public URL.\n      Learn how to configure a non-root public URL by running `npm run build`.\n    -->\n    <title>Human Centric Issue Visualiser</title>\n  </head>\n  <body>\n    <noscript>You need to enable JavaScript to run this app.</noscript>\n    <div id="root"></div>\n    <!--\n      This HTML file is a template.\n      If you open it directly in the browser, you will see an empty page.\n\n      You can add webfonts, meta tags, or analytics to this file.\n      The build step will place the bundled scripts into the <body> tag.\n\n      To begin the development, run `npm start` or `yarn start`.\n      To create a production bundle, use `npm run build` or `yarn build`.\n    -->\n  </body>\n</html>\n',
               is_dir: false,
               sspm_matches: {
+                'ABLEIST LANGUAGE': {},
+                'GENDERED LANGUAGE': {},
+                'VIOLENT LANGUAGE': {},
+                'AGEIST LANGUAGE': {},
+                'RACIALLY CHARGED LANGUAGE': {},
+                'BIASED LANGUAGE': {},
+                'MILITARY LANGUAGE': {},
+                OTHER: {},
+              },
+              wbpm_matches: {
                 'ABLEIST LANGUAGE': {},
                 'GENDERED LANGUAGE': {},
                 'VIOLENT LANGUAGE': {},
@@ -220,6 +273,16 @@ export const TEST_DATA = {
                 'MILITARY LANGUAGE': {},
                 OTHER: {},
               },
+              wbpm_matches: {
+                'ABLEIST LANGUAGE': {},
+                'GENDERED LANGUAGE': {},
+                'VIOLENT LANGUAGE': {},
+                'AGEIST LANGUAGE': {},
+                'RACIALLY CHARGED LANGUAGE': {},
+                'BIASED LANGUAGE': {},
+                'MILITARY LANGUAGE': {},
+                OTHER: {},
+              },
             },
             {
               file_path:
@@ -231,6 +294,16 @@ export const TEST_DATA = {
                 '# https://www.robotstxt.org/robotstxt.html\nUser-agent: *\nDisallow:\n',
               is_dir: false,
               sspm_matches: {
+                'ABLEIST LANGUAGE': {},
+                'GENDERED LANGUAGE': {},
+                'VIOLENT LANGUAGE': {},
+                'AGEIST LANGUAGE': {},
+                'RACIALLY CHARGED LANGUAGE': {},
+                'BIASED LANGUAGE': {},
+                'MILITARY LANGUAGE': {},
+                OTHER: {},
+              },
+              wbpm_matches: {
                 'ABLEIST LANGUAGE': {},
                 'GENDERED LANGUAGE': {},
                 'VIOLENT LANGUAGE': {},
@@ -258,6 +331,16 @@ export const TEST_DATA = {
             'VIOLENT LANGUAGE': {
               hang: [378],
             },
+            'AGEIST LANGUAGE': {},
+            'RACIALLY CHARGED LANGUAGE': {},
+            'BIASED LANGUAGE': {},
+            'MILITARY LANGUAGE': {},
+            OTHER: {},
+          },
+          wbpm_matches: {
+            'ABLEIST LANGUAGE': {},
+            'GENDERED LANGUAGE': {},
+            'VIOLENT LANGUAGE': {},
             'AGEIST LANGUAGE': {},
             'RACIALLY CHARGED LANGUAGE': {},
             'BIASED LANGUAGE': {},
@@ -293,6 +376,16 @@ export const TEST_DATA = {
                 'MILITARY LANGUAGE': {},
                 OTHER: {},
               },
+              wbpm_matches: {
+                'ABLEIST LANGUAGE': {},
+                'GENDERED LANGUAGE': {},
+                'VIOLENT LANGUAGE': {},
+                'AGEIST LANGUAGE': {},
+                'RACIALLY CHARGED LANGUAGE': {},
+                'BIASED LANGUAGE': {},
+                'MILITARY LANGUAGE': {},
+                OTHER: {},
+              },
             },
             {
               file_path:
@@ -318,6 +411,16 @@ export const TEST_DATA = {
                     'VIOLENT LANGUAGE': {
                       hang: [3357, 3783, 4270],
                     },
+                    'AGEIST LANGUAGE': {},
+                    'RACIALLY CHARGED LANGUAGE': {},
+                    'BIASED LANGUAGE': {},
+                    'MILITARY LANGUAGE': {},
+                    OTHER: {},
+                  },
+                  wbpm_matches: {
+                    'ABLEIST LANGUAGE': {},
+                    'GENDERED LANGUAGE': {},
+                    'VIOLENT LANGUAGE': {},
                     'AGEIST LANGUAGE': {},
                     'RACIALLY CHARGED LANGUAGE': {},
                     'BIASED LANGUAGE': {},
@@ -365,6 +468,16 @@ export const TEST_DATA = {
                         'MILITARY LANGUAGE': {},
                         OTHER: {},
                       },
+                      wbpm_matches: {
+                        'ABLEIST LANGUAGE': {},
+                        'GENDERED LANGUAGE': {},
+                        'VIOLENT LANGUAGE': {},
+                        'AGEIST LANGUAGE': {},
+                        'RACIALLY CHARGED LANGUAGE': {},
+                        'BIASED LANGUAGE': {},
+                        'MILITARY LANGUAGE': {},
+                        OTHER: {},
+                      },
                     },
                     {
                       file_path:
@@ -376,6 +489,16 @@ export const TEST_DATA = {
                         "import React, { useState, useEffect } from 'react';\nimport {\n  Chart as ChartJS,\n  RadialLinearScale,\n  ArcElement,\n  Tooltip,\n  Legend\n} from 'chart.js';\nimport { PolarArea } from 'react-chartjs-2';\nimport * as repoLabels from '../../helpers/labels';\nimport { ISSUES_KEY } from '../../helpers/localStorageKeys';\n\nexport default function PolarAreaChartComponent() {\n  ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend);\n\n  const hexToRgb = (hex) => {\n    const bigint = parseInt(hex, 16);\n    const r = (bigint >> 16) & 255;\n    const g = (bigint >> 8) & 255;\n    const b = bigint & 255;\n\n    return 'rgba(' + r + ', ' + g + ', ' + b + ', 0.5)';\n  };\n\n  const getHCICount = () => {\n    return [\n      getCount(repoLabels.noHCIIdentifiedLabel.name),\n      getCount(repoLabels.appUsageLabel.name),\n      getCount(repoLabels.inclusivenessLabel.name),\n      getCount(repoLabels.userReactionLabel.name)\n    ];\n  };\n\n  const getCount = (labelName) => {\n    let count = 0;\n    const issues = JSON.parse(localStorage.getItem(ISSUES_KEY));\n    issues.forEach((issue) => {\n      if (\n        issue.HCILabels.map((label) => {\n          return label.name;\n        }).includes(labelName)\n      ) {\n        count += 1;\n      }\n    });\n    return count;\n  };\n\n  const [data, setData] = useState({\n    labels: [\n      repoLabels.noHCIIdentifiedLabel.name,\n      repoLabels.appUsageLabel.name,\n      repoLabels.inclusivenessLabel.name,\n      repoLabels.userReactionLabel.name\n    ],\n    datasets: [\n      {\n        label: 'Distribution of HCI Categories',\n        data: getHCICount(),\n        backgroundColor: [\n          hexToRgb(repoLabels.noHCIIdentifiedLabel.color),\n          hexToRgb(repoLabels.appUsageLabel.color),\n          hexToRgb(repoLabels.inclusivenessLabel.color),\n          hexToRgb(repoLabels.userReactionLabel.color)\n        ],\n        borderWidth: 1\n      }\n    ]\n  });\n\n  useEffect(() => {\n    const interval = setInterval(\n      () =>\n        setData({\n          labels: [\n            repoLabels.noHCIIdentifiedLabel.name,\n            repoLabels.appUsageLabel.name,\n            repoLabels.inclusivenessLabel.name,\n            repoLabels.userReactionLabel.name\n          ],\n          datasets: [\n            {\n              label: 'Distribution of HCI Categories',\n              data: getHCICount(),\n              backgroundColor: [\n                hexToRgb(repoLabels.noHCIIdentifiedLabel.color),\n                hexToRgb(repoLabels.appUsageLabel.color),\n                hexToRgb(repoLabels.inclusivenessLabel.color),\n                hexToRgb(repoLabels.userReactionLabel.color)\n              ],\n              borderWidth: 1\n            }\n          ]\n        }),\n      1000\n    );\n    return () => {\n      clearInterval(interval);\n    };\n  }, []);\n\n  const options = {\n    plugins: {\n      title: {\n        display: true,\n        text: 'HCI Categorisation Count',\n        font: {\n          size: 24\n        }\n      }\n    },\n    scales: {\n      r: {\n        ticks: {\n          precision: 0,\n          font: {\n            size: 16\n          }\n        }\n      }\n    }\n  };\n  return (\n    <div style={{ width: '50%' }}>\n      <PolarArea data={data} options={options}></PolarArea>\n    </div>\n  );\n}\n",
                       is_dir: false,
                       sspm_matches: {
+                        'ABLEIST LANGUAGE': {},
+                        'GENDERED LANGUAGE': {},
+                        'VIOLENT LANGUAGE': {},
+                        'AGEIST LANGUAGE': {},
+                        'RACIALLY CHARGED LANGUAGE': {},
+                        'BIASED LANGUAGE': {},
+                        'MILITARY LANGUAGE': {},
+                        OTHER: {},
+                      },
+                      wbpm_matches: {
                         'ABLEIST LANGUAGE': {},
                         'GENDERED LANGUAGE': {},
                         'VIOLENT LANGUAGE': {},
@@ -405,6 +528,16 @@ export const TEST_DATA = {
                         'MILITARY LANGUAGE': {},
                         OTHER: {},
                       },
+                      wbpm_matches: {
+                        'ABLEIST LANGUAGE': {},
+                        'GENDERED LANGUAGE': {},
+                        'VIOLENT LANGUAGE': {},
+                        'AGEIST LANGUAGE': {},
+                        'RACIALLY CHARGED LANGUAGE': {},
+                        'BIASED LANGUAGE': {},
+                        'MILITARY LANGUAGE': {},
+                        OTHER: {},
+                      },
                     },
                     {
                       file_path:
@@ -416,6 +549,16 @@ export const TEST_DATA = {
                         "import React, { useState, useEffect } from 'react';\nimport {\n  Chart as ChartJS,\n  CategoryScale,\n  LinearScale,\n  BarElement,\n  Title,\n  Tooltip,\n  Legend\n} from 'chart.js';\nimport { Bar } from 'react-chartjs-2';\nimport * as repoLabels from '../../helpers/labels';\nimport { ISSUES_KEY } from '../../helpers/localStorageKeys';\n\nexport default function StackedBarChartComponent() {\n  ChartJS.register(\n    CategoryScale,\n    LinearScale,\n    BarElement,\n    Title,\n    Tooltip,\n    Legend\n  );\n\n  const options = {\n    plugins: {\n      title: {\n        display: true,\n        text: 'HCIs Against Time',\n        font: {\n          size: 24\n        }\n      }\n    },\n    responsive: true,\n\n    scales: {\n      x: {\n        stacked: true,\n        ticks: {\n          precision: 0,\n          font: {\n            size: 16\n          }\n        },\n        title: {\n          display: true,\n          text: 'Date',\n          font: {\n            size: 24\n          }\n        }\n      },\n      y: {\n        stacked: true,\n        ticks: {\n          precision: 0\n        },\n        title: {\n          display: true,\n          text: 'Number of Issues',\n          font: {\n            size: 24\n          }\n        }\n      }\n    }\n  };\n\n  const hexToRgb = (hex) => {\n    const bigint = parseInt(hex, 16);\n    const r = (bigint >> 16) & 255;\n    const g = (bigint >> 8) & 255;\n    const b = bigint & 255;\n\n    return 'rgba(' + r + ', ' + g + ', ' + b + ', 0.5)';\n  };\n\n  const getDatesInRange = (startDate, endDate) => {\n    endDate.setDate(endDate.getDate() + 1);\n    const date = new Date(startDate.getTime());\n    const dates = [];\n\n    while (date <= endDate) {\n      dates.push(new Date(date));\n      date.setDate(date.getDate() + 1);\n    }\n\n    return dates;\n  };\n\n  const generateDates = () => {\n    const issues = JSON.parse(localStorage.getItem(ISSUES_KEY));\n    const issueDates = issues.map((issue) => {\n      return new Date(issue.created_at);\n    });\n    // sort in ascending order\n    issueDates.sort((first, second) => {\n      return first.getTime() - second.getTime();\n    });\n    // get earliest and latest dates\n    const earliestDate = issueDates[0];\n    const latestDate = issueDates[issueDates.length - 1];\n    return getDatesInRange(earliestDate, latestDate);\n  };\n\n  const getCount = (HCILabel, dates) => {\n    const issues = JSON.parse(localStorage.getItem(ISSUES_KEY));\n\n    return dates.map((date) => {\n      let count = 0;\n      issues.forEach((issue) => {\n        if (\n          date.toDateString() == new Date(issue.created_at).toDateString() &&\n          issue.HCILabels.map((label) => {\n            return label.name;\n          }).includes(HCILabel)\n        ) {\n          count++;\n        }\n      });\n      return count;\n    });\n  };\n\n  const dates = generateDates();\n  const labels = dates.map((date) => {\n    return date.toDateString();\n  });\n\n  const [data, setData] = useState({\n    labels: labels,\n    datasets: [\n      {\n        label: repoLabels.noHCIIdentifiedLabel.name,\n        data: getCount(repoLabels.noHCIIdentifiedLabel.name, dates),\n        backgroundColor: hexToRgb(repoLabels.noHCIIdentifiedLabel.color)\n      },\n      {\n        label: repoLabels.appUsageLabel.name,\n        data: getCount(repoLabels.appUsageLabel.name, dates),\n        backgroundColor: hexToRgb(repoLabels.appUsageLabel.color)\n      },\n      {\n        label: repoLabels.inclusivenessLabel.name,\n        data: getCount(repoLabels.inclusivenessLabel.name, dates),\n        backgroundColor: hexToRgb(repoLabels.inclusivenessLabel.color)\n      },\n      {\n        label: repoLabels.userReactionLabel.name,\n        data: getCount(repoLabels.userReactionLabel.name, dates),\n        backgroundColor: hexToRgb(repoLabels.userReactionLabel.color)\n      }\n    ]\n  });\n\n  useEffect(() => {\n    const interval = setInterval(() => {\n      const dates = generateDates();\n      const labels = dates.map((date) => {\n        return date.toDateString();\n      });\n\n      setData({\n        labels: labels,\n        datasets: [\n          {\n            label: repoLabels.noHCIIdentifiedLabel.name,\n            data: getCount(repoLabels.noHCIIdentifiedLabel.name, dates),\n            backgroundColor: hexToRgb(repoLabels.noHCIIdentifiedLabel.color)\n          },\n          {\n            label: repoLabels.appUsageLabel.name,\n            data: getCount(repoLabels.appUsageLabel.name, dates),\n            backgroundColor: hexToRgb(repoLabels.appUsageLabel.color)\n          },\n          {\n            label: repoLabels.inclusivenessLabel.name,\n            data: getCount(repoLabels.inclusivenessLabel.name, dates),\n            backgroundColor: hexToRgb(repoLabels.inclusivenessLabel.color)\n          },\n          {\n            label: repoLabels.userReactionLabel.name,\n            data: getCount(repoLabels.userReactionLabel.name, dates),\n            backgroundColor: hexToRgb(repoLabels.userReactionLabel.color)\n          }\n        ]\n      });\n    }, 1000);\n    return () => {\n      clearInterval(interval);\n    };\n  }, []);\n\n  return <Bar options={options} data={data} />;\n}\n",
                       is_dir: false,
                       sspm_matches: {
+                        'ABLEIST LANGUAGE': {},
+                        'GENDERED LANGUAGE': {},
+                        'VIOLENT LANGUAGE': {},
+                        'AGEIST LANGUAGE': {},
+                        'RACIALLY CHARGED LANGUAGE': {},
+                        'BIASED LANGUAGE': {},
+                        'MILITARY LANGUAGE': {},
+                        OTHER: {},
+                      },
+                      wbpm_matches: {
                         'ABLEIST LANGUAGE': {},
                         'GENDERED LANGUAGE': {},
                         'VIOLENT LANGUAGE': {},
@@ -449,6 +592,16 @@ export const TEST_DATA = {
                     'MILITARY LANGUAGE': {},
                     OTHER: {},
                   },
+                  wbpm_matches: {
+                    'ABLEIST LANGUAGE': {},
+                    'GENDERED LANGUAGE': {},
+                    'VIOLENT LANGUAGE': {},
+                    'AGEIST LANGUAGE': {},
+                    'RACIALLY CHARGED LANGUAGE': {},
+                    'BIASED LANGUAGE': {},
+                    'MILITARY LANGUAGE': {},
+                    OTHER: {},
+                  },
                 },
                 {
                   file_path:
@@ -471,6 +624,16 @@ export const TEST_DATA = {
                     'MILITARY LANGUAGE': {},
                     OTHER: {},
                   },
+                  wbpm_matches: {
+                    'ABLEIST LANGUAGE': {},
+                    'GENDERED LANGUAGE': {},
+                    'VIOLENT LANGUAGE': {},
+                    'AGEIST LANGUAGE': {},
+                    'RACIALLY CHARGED LANGUAGE': {},
+                    'BIASED LANGUAGE': {},
+                    'MILITARY LANGUAGE': {},
+                    OTHER: {},
+                  },
                 },
                 {
                   file_path:
@@ -482,6 +645,16 @@ export const TEST_DATA = {
                     "import React from 'react';\nimport Alert from 'react-bootstrap/Alert';\n\nexport default function DangerAlertComponent({ message }) {\n  return (\n    <div style={{ display: 'flex', justifyContent: 'center' }}>\n      <Alert variant={'danger'} style={{ width: '50%' }}>\n        {message}\n      </Alert>\n    </div>\n  );\n}\n",
                   is_dir: false,
                   sspm_matches: {
+                    'ABLEIST LANGUAGE': {},
+                    'GENDERED LANGUAGE': {},
+                    'VIOLENT LANGUAGE': {},
+                    'AGEIST LANGUAGE': {},
+                    'RACIALLY CHARGED LANGUAGE': {},
+                    'BIASED LANGUAGE': {},
+                    'MILITARY LANGUAGE': {},
+                    OTHER: {},
+                  },
+                  wbpm_matches: {
                     'ABLEIST LANGUAGE': {},
                     'GENDERED LANGUAGE': {},
                     'VIOLENT LANGUAGE': {},
@@ -513,6 +686,16 @@ export const TEST_DATA = {
                     'MILITARY LANGUAGE': {},
                     OTHER: {},
                   },
+                  wbpm_matches: {
+                    'ABLEIST LANGUAGE': {},
+                    'GENDERED LANGUAGE': {},
+                    'VIOLENT LANGUAGE': {},
+                    'AGEIST LANGUAGE': {},
+                    'RACIALLY CHARGED LANGUAGE': {},
+                    'BIASED LANGUAGE': {},
+                    'MILITARY LANGUAGE': {},
+                    OTHER: {},
+                  },
                 },
                 {
                   file_path:
@@ -529,6 +712,16 @@ export const TEST_DATA = {
                     'VIOLENT LANGUAGE': {
                       hang: [2111],
                     },
+                    'AGEIST LANGUAGE': {},
+                    'RACIALLY CHARGED LANGUAGE': {},
+                    'BIASED LANGUAGE': {},
+                    'MILITARY LANGUAGE': {},
+                    OTHER: {},
+                  },
+                  wbpm_matches: {
+                    'ABLEIST LANGUAGE': {},
+                    'GENDERED LANGUAGE': {},
+                    'VIOLENT LANGUAGE': {},
                     'AGEIST LANGUAGE': {},
                     'RACIALLY CHARGED LANGUAGE': {},
                     'BIASED LANGUAGE': {},
@@ -555,6 +748,16 @@ export const TEST_DATA = {
                     'MILITARY LANGUAGE': {},
                     OTHER: {},
                   },
+                  wbpm_matches: {
+                    'ABLEIST LANGUAGE': {},
+                    'GENDERED LANGUAGE': {},
+                    'VIOLENT LANGUAGE': {},
+                    'AGEIST LANGUAGE': {},
+                    'RACIALLY CHARGED LANGUAGE': {},
+                    'BIASED LANGUAGE': {},
+                    'MILITARY LANGUAGE': {},
+                    OTHER: {},
+                  },
                 },
                 {
                   file_path:
@@ -566,6 +769,16 @@ export const TEST_DATA = {
                     "import React, { useState, useEffect } from 'react';\nimport { ISSUES_KEY } from '../helpers/localStorageKeys';\nimport FilterBarComponent from './FilterBarComponent';\nimport IssueList from './IssueList';\nimport UnAuthenticatedDefault from './UnAuthenticatedDefault';\nimport * as linkStatuses from '../helpers/linkStatuses';\nimport LoadingDefaultViewComponent from './LoadingDefaultViewComponent';\n\nexport default function ListViewComponent({ linkStatus }) {\n  const [issues, setIssues] = useState([]);\n\n  const getIssues = async () => {\n    setIssues(JSON.parse(localStorage.getItem(ISSUES_KEY)));\n  };\n\n  useEffect(() => {\n    getIssues();\n  }, []);\n  return (\n    <>\n      {linkStatus == linkStatuses.unlinkedState && (\n        <UnAuthenticatedDefault></UnAuthenticatedDefault>\n      )}\n\n      {linkStatus == linkStatuses.loadingState && (\n        <LoadingDefaultViewComponent></LoadingDefaultViewComponent>\n      )}\n\n      {linkStatus == linkStatuses.readyState && (\n        <>\n          <FilterBarComponent setIssues={setIssues}></FilterBarComponent>\n          <p></p>\n          <IssueList issues={issues}></IssueList>\n        </>\n      )}\n    </>\n  );\n}\n",
                   is_dir: false,
                   sspm_matches: {
+                    'ABLEIST LANGUAGE': {},
+                    'GENDERED LANGUAGE': {},
+                    'VIOLENT LANGUAGE': {},
+                    'AGEIST LANGUAGE': {},
+                    'RACIALLY CHARGED LANGUAGE': {},
+                    'BIASED LANGUAGE': {},
+                    'MILITARY LANGUAGE': {},
+                    OTHER: {},
+                  },
+                  wbpm_matches: {
                     'ABLEIST LANGUAGE': {},
                     'GENDERED LANGUAGE': {},
                     'VIOLENT LANGUAGE': {},
@@ -597,6 +810,18 @@ export const TEST_DATA = {
                     'MILITARY LANGUAGE': {},
                     OTHER: {},
                   },
+                  wbpm_matches: {
+                    'ABLEIST LANGUAGE': {},
+                    'GENDERED LANGUAGE': {},
+                    'VIOLENT LANGUAGE': {},
+                    'AGEIST LANGUAGE': {},
+                    'RACIALLY CHARGED LANGUAGE': {},
+                    'BIASED LANGUAGE': {
+                      disabled: [503],
+                    },
+                    'MILITARY LANGUAGE': {},
+                    OTHER: {},
+                  },
                 },
                 {
                   file_path:
@@ -608,6 +833,16 @@ export const TEST_DATA = {
                     "import React, { useState, useEffect } from 'react';\nimport { ISSUES_KEY } from '../helpers/localStorageKeys';\nimport CorrectionIssueComponent from './CorrectionIssueComponent';\nimport UnAuthenticatedDefault from './UnAuthenticatedDefault';\nimport * as linkStatuses from '../helpers/linkStatuses';\nimport LoadingDefaultViewComponent from './LoadingDefaultViewComponent';\n\nexport default function ManualCorrectionViewComponent({ linkStatus }) {\n  const [issues, setIssues] = useState([]);\n\n  const getIssues = async () => {\n    setIssues(JSON.parse(localStorage.getItem(ISSUES_KEY)));\n  };\n\n  useEffect(() => {\n    getIssues();\n  }, []);\n\n  return (\n    <>\n      {linkStatus == linkStatuses.unlinkedState && (\n        <UnAuthenticatedDefault></UnAuthenticatedDefault>\n      )}\n      {linkStatus == linkStatuses.loadingState && (\n        <LoadingDefaultViewComponent></LoadingDefaultViewComponent>\n      )}\n\n      {linkStatus == linkStatuses.readyState && (\n        <>\n          <div\n            style={{\n              textAlign: 'center',\n              paddingLeft: '20%',\n              paddingRight: '20%'\n            }}\n          >\n            {issues.map((issue) => {\n              return (\n                <CorrectionIssueComponent\n                  issue={issue}\n                  setIssues={setIssues}\n                ></CorrectionIssueComponent>\n              );\n            })}\n          </div>\n        </>\n      )}\n    </>\n  );\n}\n",
                   is_dir: false,
                   sspm_matches: {
+                    'ABLEIST LANGUAGE': {},
+                    'GENDERED LANGUAGE': {},
+                    'VIOLENT LANGUAGE': {},
+                    'AGEIST LANGUAGE': {},
+                    'RACIALLY CHARGED LANGUAGE': {},
+                    'BIASED LANGUAGE': {},
+                    'MILITARY LANGUAGE': {},
+                    OTHER: {},
+                  },
+                  wbpm_matches: {
                     'ABLEIST LANGUAGE': {},
                     'GENDERED LANGUAGE': {},
                     'VIOLENT LANGUAGE': {},
@@ -637,6 +872,16 @@ export const TEST_DATA = {
                     'MILITARY LANGUAGE': {},
                     OTHER: {},
                   },
+                  wbpm_matches: {
+                    'ABLEIST LANGUAGE': {},
+                    'GENDERED LANGUAGE': {},
+                    'VIOLENT LANGUAGE': {},
+                    'AGEIST LANGUAGE': {},
+                    'RACIALLY CHARGED LANGUAGE': {},
+                    'BIASED LANGUAGE': {},
+                    'MILITARY LANGUAGE': {},
+                    OTHER: {},
+                  },
                 },
                 {
                   file_path:
@@ -648,6 +893,16 @@ export const TEST_DATA = {
                     "import React from 'react';\nimport HorizontalBarChartComponent from './chartComponents/HorizontalBarChartComponent';\nimport PolarAreaChartComponent from './chartComponents/PolarAreaChartComponent';\nimport PriorityBarChartComponent from './chartComponents/PriorityBarChartComponent';\nimport StackedBarChartComponent from './chartComponents/StackedBarChartComponent';\nimport UnAuthenticatedDefault from './UnAuthenticatedDefault';\nimport * as linkStatuses from '../helpers/linkStatuses';\nimport LoadingDefaultViewComponent from './LoadingDefaultViewComponent';\n\nexport default function OverviewComponent({ linkStatus }) {\n  const polarChartDescription =\n    'This chart provides a visualisation of the relative amounts of different Human Centric Issues identified in the GitHub repository. The colours correspond to the different Human Centric Issue categories, while the radius corresponds to the number of times a type of Human Centric Issue has been identified within the repository. Note that each issue in the repository may be assigned more than one Human Centric Issue tag.';\n  const polarChartUseCase =\n    'This chart can be used to identify what types of Human Centric Issues are/are not appearing frequently in the repository, and thus can help lead discussions regarding how to focus development efforts towards creating an application which is conscious of Human Centric Issues.';\n\n  const horizontalChartDescription =\n    'This chart provides an overview of the progress status of each issue in the repository. Each bar corresponds to one of the four possible statuses (including \"unassigned\"), and the length of each bar corresponds to the number of issues in the GitHub repository with said progress status.';\n  const horizontalChartUseCase =\n    'This chart can be used to monitor whether the issues in the repository are being attended to or not, and can help ensure that there is not a pile-up of issues which are not being attended to.';\n\n  const stackedBarChartDescription =\n    'This chart provides a comprehensive summary of how the different Human Centric Issue categories have been identified in the GitHub repository over time. The horizontal axis corresponds to the dates at which issues have been raised in the GitHub repository, while the colours and length of the bars show how many of each Human Centric Issue tag has been applied to said issue(s) on each day. Colour is used to distinguish between the various Human Centric Issue categorisations.';\n  const stackedBarChartUseCase =\n    'This chart can be used to analyse how, at different stages of the software lifecycle, different types of Human Centric Issues become more and less relevant. For example, during the maintentance phase, there may be an increase in \"User Reaction\" Human Centric Issues. This information can help guide the focus of the team(s), behind the software throughout the software lifecycle.';\n\n  const verticalBarChartDescription =\n    'This chart provides a simple overview of the prioritisation levels of all issues in the GitHub repository. Each bar corresponds to one of the four possible priority levels (including \"unassigned\"), and the height of each bar corresponds to the number of issues in the GitHub repository with said prioritisation level.';\n  const verticalBarChartUseCase =\n    \"This chart can be used to easily gauge the level of urgency with which the repository's issues need to be attended to.\";\n\n  return (\n    <>\n      {linkStatus == linkStatuses.unlinkedState && (\n        <UnAuthenticatedDefault></UnAuthenticatedDefault>\n      )}\n\n      {linkStatus == linkStatuses.loadingState && (\n        <LoadingDefaultViewComponent></LoadingDefaultViewComponent>\n      )}\n\n      {linkStatus == linkStatuses.readyState && (\n        <>\n          <div>\n            <div\n              style={{\n                display: 'flex',\n                borderBottom: '2px solid lightgrey',\n                paddingBottom: '25px',\n                paddingTop: '25px'\n              }}\n            >\n              <div\n                style={{\n                  display: 'flex',\n                  justifyContent: 'center',\n                  alignItems: 'center',\n                  width: '70%'\n                }}\n              >\n                <PolarAreaChartComponent></PolarAreaChartComponent>\n              </div>\n              <div\n                style={{\n                  paddingTop: '5vh',\n                  width: '30%',\n                  paddingRight: '5%'\n                }}\n              >\n                <div style={{ fontSize: 'larger' }}>\n                  {polarChartDescription}\n                </div>\n                <p></p>\n                {polarChartUseCase}\n              </div>\n            </div>\n\n            <div\n              style={{\n                display: 'flex',\n                paddingTop: '25px',\n                paddingBottom: '25px',\n                borderBottom: '2px solid lightgrey'\n              }}\n            >\n              <div\n                style={{\n                  display: 'flex',\n                  justifyContent: 'center',\n                  alignItems: 'center',\n                  width: '70%'\n                }}\n              >\n                <HorizontalBarChartComponent></HorizontalBarChartComponent>\n              </div>\n              <div\n                style={{ width: '30%', paddingTop: '5vh', paddingRight: '5%' }}\n              >\n                <div style={{ fontSize: 'larger' }}>\n                  {horizontalChartDescription}\n                </div>\n                <p></p>\n                {horizontalChartUseCase}\n              </div>\n            </div>\n\n            <div\n              style={{\n                // display: 'flex',\n                borderBottom: '2px solid lightgrey',\n                paddingBottom: '25px',\n                paddingTop: '25px'\n              }}\n            >\n              <div\n                style={{\n                  display: 'flex',\n                  justifyContent: 'center',\n                  alignItems: 'center',\n                  width: '90%'\n                }}\n              >\n                <StackedBarChartComponent></StackedBarChartComponent>\n              </div>\n              <div\n                style={{\n                  paddingTop: '5vh',\n                  paddingLeft: '5%',\n                  paddingRight: '5%'\n                }}\n              >\n                <div style={{ fontSize: 'larger' }}>\n                  {stackedBarChartDescription}\n                </div>\n                <p></p>\n                {stackedBarChartUseCase}\n              </div>\n            </div>\n\n            <div\n              style={{\n                display: 'flex',\n                borderBottom: '2px solid lightgrey',\n                paddingBottom: '25px',\n                paddingTop: '25px'\n              }}\n            >\n              <div\n                style={{\n                  display: 'flex',\n                  justifyContent: 'center',\n                  alignItems: 'center',\n                  width: '80%'\n                }}\n              >\n                <PriorityBarChartComponent></PriorityBarChartComponent>\n              </div>\n              <div\n                style={{ width: '30%', paddingTop: '5vh', paddingRight: '5%' }}\n              >\n                <div style={{ fontSize: 'larger' }}>\n                  {verticalBarChartDescription}\n                </div>\n                <p></p>\n                {verticalBarChartUseCase}\n              </div>\n            </div>\n          </div>\n        </>\n      )}\n    </>\n  );\n}\n",
                   is_dir: false,
                   sspm_matches: {
+                    'ABLEIST LANGUAGE': {},
+                    'GENDERED LANGUAGE': {},
+                    'VIOLENT LANGUAGE': {},
+                    'AGEIST LANGUAGE': {},
+                    'RACIALLY CHARGED LANGUAGE': {},
+                    'BIASED LANGUAGE': {},
+                    'MILITARY LANGUAGE': {},
+                    OTHER: {},
+                  },
+                  wbpm_matches: {
                     'ABLEIST LANGUAGE': {},
                     'GENDERED LANGUAGE': {},
                     'VIOLENT LANGUAGE': {},
@@ -677,6 +932,16 @@ export const TEST_DATA = {
                     'MILITARY LANGUAGE': {},
                     OTHER: {},
                   },
+                  wbpm_matches: {
+                    'ABLEIST LANGUAGE': {},
+                    'GENDERED LANGUAGE': {},
+                    'VIOLENT LANGUAGE': {},
+                    'AGEIST LANGUAGE': {},
+                    'RACIALLY CHARGED LANGUAGE': {},
+                    'BIASED LANGUAGE': {},
+                    'MILITARY LANGUAGE': {},
+                    OTHER: {},
+                  },
                 },
                 {
                   file_path:
@@ -688,6 +953,16 @@ export const TEST_DATA = {
                     "import React, { useState, useEffect } from 'react';\nimport * as uuid from 'uuid';\nimport {\n  lowPriorityLabel,\n  mediumPriorityLabel,\n  highPriorityLabel\n} from '../helpers/labels';\nimport { ISSUES_KEY } from '../helpers/localStorageKeys';\nimport PrioritiseIssueComponent from './PrioritiseIssueComponent';\nimport UnAuthenticatedDefault from './UnAuthenticatedDefault';\nimport * as linkStatuses from '../helpers/linkStatuses';\nimport LoadingDefaultViewComponent from './LoadingDefaultViewComponent';\nimport { defaultGrey } from '../theme/hexCodes';\n\nexport default function PrioritiseViewComponent({ linkStatus }) {\n  const [issues, setIssues] = useState([]);\n\n  const getIssues = async () => {\n    setIssues(JSON.parse(localStorage.getItem(ISSUES_KEY)));\n  };\n\n  useEffect(() => {\n    getIssues();\n  }, []);\n\n  return (\n    <>\n      {linkStatus == linkStatuses.unlinkedState && (\n        <UnAuthenticatedDefault></UnAuthenticatedDefault>\n      )}\n      {linkStatus == linkStatuses.loadingState && (\n        <LoadingDefaultViewComponent></LoadingDefaultViewComponent>\n      )}\n      {linkStatus == linkStatuses.readyState && (\n        <>\n          <div\n            style={{\n              display: 'grid',\n              gridTemplateColumns: 'repeat(4, 1fr)',\n              gridGap: 20,\n              padding: '1vw'\n            }}\n          >\n            <div\n              style={{\n                backgroundColor: `#${defaultGrey}`,\n                padding: '10px',\n                borderRadius: '10px'\n              }}\n            >\n              <h5\n              // style={{ backgroundColor: 'lightgrey', borderRadius: '10px' }}\n              >\n                Unassigned\n              </h5>\n              <div>\n                {issues\n                  .filter((issue) => issue.priority.name == null)\n                  .map((issue) => {\n                    return (\n                      <div>\n                        <PrioritiseIssueComponent\n                          issue={issue}\n                          key={uuid.v4()}\n                          setIssues={setIssues}\n                        ></PrioritiseIssueComponent>\n                        <br></br>\n                      </div>\n                    );\n                  })}\n              </div>\n            </div>\n            <div\n              style={{\n                backgroundColor: '#' + lowPriorityLabel.color + '80',\n                padding: '10px',\n                borderRadius: '10px'\n              }}\n            >\n              <h5\n              // style={{\n              //   backgroundColor: '#' + lowPriorityLabel.color,\n              //   borderRadius: '10px'\n              // }}\n              >\n                Low Priority\n              </h5>\n              {issues\n                .filter((issue) => issue.priority.name == lowPriorityLabel.name)\n                .map((issue) => {\n                  return (\n                    <div>\n                      <PrioritiseIssueComponent\n                        issue={issue}\n                        key={uuid.v4()}\n                        setIssues={setIssues}\n                      ></PrioritiseIssueComponent>\n                      <br></br>\n                    </div>\n                  );\n                })}\n            </div>\n            <div\n              style={{\n                backgroundColor: '#' + mediumPriorityLabel.color + '80',\n                padding: '10px',\n                borderRadius: '10px'\n              }}\n            >\n              <h5\n              // style={{\n              //   backgroundColor: '#' + mediumPriorityLabel.color,\n              //   borderRadius: '10px'\n              // }}\n              >\n                Medium Priority\n              </h5>\n              {issues\n                .filter(\n                  (issue) => issue.priority.name == mediumPriorityLabel.name\n                )\n                .map((issue) => {\n                  return (\n                    <div>\n                      <PrioritiseIssueComponent\n                        issue={issue}\n                        key={uuid.v4()}\n                        setIssues={setIssues}\n                      ></PrioritiseIssueComponent>\n                      <br></br>\n                    </div>\n                  );\n                })}\n            </div>\n            <div\n              style={{\n                backgroundColor: '#' + highPriorityLabel.color + '80',\n                padding: '10px',\n                borderRadius: '10px'\n              }}\n            >\n              <h5\n              // style={{\n              //   backgroundColor: '#' + highPriorityLabel.color,\n              //   borderRadius: '10px'\n              // }}\n              >\n                High Priority\n              </h5>\n              {issues\n                .filter(\n                  (issue) => issue.priority.name == highPriorityLabel.name\n                )\n                .map((issue) => {\n                  return (\n                    <div>\n                      <PrioritiseIssueComponent\n                        issue={issue}\n                        key={uuid.v4()}\n                        setIssues={setIssues}\n                      ></PrioritiseIssueComponent>\n                      <br></br>\n                    </div>\n                  );\n                })}\n            </div>\n          </div>\n        </>\n      )}\n    </>\n  );\n}\n",
                   is_dir: false,
                   sspm_matches: {
+                    'ABLEIST LANGUAGE': {},
+                    'GENDERED LANGUAGE': {},
+                    'VIOLENT LANGUAGE': {},
+                    'AGEIST LANGUAGE': {},
+                    'RACIALLY CHARGED LANGUAGE': {},
+                    'BIASED LANGUAGE': {},
+                    'MILITARY LANGUAGE': {},
+                    OTHER: {},
+                  },
+                  wbpm_matches: {
                     'ABLEIST LANGUAGE': {},
                     'GENDERED LANGUAGE': {},
                     'VIOLENT LANGUAGE': {},
@@ -717,6 +992,16 @@ export const TEST_DATA = {
                     'MILITARY LANGUAGE': {},
                     OTHER: {},
                   },
+                  wbpm_matches: {
+                    'ABLEIST LANGUAGE': {},
+                    'GENDERED LANGUAGE': {},
+                    'VIOLENT LANGUAGE': {},
+                    'AGEIST LANGUAGE': {},
+                    'RACIALLY CHARGED LANGUAGE': {},
+                    'BIASED LANGUAGE': {},
+                    'MILITARY LANGUAGE': {},
+                    OTHER: {},
+                  },
                 },
                 {
                   file_path:
@@ -728,6 +1013,16 @@ export const TEST_DATA = {
                     "import React, { useState, useEffect } from 'react';\nimport * as uuid from 'uuid';\nimport ProgressIssueComponent from './ProgressIssueComponent';\nimport {\n  resolvedHCILabel,\n  resolvingHCILabel,\n  unresolvedHCILabel\n} from '../helpers/labels';\nimport UnAuthenticatedDefault from './UnAuthenticatedDefault';\nimport { ISSUES_KEY } from '../helpers/localStorageKeys';\nimport * as linkStatuses from '../helpers/linkStatuses';\nimport LoadingDefaultViewComponent from './LoadingDefaultViewComponent';\nimport {\n  defaultGrey,\n  resolvedColour,\n  resolvingColour,\n  unresolvedColour\n} from '../theme/hexCodes';\n\nexport default function ProgressViewComponent({ linkStatus }) {\n  const [issues, setIssues] = useState([]);\n\n  const getIssues = async () => {\n    setIssues(JSON.parse(localStorage.getItem(ISSUES_KEY)));\n  };\n\n  useEffect(() => {\n    getIssues();\n  }, []);\n\n  return (\n    <>\n      {linkStatus == linkStatuses.unlinkedState && (\n        <UnAuthenticatedDefault></UnAuthenticatedDefault>\n      )}\n      {linkStatus == linkStatuses.loadingState && (\n        <LoadingDefaultViewComponent></LoadingDefaultViewComponent>\n      )}\n      {linkStatus == linkStatuses.readyState && (\n        <>\n          <div\n            style={{\n              display: 'grid',\n              gridTemplateColumns: 'repeat(4, 1fr)',\n              gridGap: 20,\n              padding: '1vw'\n            }}\n          >\n            <div\n              style={{\n                backgroundColor: `#${defaultGrey}`,\n                padding: '10px',\n                borderRadius: '10px'\n              }}\n            >\n              <h5\n              // style={{ backgroundColor: 'lightgrey', borderRadius: '10px' }}\n              >\n                Unassigned\n              </h5>\n              <div>\n                {issues\n                  .filter((issue) => issue.progressTag.name == null)\n                  .map((issue) => {\n                    return (\n                      <div>\n                        <ProgressIssueComponent\n                          issue={issue}\n                          key={uuid.v4()}\n                          setIssues={setIssues}\n                        ></ProgressIssueComponent>\n                        <br></br>\n                      </div>\n                    );\n                  })}\n              </div>\n            </div>\n            <div\n              style={{\n                backgroundColor: `#${unresolvedColour}` + '70',\n                padding: '10px',\n                borderRadius: '10px'\n              }}\n            >\n              <h5>Unresolved</h5>\n              {issues\n                .filter(\n                  (issue) => issue.progressTag.name == unresolvedHCILabel.name\n                )\n                .map((issue) => {\n                  return (\n                    <div>\n                      <ProgressIssueComponent\n                        issue={issue}\n                        key={uuid.v4()}\n                        setIssues={setIssues}\n                      ></ProgressIssueComponent>\n                      <br></br>\n                    </div>\n                  );\n                })}\n            </div>\n            <div\n              style={{\n                backgroundColor: `#${resolvingColour}` + '70',\n                padding: '10px',\n                borderRadius: '10px'\n              }}\n            >\n              <h5>Resolving</h5>\n              {issues\n                .filter(\n                  (issue) => issue.progressTag.name == resolvingHCILabel.name\n                )\n                .map((issue) => {\n                  return (\n                    <div>\n                      <ProgressIssueComponent\n                        issue={issue}\n                        key={uuid.v4()}\n                        setIssues={setIssues}\n                      ></ProgressIssueComponent>\n                      <br></br>\n                    </div>\n                  );\n                })}\n            </div>\n            <div\n              style={{\n                backgroundColor: `#${resolvedColour}` + '70',\n                padding: '10px',\n                borderRadius: '10px'\n              }}\n            >\n              <h5>Resolved</h5>\n              {issues\n                .filter(\n                  (issue) => issue.progressTag.name == resolvedHCILabel.name\n                )\n                .map((issue) => {\n                  return (\n                    <div>\n                      <ProgressIssueComponent\n                        issue={issue}\n                        key={uuid.v4()}\n                        setIssues={setIssues}\n                      ></ProgressIssueComponent>\n                      <br></br>\n                    </div>\n                  );\n                })}\n            </div>\n          </div>\n        </>\n      )}\n    </>\n  );\n}\n",
                   is_dir: false,
                   sspm_matches: {
+                    'ABLEIST LANGUAGE': {},
+                    'GENDERED LANGUAGE': {},
+                    'VIOLENT LANGUAGE': {},
+                    'AGEIST LANGUAGE': {},
+                    'RACIALLY CHARGED LANGUAGE': {},
+                    'BIASED LANGUAGE': {},
+                    'MILITARY LANGUAGE': {},
+                    OTHER: {},
+                  },
+                  wbpm_matches: {
                     'ABLEIST LANGUAGE': {},
                     'GENDERED LANGUAGE': {},
                     'VIOLENT LANGUAGE': {},
@@ -759,6 +1054,16 @@ export const TEST_DATA = {
                     'MILITARY LANGUAGE': {},
                     OTHER: {},
                   },
+                  wbpm_matches: {
+                    'ABLEIST LANGUAGE': {},
+                    'GENDERED LANGUAGE': {},
+                    'VIOLENT LANGUAGE': {},
+                    'AGEIST LANGUAGE': {},
+                    'RACIALLY CHARGED LANGUAGE': {},
+                    'BIASED LANGUAGE': {},
+                    'MILITARY LANGUAGE': {},
+                    OTHER: {},
+                  },
                 },
                 {
                   file_path:
@@ -770,6 +1075,16 @@ export const TEST_DATA = {
                     'import React from \'react\';\nimport { NavLink } from \'react-router-dom\';\n\nexport default function UnAuthenticatedDefault() {\n  return (\n    <>\n      <br></br>\n      <h3>Currently not linked to a GitHub repository!</h3>\n\n      <NavLink exact="true" to="/">\n        Click here to link to a repository\n      </NavLink>\n    </>\n  );\n}\n',
                   is_dir: false,
                   sspm_matches: {
+                    'ABLEIST LANGUAGE': {},
+                    'GENDERED LANGUAGE': {},
+                    'VIOLENT LANGUAGE': {},
+                    'AGEIST LANGUAGE': {},
+                    'RACIALLY CHARGED LANGUAGE': {},
+                    'BIASED LANGUAGE': {},
+                    'MILITARY LANGUAGE': {},
+                    OTHER: {},
+                  },
+                  wbpm_matches: {
                     'ABLEIST LANGUAGE': {},
                     'GENDERED LANGUAGE': {},
                     'VIOLENT LANGUAGE': {},
@@ -812,6 +1127,16 @@ export const TEST_DATA = {
                     'MILITARY LANGUAGE': {},
                     OTHER: {},
                   },
+                  wbpm_matches: {
+                    'ABLEIST LANGUAGE': {},
+                    'GENDERED LANGUAGE': {},
+                    'VIOLENT LANGUAGE': {},
+                    'AGEIST LANGUAGE': {},
+                    'RACIALLY CHARGED LANGUAGE': {},
+                    'BIASED LANGUAGE': {},
+                    'MILITARY LANGUAGE': {},
+                    OTHER: {},
+                  },
                 },
                 {
                   file_path:
@@ -823,6 +1148,16 @@ export const TEST_DATA = {
                     "body {\n  margin: 0;\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\n    sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n\ncode {\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\n    monospace;\n}",
                   is_dir: false,
                   sspm_matches: {
+                    'ABLEIST LANGUAGE': {},
+                    'GENDERED LANGUAGE': {},
+                    'VIOLENT LANGUAGE': {},
+                    'AGEIST LANGUAGE': {},
+                    'RACIALLY CHARGED LANGUAGE': {},
+                    'BIASED LANGUAGE': {},
+                    'MILITARY LANGUAGE': {},
+                    OTHER: {},
+                  },
+                  wbpm_matches: {
                     'ABLEIST LANGUAGE': {},
                     'GENDERED LANGUAGE': {},
                     'VIOLENT LANGUAGE': {},
@@ -863,6 +1198,16 @@ export const TEST_DATA = {
                     'MILITARY LANGUAGE': {},
                     OTHER: {},
                   },
+                  wbpm_matches: {
+                    'ABLEIST LANGUAGE': {},
+                    'GENDERED LANGUAGE': {},
+                    'VIOLENT LANGUAGE': {},
+                    'AGEIST LANGUAGE': {},
+                    'RACIALLY CHARGED LANGUAGE': {},
+                    'BIASED LANGUAGE': {},
+                    'MILITARY LANGUAGE': {},
+                    OTHER: {},
+                  },
                 },
                 {
                   file_path:
@@ -874,6 +1219,16 @@ export const TEST_DATA = {
                     "import { predict } from './mlToolClient';\nimport { addGitHubLabels } from './addGitHubLabels';\nimport * as repoLabels from './labels';\n\nconst allHCILabels = [\n  repoLabels.appUsageLabel,\n  repoLabels.userReactionLabel,\n  repoLabels.inclusivenessLabel,\n  repoLabels.noHCIIdentifiedLabel\n];\n\nexport const assignHCITags = async (issue) => {\n  // NEED TO CLEAN THIS!\n  const existingLabelNames = issue.labels.map((label) => label.name);\n  let assigned = false;\n  existingLabelNames.forEach((existingLabelName) => {\n    allHCILabels\n      .map((label) => label.name)\n      .forEach((labelName) => {\n        if (existingLabelName == labelName) {\n          assigned = true;\n        }\n      });\n  });\n  // create a list of comments and issue body\n  let allComments = [];\n  if (issue.body == null) {\n    allComments.push('');\n  } else {\n    allComments.push(issue.body);\n  }\n  issue.cached_comments.forEach((comment) => {\n    allComments.push(comment.body);\n  });\n\n  const res = await predict(allComments);\n  if (!assigned) {\n    // set body HCI labels\n    let bodyHCILabels = mapToLabels(res[0]); // exclude comments\n    issue.bodyHCILabels = bodyHCILabels;\n    let accumulatedResult = res[0];\n    if (res.length > 1) {\n      const comments_1 = issue.cached_comments;\n      for (let j = 1; j < res.length; j++) {\n        // iterate over comments\n        const mappedCommentLabels = mapToLabels(res[j]);\n        comments_1[j - 1].HCILabels = mappedCommentLabels; // offset by 1 index as predictions includes body + comments\n\n        // update HCILabels by 'ORing' over first 3 elements of HCILabels and commentLabels\n        // only iterate over first 3\n        for (let k = 0; k < res[j].length - 1; k++) {\n          if (res[j][k] == 1) {\n            accumulatedResult[k] = res[j][k];\n            // if a label is identified, it means the 'no HCIs' tag must not be set\n            accumulatedResult[accumulatedResult.length - 1] = 0;\n          }\n        }\n      }\n    }\n    const labels = mapToLabels(accumulatedResult);\n\n    // use addGitHubLabels to add relevant labels to the issue\n    if (labels.length > 0) {\n      addGitHubLabels(\n        issue.number,\n        labels.map((label) => {\n          return label.name;\n        })\n      );\n    }\n    return labels;\n  } else {\n    // set body HCI labels to EXISTING LABELS\n    issue.bodyHCILabels = issue.labels.filter(\n      (label) =>\n        label.name == repoLabels.noHCIIdentifiedLabel.name ||\n        label.name == repoLabels.inclusivenessLabel.name ||\n        label.name == repoLabels.userReactionLabel.name ||\n        label.name == repoLabels.appUsageLabel.name\n    );\n    if (res.length > 1) {\n      const commentsAssigned = issue.cached_comments;\n      for (let j = 1; j < res.length; j++) {\n        // iterate over comments\n        const mappedCommentLabels = mapToLabels(res[j]);\n        commentsAssigned[j - 1].HCILabels = mappedCommentLabels; // offset by 1 index as predictions includes body + comments\n      }\n    }\n    return issue.labels.filter(\n      (label) =>\n        label.name == repoLabels.noHCIIdentifiedLabel.name ||\n        label.name == repoLabels.inclusivenessLabel.name ||\n        label.name == repoLabels.userReactionLabel.name ||\n        label.name == repoLabels.appUsageLabel.name\n    );\n  }\n};\n\nconst mapToLabels = (HCILabels) => {\n  const labels = [];\n  if (HCILabels[0] == 1) {\n    labels.push(repoLabels.appUsageLabel);\n  }\n  if (HCILabels[1] == 1) {\n    labels.push(repoLabels.inclusivenessLabel);\n  }\n  if (HCILabels[2] == 1) {\n    labels.push(repoLabels.userReactionLabel);\n  }\n  if (HCILabels[3] == 1) {\n    labels.push(repoLabels.noHCIIdentifiedLabel);\n  }\n  return labels;\n};\n",
                   is_dir: false,
                   sspm_matches: {
+                    'ABLEIST LANGUAGE': {},
+                    'GENDERED LANGUAGE': {},
+                    'VIOLENT LANGUAGE': {},
+                    'AGEIST LANGUAGE': {},
+                    'RACIALLY CHARGED LANGUAGE': {},
+                    'BIASED LANGUAGE': {},
+                    'MILITARY LANGUAGE': {},
+                    OTHER: {},
+                  },
+                  wbpm_matches: {
                     'ABLEIST LANGUAGE': {},
                     'GENDERED LANGUAGE': {},
                     'VIOLENT LANGUAGE': {},
@@ -903,6 +1258,16 @@ export const TEST_DATA = {
                     'MILITARY LANGUAGE': {},
                     OTHER: {},
                   },
+                  wbpm_matches: {
+                    'ABLEIST LANGUAGE': {},
+                    'GENDERED LANGUAGE': {},
+                    'VIOLENT LANGUAGE': {},
+                    'AGEIST LANGUAGE': {},
+                    'RACIALLY CHARGED LANGUAGE': {},
+                    'BIASED LANGUAGE': {},
+                    'MILITARY LANGUAGE': {},
+                    OTHER: {},
+                  },
                 },
                 {
                   file_path:
@@ -914,6 +1279,16 @@ export const TEST_DATA = {
                     "import { getGitHubLabels } from './getGitHubLabels';\nimport * as labels from './labels';\nimport { CREDENTIALS_KEY } from './localStorageKeys';\n\nconst { Octokit } = require('@octokit/rest');\n\nexport const createGitHubLabels = async () => {\n  const octokit = new Octokit({\n    auth: JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).token\n  });\n\n  const repoLabels = await getGitHubLabels();\n  const labelNames = repoLabels.map((element) => {\n    return element.name;\n  });\n\n  // User Reaction Label\n  if (!labelNames.includes(labels.userReactionLabel.name)) {\n    try {\n      await octokit.request(\n        `POST /repos/${\n          JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).userName\n        }/${JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).repoName}/labels`,\n        {\n          owner: JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).userName,\n          repo: JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).repoName,\n          name: labels.userReactionLabel.name,\n          description: labels.userReactionLabel.description,\n          color: labels.userReactionLabel.color\n        }\n      );\n    } catch (e) {\n      console.log(e);\n    }\n  }\n\n  // Inclusiveness Label\n  if (!labelNames.includes(labels.inclusivenessLabel.name)) {\n    try {\n      await octokit.request(\n        `POST /repos/${\n          JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).userName\n        }/${JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).repoName}/labels`,\n        {\n          owner: JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).userName,\n          repo: JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).repoName,\n          name: labels.inclusivenessLabel.name,\n          description: labels.inclusivenessLabel.description,\n          color: labels.inclusivenessLabel.color\n        }\n      );\n    } catch (e) {\n      console.log(e);\n    }\n  }\n\n  // App Usage Label\n  if (!labelNames.includes(labels.appUsageLabel.name)) {\n    try {\n      await octokit.request(\n        `POST /repos/${\n          JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).userName\n        }/${JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).repoName}/labels`,\n        {\n          owner: JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).userName,\n          repo: JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).repoName,\n          name: labels.appUsageLabel.name,\n          description: labels.appUsageLabel.description,\n          color: labels.appUsageLabel.color\n        }\n      );\n    } catch (e) {\n      console.log(e);\n    }\n  }\n\n  // No HCIs label\n  if (!labelNames.includes(labels.noHCIIdentifiedLabel.name)) {\n    try {\n      await octokit.request(\n        `POST /repos/${\n          JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).userName\n        }/${JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).repoName}/labels`,\n        {\n          owner: JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).userName,\n          repo: JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).repoName,\n          name: labels.noHCIIdentifiedLabel.name,\n          description: labels.noHCIIdentifiedLabel.description,\n          color: labels.noHCIIdentifiedLabel.color\n        }\n      );\n    } catch (e) {\n      console.log(e);\n    }\n  }\n\n  // Unresolved Label\n  if (!labelNames.includes(labels.unresolvedHCILabel.name)) {\n    try {\n      await octokit.request(\n        `POST /repos/${\n          JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).userName\n        }/${JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).repoName}/labels`,\n        {\n          owner: JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).userName,\n          repo: JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).repoName,\n          name: labels.unresolvedHCILabel.name,\n          description: labels.unresolvedHCILabel.description,\n          color: labels.unresolvedHCILabel.color\n        }\n      );\n    } catch (e) {\n      console.log(e);\n    }\n  }\n\n  // Resolving Label\n  if (!labelNames.includes(labels.resolvingHCILabel.name)) {\n    try {\n      await octokit.request(\n        `POST /repos/${\n          JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).userName\n        }/${JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).repoName}/labels`,\n        {\n          owner: JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).userName,\n          repo: JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).repoName,\n          name: labels.resolvingHCILabel.name,\n          description: labels.resolvingHCILabel.description,\n          color: labels.resolvingHCILabel.color\n        }\n      );\n    } catch (e) {\n      console.log(e);\n    }\n  }\n\n  // Resolved Label\n  if (!labelNames.includes(labels.resolvedHCILabel.name)) {\n    try {\n      await octokit.request(\n        `POST /repos/${\n          JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).userName\n        }/${JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).repoName}/labels`,\n        {\n          owner: JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).userName,\n          repo: JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).repoName,\n          name: labels.resolvedHCILabel.name,\n          description: labels.resolvedHCILabel.description,\n          color: labels.resolvedHCILabel.color\n        }\n      );\n    } catch (e) {\n      console.log(e);\n    }\n  }\n\n  // Low Priority\n  if (!labelNames.includes(labels.lowPriorityLabel.name)) {\n    try {\n      await octokit.request(\n        `POST /repos/${\n          JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).userName\n        }/${JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).repoName}/labels`,\n        {\n          owner: JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).userName,\n          repo: JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).repoName,\n          name: labels.lowPriorityLabel.name,\n          description: labels.lowPriorityLabel.description,\n          color: labels.lowPriorityLabel.color\n        }\n      );\n    } catch (e) {\n      console.log(e);\n    }\n  }\n  // Medium Priority\n  if (!labelNames.includes(labels.mediumPriorityLabel.name)) {\n    try {\n      await octokit.request(\n        `POST /repos/${\n          JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).userName\n        }/${JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).repoName}/labels`,\n        {\n          owner: JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).userName,\n          repo: JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).repoName,\n          name: labels.mediumPriorityLabel.name,\n          description: labels.mediumPriorityLabel.description,\n          color: labels.mediumPriorityLabel.color\n        }\n      );\n    } catch (e) {\n      console.log(e);\n    }\n  }\n  // High Priority\n  if (!labelNames.includes(labels.highPriorityLabel.name)) {\n    try {\n      await octokit.request(\n        `POST /repos/${\n          JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).userName\n        }/${JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).repoName}/labels`,\n        {\n          owner: JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).userName,\n          repo: JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).repoName,\n          name: labels.highPriorityLabel.name,\n          description: labels.highPriorityLabel.description,\n          color: labels.highPriorityLabel.color\n        }\n      );\n    } catch (e) {\n      console.log(e);\n    }\n  }\n};\n",
                   is_dir: false,
                   sspm_matches: {
+                    'ABLEIST LANGUAGE': {},
+                    'GENDERED LANGUAGE': {},
+                    'VIOLENT LANGUAGE': {},
+                    'AGEIST LANGUAGE': {},
+                    'RACIALLY CHARGED LANGUAGE': {},
+                    'BIASED LANGUAGE': {},
+                    'MILITARY LANGUAGE': {},
+                    OTHER: {},
+                  },
+                  wbpm_matches: {
                     'ABLEIST LANGUAGE': {},
                     'GENDERED LANGUAGE': {},
                     'VIOLENT LANGUAGE': {},
@@ -943,6 +1318,16 @@ export const TEST_DATA = {
                     'MILITARY LANGUAGE': {},
                     OTHER: {},
                   },
+                  wbpm_matches: {
+                    'ABLEIST LANGUAGE': {},
+                    'GENDERED LANGUAGE': {},
+                    'VIOLENT LANGUAGE': {},
+                    'AGEIST LANGUAGE': {},
+                    'RACIALLY CHARGED LANGUAGE': {},
+                    'BIASED LANGUAGE': {},
+                    'MILITARY LANGUAGE': {},
+                    OTHER: {},
+                  },
                 },
                 {
                   file_path:
@@ -954,6 +1339,16 @@ export const TEST_DATA = {
                     "import { CREDENTIALS_KEY } from './localStorageKeys';\n\nconst { Octokit } = require('@octokit/rest');\n\nexport const getGitHubIssueComments = async (issueNumber) => {\n  const octokit = new Octokit({\n    auth: JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).token\n  });\n\n  const response = await octokit.paginate(\n    `GET /repos/${JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).userName}/${\n      JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).repoName\n    }/issues/${issueNumber}/comments`,\n    {\n      owner: JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).userName,\n      repo: JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).repoName,\n      issue_number: issueNumber\n    }\n  );\n\n  return response;\n};\n",
                   is_dir: false,
                   sspm_matches: {
+                    'ABLEIST LANGUAGE': {},
+                    'GENDERED LANGUAGE': {},
+                    'VIOLENT LANGUAGE': {},
+                    'AGEIST LANGUAGE': {},
+                    'RACIALLY CHARGED LANGUAGE': {},
+                    'BIASED LANGUAGE': {},
+                    'MILITARY LANGUAGE': {},
+                    OTHER: {},
+                  },
+                  wbpm_matches: {
                     'ABLEIST LANGUAGE': {},
                     'GENDERED LANGUAGE': {},
                     'VIOLENT LANGUAGE': {},
@@ -983,6 +1378,16 @@ export const TEST_DATA = {
                     'MILITARY LANGUAGE': {},
                     OTHER: {},
                   },
+                  wbpm_matches: {
+                    'ABLEIST LANGUAGE': {},
+                    'GENDERED LANGUAGE': {},
+                    'VIOLENT LANGUAGE': {},
+                    'AGEIST LANGUAGE': {},
+                    'RACIALLY CHARGED LANGUAGE': {},
+                    'BIASED LANGUAGE': {},
+                    'MILITARY LANGUAGE': {},
+                    OTHER: {},
+                  },
                 },
                 {
                   file_path:
@@ -994,6 +1399,16 @@ export const TEST_DATA = {
                     "import { CREDENTIALS_KEY } from './localStorageKeys';\n\nconst { Octokit } = require('@octokit/rest');\n\nexport const getGitHubLabels = async () => {\n  const octokit = new Octokit({\n    auth: JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).token\n  });\n\n  const response = await octokit.paginate(\n    `GET /repos/${JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).userName}/${\n      JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).repoName\n    }/labels`,\n    {\n      owner: JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).userName,\n      repo: JSON.parse(localStorage.getItem(CREDENTIALS_KEY)).repoName\n    }\n  );\n\n  return response;\n};\n",
                   is_dir: false,
                   sspm_matches: {
+                    'ABLEIST LANGUAGE': {},
+                    'GENDERED LANGUAGE': {},
+                    'VIOLENT LANGUAGE': {},
+                    'AGEIST LANGUAGE': {},
+                    'RACIALLY CHARGED LANGUAGE': {},
+                    'BIASED LANGUAGE': {},
+                    'MILITARY LANGUAGE': {},
+                    OTHER: {},
+                  },
+                  wbpm_matches: {
                     'ABLEIST LANGUAGE': {},
                     'GENDERED LANGUAGE': {},
                     'VIOLENT LANGUAGE': {},
@@ -1023,6 +1438,16 @@ export const TEST_DATA = {
                     'MILITARY LANGUAGE': {},
                     OTHER: {},
                   },
+                  wbpm_matches: {
+                    'ABLEIST LANGUAGE': {},
+                    'GENDERED LANGUAGE': {},
+                    'VIOLENT LANGUAGE': {},
+                    'AGEIST LANGUAGE': {},
+                    'RACIALLY CHARGED LANGUAGE': {},
+                    'BIASED LANGUAGE': {},
+                    'MILITARY LANGUAGE': {},
+                    OTHER: {},
+                  },
                 },
                 {
                   file_path:
@@ -1034,6 +1459,16 @@ export const TEST_DATA = {
                     "export const unlinkedState = 'unlinked';\nexport const loadingState = 'loading';\nexport const readyState = 'ready';\n",
                   is_dir: false,
                   sspm_matches: {
+                    'ABLEIST LANGUAGE': {},
+                    'GENDERED LANGUAGE': {},
+                    'VIOLENT LANGUAGE': {},
+                    'AGEIST LANGUAGE': {},
+                    'RACIALLY CHARGED LANGUAGE': {},
+                    'BIASED LANGUAGE': {},
+                    'MILITARY LANGUAGE': {},
+                    OTHER: {},
+                  },
+                  wbpm_matches: {
                     'ABLEIST LANGUAGE': {},
                     'GENDERED LANGUAGE': {},
                     'VIOLENT LANGUAGE': {},
@@ -1063,6 +1498,16 @@ export const TEST_DATA = {
                     'MILITARY LANGUAGE': {},
                     OTHER: {},
                   },
+                  wbpm_matches: {
+                    'ABLEIST LANGUAGE': {},
+                    'GENDERED LANGUAGE': {},
+                    'VIOLENT LANGUAGE': {},
+                    'AGEIST LANGUAGE': {},
+                    'RACIALLY CHARGED LANGUAGE': {},
+                    'BIASED LANGUAGE': {},
+                    'MILITARY LANGUAGE': {},
+                    OTHER: {},
+                  },
                 },
                 {
                   file_path:
@@ -1074,6 +1519,16 @@ export const TEST_DATA = {
                     "const urlBase = 'https://humancentricse.pythonanywhere.com/';\n\nexport const predict = async (comments) => {\n  let url = urlBase + '?';\n  let i;\n  for (i = 0; i < comments.length; i++) {\n    url += 'comment=' + comments[i];\n    if (i < comments.length - 1) {\n      url += '&';\n    }\n  }\n\n  const response = await fetch(url, {\n    method: 'POST'\n  });\n  return response.json();\n};\n",
                   is_dir: false,
                   sspm_matches: {
+                    'ABLEIST LANGUAGE': {},
+                    'GENDERED LANGUAGE': {},
+                    'VIOLENT LANGUAGE': {},
+                    'AGEIST LANGUAGE': {},
+                    'RACIALLY CHARGED LANGUAGE': {},
+                    'BIASED LANGUAGE': {},
+                    'MILITARY LANGUAGE': {},
+                    OTHER: {},
+                  },
+                  wbpm_matches: {
                     'ABLEIST LANGUAGE': {},
                     'GENDERED LANGUAGE': {},
                     'VIOLENT LANGUAGE': {},
@@ -1103,6 +1558,16 @@ export const TEST_DATA = {
                     'MILITARY LANGUAGE': {},
                     OTHER: {},
                   },
+                  wbpm_matches: {
+                    'ABLEIST LANGUAGE': {},
+                    'GENDERED LANGUAGE': {},
+                    'VIOLENT LANGUAGE': {},
+                    'AGEIST LANGUAGE': {},
+                    'RACIALLY CHARGED LANGUAGE': {},
+                    'BIASED LANGUAGE': {},
+                    'MILITARY LANGUAGE': {},
+                    OTHER: {},
+                  },
                 },
                 {
                   file_path:
@@ -1114,6 +1579,16 @@ export const TEST_DATA = {
                     "import { getGitHubIssues } from './getGitHubIssues';\nimport { getGitHubIssueComments } from './getGitHubIssueComments';\nimport { assignHCITags } from './assignHCITags';\nimport * as repoLabels from './labels';\nimport { fluffIssueAuthor } from './fluffIssueAuthor';\n\nconst statusLabels = [\n  repoLabels.unresolvedHCILabel,\n  repoLabels.resolvingHCILabel,\n  repoLabels.resolvedHCILabel\n];\nconst priorityLabels = [\n  repoLabels.lowPriorityLabel,\n  repoLabels.mediumPriorityLabel,\n  repoLabels.highPriorityLabel\n];\nconst nullLabel = { name: null, color: null };\n\nlet validFound = false;\n\nexport const preProcessIssues = async () => {\n  validFound = false; // need to reset flag on each call\n  const issues = await generateIssues();\n  return issues;\n};\n\nconst generateIssues = async () => {\n  // get issues and comments\n  let issues = await getGitHubIssues();\n  issues = await new Promise((resolve) => {\n    issues.forEach((issue) => {\n      getGitHubIssueComments(issue.number)\n        .then((commentsResponse) => {\n          // set comments\n          issue.cached_comments = commentsResponse;\n        })\n        .then(() => {\n          // get ML response\n          assignHCITags(issue)\n            .then((HCIs) => {\n              issue.HCILabels = HCIs;\n            })\n            .then(() => {\n              // set set status labels\n              const labels = issue.labels;\n              // uses the assumption that only one status label is applied to each issue\n              let thisLabel = nullLabel;\n              labels.forEach((label) => {\n                if (\n                  statusLabels\n                    .map((label) => {\n                      return label.name;\n                    })\n                    .includes(label.name)\n                ) {\n                  thisLabel = label;\n                }\n              });\n              issue.progressTag = thisLabel;\n            })\n            .then(() => {\n              // set priority labels\n              const labels = issue.labels;\n              // uses the assumption that only one priority label is applied to each issue\n              let thisLabel = nullLabel;\n              labels.forEach((label) => {\n                if (\n                  priorityLabels\n                    .map((label) => {\n                      return label.name;\n                    })\n                    .includes(label.name)\n                ) {\n                  thisLabel = label;\n                }\n              });\n              issue.priority = thisLabel;\n            })\n            .then(fluffIssueAuthor(issue)) // fluff author of issue (for testing/demo)\n            .then(async () => {\n              // validation\n              if (!validFound) {\n                // only have the possibility of recursion of a valid copy has NOT been set yet\n                if (await validateIssues(issues)) {\n                  validFound = true; // stop recursive calls\n                  resolve(issues);\n                } else if (!(await validateIssues(issues))) {\n                  generateIssues(); // recursive call\n                }\n              }\n            });\n        });\n    });\n  });\n  return issues;\n};\n\nconst validateIssues = async (issues) => {\n  let valid = true;\n  valid = await new Promise((resolve) => {\n    issues.forEach((issue) => {\n      if (\n        issue.HCILabels == null ||\n        issue.bodyHCILabels == null ||\n        issue.cached_comments == null ||\n        issue.priority == null ||\n        issue.progressTag == null\n      ) {\n        valid = false;\n      }\n      if (issue.cached_comments != null) {\n        issue.cached_comments.forEach((comment) => {\n          if (comment.HCILabels == null) {\n            valid = false;\n          }\n        });\n      }\n    });\n    resolve(valid);\n  });\n  return valid;\n};\n",
                   is_dir: false,
                   sspm_matches: {
+                    'ABLEIST LANGUAGE': {},
+                    'GENDERED LANGUAGE': {},
+                    'VIOLENT LANGUAGE': {},
+                    'AGEIST LANGUAGE': {},
+                    'RACIALLY CHARGED LANGUAGE': {},
+                    'BIASED LANGUAGE': {},
+                    'MILITARY LANGUAGE': {},
+                    OTHER: {},
+                  },
+                  wbpm_matches: {
                     'ABLEIST LANGUAGE': {},
                     'GENDERED LANGUAGE': {},
                     'VIOLENT LANGUAGE': {},
@@ -1143,6 +1618,16 @@ export const TEST_DATA = {
                     'MILITARY LANGUAGE': {},
                     OTHER: {},
                   },
+                  wbpm_matches: {
+                    'ABLEIST LANGUAGE': {},
+                    'GENDERED LANGUAGE': {},
+                    'VIOLENT LANGUAGE': {},
+                    'AGEIST LANGUAGE': {},
+                    'RACIALLY CHARGED LANGUAGE': {},
+                    'BIASED LANGUAGE': {},
+                    'MILITARY LANGUAGE': {},
+                    OTHER: {},
+                  },
                 },
                 {
                   file_path:
@@ -1154,6 +1639,16 @@ export const TEST_DATA = {
                     "import { getGitHubIssues } from './getGitHubIssues';\nimport { getGitHubIssueComments } from './getGitHubIssueComments';\nimport { assignHCITags } from './assignHCITags';\nimport * as repoLabels from './labels';\nimport { ISSUES_KEY } from './localStorageKeys';\n\nconst statusLabels = [\n  repoLabels.unresolvedHCILabel,\n  repoLabels.resolvingHCILabel,\n  repoLabels.resolvedHCILabel\n];\nconst priorityLabels = [\n  repoLabels.lowPriorityLabel,\n  repoLabels.mediumPriorityLabel,\n  repoLabels.highPriorityLabel\n];\nconst nullLabel = { name: null, color: null };\n\nexport const setupLocalStorage2 = async () => {\n  synchronousProcess(await getGitHubIssues());\n  // const issues = await asyncProcess(\n  //   synchronousProcess(await getGitHubIssues())\n  // );\n  // console.log(issues);\n  // localStorage.setItem(\n  //   'refactored-issues',\n  //   JSON.stringify(asyncProcessedIssues)\n  // );\n  return;\n};\n\nconst asyncProcess = async (issues) => {\n  const processedIssues = issues.map(async (issue) => {\n    // get comments\n    issue.cached_comments = await getGitHubIssueComments(issue.number);\n\n    // get/set ML response\n    issue.HCILabels = await assignHCITags(issue);\n  });\n  return processedIssues;\n};\n\nconst synchronousProcess = (issues) => {\n  issues.forEach((issue) => {\n    // set status label\n    // uses the assumption that only one priority label is applied to each issue\n    const labels = issue.labels;\n    const thisStatusLabel = nullLabel;\n    labels.forEach((label) => {\n      if (statusLabels.map((label) => label.name).includes(label.name)) {\n        thisStatusLabel = label;\n      }\n    });\n    issue.progressTag = thisStatusLabel;\n\n    // set priority label\n    // uses the assumption that only one priority label is applied to each issue\n    const thisPriorityLabel = nullLabel;\n    labels.forEach((label) => {\n      if (priorityLabels.map((label) => label.name).includes(label.name)) {\n        thisPriorityLabel = label;\n      }\n    });\n    issue.priority = thisPriorityLabel;\n  });\n  return issues;\n};\n",
                   is_dir: false,
                   sspm_matches: {
+                    'ABLEIST LANGUAGE': {},
+                    'GENDERED LANGUAGE': {},
+                    'VIOLENT LANGUAGE': {},
+                    'AGEIST LANGUAGE': {},
+                    'RACIALLY CHARGED LANGUAGE': {},
+                    'BIASED LANGUAGE': {},
+                    'MILITARY LANGUAGE': {},
+                    OTHER: {},
+                  },
+                  wbpm_matches: {
                     'ABLEIST LANGUAGE': {},
                     'GENDERED LANGUAGE': {},
                     'VIOLENT LANGUAGE': {},
@@ -1176,6 +1671,16 @@ export const TEST_DATA = {
                 "import React from 'react';\nimport ReactDOM from 'react-dom/client';\nimport './css/index.css';\nimport App from './App';\nimport reportWebVitals from './reportWebVitals';\n\nconst root = ReactDOM.createRoot(document.getElementById('root'));\nroot.render(<App />);\n\n// If you want to start measuring performance in your app, pass a function\n// to log results (for example: reportWebVitals(console.log))\n// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals\nreportWebVitals();\n",
               is_dir: false,
               sspm_matches: {
+                'ABLEIST LANGUAGE': {},
+                'GENDERED LANGUAGE': {},
+                'VIOLENT LANGUAGE': {},
+                'AGEIST LANGUAGE': {},
+                'RACIALLY CHARGED LANGUAGE': {},
+                'BIASED LANGUAGE': {},
+                'MILITARY LANGUAGE': {},
+                OTHER: {},
+              },
+              wbpm_matches: {
                 'ABLEIST LANGUAGE': {},
                 'GENDERED LANGUAGE': {},
                 'VIOLENT LANGUAGE': {},
@@ -1236,6 +1741,16 @@ export const TEST_DATA = {
                 'MILITARY LANGUAGE': {},
                 OTHER: {},
               },
+              wbpm_matches: {
+                'ABLEIST LANGUAGE': {},
+                'GENDERED LANGUAGE': {},
+                'VIOLENT LANGUAGE': {},
+                'AGEIST LANGUAGE': {},
+                'RACIALLY CHARGED LANGUAGE': {},
+                'BIASED LANGUAGE': {},
+                'MILITARY LANGUAGE': {},
+                OTHER: {},
+              },
             },
             {
               file_path:
@@ -1256,6 +1771,16 @@ export const TEST_DATA = {
                 'MILITARY LANGUAGE': {},
                 OTHER: {},
               },
+              wbpm_matches: {
+                'ABLEIST LANGUAGE': {},
+                'GENDERED LANGUAGE': {},
+                'VIOLENT LANGUAGE': {},
+                'AGEIST LANGUAGE': {},
+                'RACIALLY CHARGED LANGUAGE': {},
+                'BIASED LANGUAGE': {},
+                'MILITARY LANGUAGE': {},
+                OTHER: {},
+              },
             },
             {
               file_path:
@@ -1267,6 +1792,16 @@ export const TEST_DATA = {
                 "// jest-dom adds custom jest matchers for asserting on DOM nodes.\n// allows you to do things like:\n// expect(element).toHaveTextContent(/react/i)\n// learn more: https://github.com/testing-library/jest-dom\nimport '@testing-library/jest-dom';\n",
               is_dir: false,
               sspm_matches: {
+                'ABLEIST LANGUAGE': {},
+                'GENDERED LANGUAGE': {},
+                'VIOLENT LANGUAGE': {},
+                'AGEIST LANGUAGE': {},
+                'RACIALLY CHARGED LANGUAGE': {},
+                'BIASED LANGUAGE': {},
+                'MILITARY LANGUAGE': {},
+                OTHER: {},
+              },
+              wbpm_matches: {
                 'ABLEIST LANGUAGE': {},
                 'GENDERED LANGUAGE': {},
                 'VIOLENT LANGUAGE': {},
@@ -1305,6 +1840,16 @@ export const TEST_DATA = {
                     'MILITARY LANGUAGE': {},
                     OTHER: {},
                   },
+                  wbpm_matches: {
+                    'ABLEIST LANGUAGE': {},
+                    'GENDERED LANGUAGE': {},
+                    'VIOLENT LANGUAGE': {},
+                    'AGEIST LANGUAGE': {},
+                    'RACIALLY CHARGED LANGUAGE': {},
+                    'BIASED LANGUAGE': {},
+                    'MILITARY LANGUAGE': {},
+                    OTHER: {},
+                  },
                 },
               ],
             },
@@ -1327,6 +1872,16 @@ export const TEST_DATA = {
                     "// export const mainTheme = '9AC7BF'; // green\nexport const accentColour = '5165A8'; // blue\nexport const mainTheme = 'F2EEE3'; // beige\nexport const defaultGrey = 'E6E6E6';\nexport const unresolvedColour = 'C1867B';\nexport const resolvingColour = '9AB5C1';\nexport const resolvedColour = 'B8BC86';\nexport const noHCIIdentifiedColour = '9AC7BF';\nexport const userReactionColour = 'FF66FF';\nexport const inclusivenessColour = '6666FF';\nexport const appUsageColour = '66B2FF';\n// export const lowPriorityColour = 'FFF474';\n// export const mediumPriorityColour = 'F06553';\n// export const highPriorityColour = '3C3B5f';\n\nexport const lowPriorityColour = '7297A0';\nexport const mediumPriorityColour = 'B2A68D';\nexport const highPriorityColour = 'A88C7D';\n",
                   is_dir: false,
                   sspm_matches: {
+                    'ABLEIST LANGUAGE': {},
+                    'GENDERED LANGUAGE': {},
+                    'VIOLENT LANGUAGE': {},
+                    'AGEIST LANGUAGE': {},
+                    'RACIALLY CHARGED LANGUAGE': {},
+                    'BIASED LANGUAGE': {},
+                    'MILITARY LANGUAGE': {},
+                    OTHER: {},
+                  },
+                  wbpm_matches: {
                     'ABLEIST LANGUAGE': {},
                     'GENDERED LANGUAGE': {},
                     'VIOLENT LANGUAGE': {},

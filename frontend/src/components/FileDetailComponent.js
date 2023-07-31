@@ -10,16 +10,28 @@ import Paper from '@mui/material/Paper';
 
 function FileDetailComponent({ fileData }) {
   const flaggedTerms = [];
-  for (const category of Object.keys(fileData.sspm_matches)) {
+  for (const category of [
+    ...new Set([
+      ...Object.keys(fileData.sspm_matches),
+      ...Object.keys(fileData.wbpm_matches),
+    ]),
+  ]) {
     for (const term of Object.keys(fileData.sspm_matches[category])) {
-      flaggedTerms.push({
-        category: category
-          .charAt(0)
-          .toUpperCase()
-          .concat(category.slice(1).toLocaleLowerCase()),
-        term: term,
-        occurrences: fileData.sspm_matches[category][term].length,
-      });
+      if (term) {
+        flaggedTerms.push({
+          category: category
+            .charAt(0)
+            .toUpperCase()
+            .concat(category.slice(1).toLocaleLowerCase()),
+          term: term,
+          SSPMOccurrences: fileData.sspm_matches[category][term]
+            ? fileData.sspm_matches[category][term].length
+            : 0,
+          WBPMOccurrences: fileData.wbpm_matches[category][term]
+            ? fileData.wbpm_matches[category][term].length
+            : 0,
+        });
+      }
     }
   }
 
@@ -27,8 +39,13 @@ function FileDetailComponent({ fileData }) {
     { field: 'term', headerName: 'Non-inclusive Term' },
     { field: 'category', headerName: 'Category' },
     {
-      field: 'occurrences',
-      headerName: 'Number of Occurrences',
+      field: 'SSPMoccurrences',
+      headerName: 'Number of Occurrences (sub-string pattern matching)',
+      type: 'number',
+    },
+    {
+      field: 'WBPMoccurrences',
+      headerName: 'Number of Occurrences (word-boundary pattern matching)',
       type: 'number',
     },
   ];
@@ -49,7 +66,6 @@ function FileDetailComponent({ fileData }) {
                     align={index === 0 ? 'left' : 'right'}
                     sx={{
                       color: WHITE,
-                      fontSize: 'larger',
                     }}
                   >
                     {column.headerName}
@@ -73,7 +89,10 @@ function FileDetailComponent({ fileData }) {
                   {item.category}
                 </TableCell>
                 <TableCell align='right' sx={{ color: WHITE }}>
-                  {item.occurrences}
+                  {item.SSPMOccurrences}
+                </TableCell>
+                <TableCell align='right' sx={{ color: WHITE }}>
+                  {item.WBPMOccurrences}
                 </TableCell>
               </TableRow>
             ))}

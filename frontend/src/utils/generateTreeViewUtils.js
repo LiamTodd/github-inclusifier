@@ -3,8 +3,9 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import TreeItem from '@mui/lab/TreeItem';
 import { Chip } from '@mui/material';
-import { LIGHT_PURPLE } from '../constants';
+import { ERROR, LIGHT_PURPLE, SSPM_FLAG, WBPM_FLAG } from '../constants';
 import { createElement } from 'react';
+import { generateMatchCountDisplay } from './stringUtils';
 
 export const generateTreeView = (fileData, handleSetSelectedFile) => {
   const tree = generateTreeViewAux(fileData[0], handleSetSelectedFile);
@@ -36,6 +37,7 @@ const generateTreeViewAux = (parent, handleSetSelectedFile) => {
   }
 
   const SSPMFlags = countSSPMFlags(parent);
+  const WBPMFlags = countWBPMFlags(parent);
 
   return createElement(
     TreeItem,
@@ -47,9 +49,9 @@ const generateTreeViewAux = (parent, handleSetSelectedFile) => {
           {parent.file_name}{' '}
           {SSPMFlags > 0 ? (
             <Chip
-              label={SSPMFlags}
+              label={generateMatchCountDisplay(SSPMFlags, WBPMFlags)}
               onClick={() => {
-                handleSetSelectedFile(parent);
+                handleSetSelectedFile(parent, SSPM_FLAG);
               }}
               variant='outlined'
               sx={{ borderColor: LIGHT_PURPLE, color: LIGHT_PURPLE }}
@@ -67,6 +69,19 @@ const countSSPMFlags = (file) => {
   if (file.sspm_matches) {
     for (const category of Object.keys(file.sspm_matches)) {
       for (const term of Object.keys(file.sspm_matches[category])) {
+        count += file.sspm_matches[category][term].length;
+      }
+    }
+  }
+
+  return count;
+};
+
+const countWBPMFlags = (file) => {
+  let count = 0;
+  if (file.wbpm_matches) {
+    for (const category of Object.keys(file.wbpm_matches)) {
+      for (const term of Object.keys(file.wbpm_matches[category])) {
         count += file.sspm_matches[category][term].length;
       }
     }
