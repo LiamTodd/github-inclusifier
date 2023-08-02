@@ -34,10 +34,9 @@ def get_inclusive_language_report(request):
 
     repo_path = f"{TEMP_REPO_STORAGE_LOCATION}/{repo_name}"
     try:
-        if not os.path.exists(repo_path):
-            download_github_repo(
-                repo_name=repo_name, repo_owner=repo_owner, github_token=github_token
-            )
+        default_branch = download_github_repo(
+            repo_name=repo_name, repo_owner=repo_owner, github_token=github_token
+        )
     except GithubException as e:
         if e.status == 401:
             error_message = "Authentication failed. Please check that you entered the correct credentials."
@@ -68,5 +67,6 @@ def get_inclusive_language_report(request):
             "message": f"Successful inclusive language analysis conducted on {repo_owner}/{repo_name}",
             "repo": f"{repo_owner}/{repo_name}",
             "data": result,
+            "default_branch": default_branch,
         }
     )

@@ -31,3 +31,5 @@ def download_github_repo(repo_owner, repo_name, github_token):
     clone_location = os.path.join(TEMP_REPO_STORAGE_LOCATION, repository.name)
     with ZipFile(io.BytesIO(response.content)) as zip_file:
         zip_file.extractall(clone_location)
+
+    return repository.default_branch

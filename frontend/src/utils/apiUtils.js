@@ -7,7 +7,8 @@ export const fetchData = (
   handleSetRepoName,
   handleSetRawFileData,
   handleSetErrorMessage,
-  handleSetLoading
+  handleSetLoading,
+  handleSetDefaultBranch
 ) => {
   handleSetErrorMessage(null);
   handleSetLoading(true);
@@ -31,6 +32,7 @@ export const fetchData = (
       handleSetRepoName(data.repo);
       handleSetRawFileData(data.data);
       handleSetLoading(false);
+      handleSetDefaultBranch(data.default_branch);
     });
 
   // devving without backend

@@ -3,6 +3,7 @@ import {
   APP_NAME,
   BLACK,
   DARK_GREY,
+  DEFAULT_BRANCH_KEY,
   RAW_FILE_DATA_KEY,
   REPO_NAME_KEY,
   SELECTED_FILE_DATA_KEY,
@@ -12,10 +13,14 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import RepoSummaryComponent from './RepoSummaryComponent.js';
 import FileDetailComponent from './FileDetailComponent';
-import { generateHeaderFromDoubleRootPath } from '../utils/stringUtils';
+import {
+  generateFileUrl,
+  generateHeaderFromDoubleRootPath,
+  generateRepoUrl,
+} from '../utils/stringUtils';
 import LinkToRepoComponent from './LinkToRepoComponent';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { IconButton } from '@mui/material';
+import { IconButton, Link } from '@mui/material';
 
 function AppBackgroundComponent() {
   const [repoName, setRepoName] = useState(
@@ -28,6 +33,9 @@ function AppBackgroundComponent() {
     JSON.parse(localStorage.getItem(SELECTED_FILE_DATA_KEY))
   );
   const [backButtonActive, setBackButtonActive] = useState(false);
+  const [defaultBranch, setDefaultBranch] = useState(
+    JSON.parse(localStorage.getItem(DEFAULT_BRANCH_KEY))
+  );
 
   useEffect(() => {
     setBackButtonActive(
@@ -43,7 +51,11 @@ function AppBackgroundComponent() {
       SELECTED_FILE_DATA_KEY,
       JSON.stringify(selectedFileData)
     );
-  }, [repoName, rawFileData, selectedFileData]);
+    window.localStorage.setItem(
+      DEFAULT_BRANCH_KEY,
+      JSON.stringify(defaultBranch)
+    );
+  }, [repoName, rawFileData, selectedFileData, defaultBranch]);
 
   const handleBackClick = () => {
     if (selectedFileData) {
@@ -55,6 +67,13 @@ function AppBackgroundComponent() {
       setRepoName(null);
     }
   };
+
+  const wrapperSetDefaultBranch = useCallback(
+    (val) => {
+      setDefaultBranch(val);
+    },
+    [setDefaultBranch]
+  );
 
   const wrapperSetSelectedFile = useCallback(
     (val) => {
@@ -85,14 +104,27 @@ function AppBackgroundComponent() {
           marginBottom: 0,
         }}
       >
-        {selectedFileData
-          ? generateHeaderFromDoubleRootPath(
+        {selectedFileData ? (
+          <Link
+            href={generateFileUrl(
+              repoName,
+              defaultBranch,
+              selectedFileData.file_path
+            )}
+            color='inherit'
+          >
+            {generateHeaderFromDoubleRootPath(
               repoName,
               selectedFileData.file_path
-            )
-          : repoName
-          ? repoName
-          : APP_NAME}
+            )}
+          </Link>
+        ) : repoName ? (
+          <Link href={generateRepoUrl(repoName)} color='inherit'>
+            {repoName}
+          </Link>
+        ) : (
+          APP_NAME
+        )}
       </Typography>
       <Box>
         <Box
@@ -130,6 +162,7 @@ function AppBackgroundComponent() {
               <LinkToRepoComponent
                 handleSetRepoName={wrapperSetRepoName}
                 handleSetRawFileData={wrapperSetRawFileData}
+                handleSetDefaultBranch={wrapperSetDefaultBranch}
               />
             )}
           </Box>

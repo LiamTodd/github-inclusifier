@@ -5,7 +5,11 @@ import { DARK_GREY, ERROR, LIGHT_PURPLE, WHITE } from '../constants';
 import { useState, useEffect, useCallback } from 'react';
 import { fetchData } from '../utils/apiUtils';
 
-function LinkToRepoComponent({ handleSetRepoName, handleSetRawFileData }) {
+function LinkToRepoComponent({
+  handleSetRepoName,
+  handleSetRawFileData,
+  handleSetDefaultBranch,
+}) {
   const [userName, setUserName] = useState('');
   const [repoName, setRepoName] = useState('');
   const [accessToken, setAccessToken] = useState('');
@@ -34,7 +38,8 @@ function LinkToRepoComponent({ handleSetRepoName, handleSetRawFileData }) {
       handleSetRepoName,
       handleSetRawFileData,
       wrapperSetErrorMessage,
-      wrapperSetLoading
+      wrapperSetLoading,
+      handleSetDefaultBranch
     );
   };
 
