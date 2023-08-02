@@ -1,11 +1,5 @@
 import { Box } from '@mui/material';
-import {
-  BLACK,
-  DARK_GREY,
-  DETAIL_TABLE_COLUMNS,
-  ERROR,
-  WHITE,
-} from '../constants';
+import { DARK_GREY, DETAIL_TABLE_COLUMNS, WHITE } from '../constants';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';

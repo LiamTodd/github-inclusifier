@@ -1,5 +1,13 @@
-import { useState, useCallback } from 'react';
-import { APP_NAME, BLACK, DARK_GREY, WHITE } from '../constants';
+import { useState, useCallback, useEffect } from 'react';
+import {
+  APP_NAME,
+  BLACK,
+  DARK_GREY,
+  RAW_FILE_DATA_KEY,
+  REPO_NAME_KEY,
+  SELECTED_FILE_DATA_KEY,
+  WHITE,
+} from '../constants';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import RepoSummaryComponent from './RepoSummaryComponent.js';
@@ -8,9 +16,25 @@ import { generateHeaderFromDoubleRootPath } from '../utils/stringUtils';
 import LinkToRepoComponent from './LinkToRepoComponent';
 
 function AppBackgroundComponent() {
-  const [repoName, setRepoName] = useState(null);
-  const [rawFileData, setRawFileData] = useState(null);
-  const [selectedFileData, setSelectedFileData] = useState(null);
+  const [repoName, setRepoName] = useState(
+    JSON.parse(localStorage.getItem(REPO_NAME_KEY))
+  );
+  const [rawFileData, setRawFileData] = useState(
+    JSON.parse(localStorage.getItem(RAW_FILE_DATA_KEY))
+  );
+  const [selectedFileData, setSelectedFileData] = useState(
+    JSON.parse(localStorage.getItem(SELECTED_FILE_DATA_KEY))
+  );
+
+  // update local storage
+  useEffect(() => {
+    window.localStorage.setItem(REPO_NAME_KEY, JSON.stringify(repoName));
+    window.localStorage.setItem(RAW_FILE_DATA_KEY, JSON.stringify(rawFileData));
+    window.localStorage.setItem(
+      SELECTED_FILE_DATA_KEY,
+      JSON.stringify(selectedFileData)
+    );
+  }, [repoName, rawFileData, selectedFileData]);
 
   const wrapperSetSelectedFile = useCallback(
     (val) => {

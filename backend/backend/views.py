@@ -23,16 +23,12 @@ from backend.utils.github_api_utils import download_github_repo
 
 @api_view(["POST"])
 def get_inclusive_language_report(request):
-    # download repo
-    # todo: read github details from request
-    # repo_owner = "LiamTodd"
-    # repo_name = "human-centric-issue-visualiser"
-    # github_token = ""
+    # download specified repo
     repo_owner = request.query_params.get(REPO_OWNER_PARAM, None)
     repo_name = request.query_params.get(REPO_NAME_PARAM, None)
     github_token = request.query_params.get(ACCESS_TOKEN_PARAM, None)
 
-    if any(param is None for param in (repo_owner, repo_name, github_token)):
+    if any([param is None for param in (repo_owner, repo_name, github_token)]):
         error_response = {"error": "Insufficient credentials."}
         return Response(error_response, status=status.HTTP_400_BAD_REQUEST)
 
