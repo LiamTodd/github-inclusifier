@@ -36,55 +36,57 @@ function FileDetailComponent({ fileData }) {
   }
 
   return (
-    <Box>
-      <TableContainer
-        component={Paper}
-        sx={{ backgroundColor: DARK_GREY, color: WHITE }}
-      >
-        <Table aria-label='simple table'>
-          <TableHead>
-            <TableRow>
-              {DETAIL_TABLE_COLUMNS.map((column, index) => {
-                return (
-                  <TableCell
-                    key={column.headerName}
-                    align={index === 0 ? 'left' : 'right'}
-                    sx={{
-                      color: WHITE,
-                    }}
-                  >
-                    {column.headerName}
-                  </TableCell>
-                );
-              })}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {flaggedTerms.map((item) => (
-              <TableRow
-                key={`${item.category}-${item.term}`}
-                sx={{
-                  '&:last-child td, &:last-child th': { border: 0 },
-                }}
-              >
-                <TableCell component='th' scope='row' sx={{ color: WHITE }}>
-                  {item.term}
-                </TableCell>
-                <TableCell align='right' sx={{ color: WHITE }}>
-                  {item.category}
-                </TableCell>
-                <TableCell align='right' sx={{ color: WHITE }}>
-                  {item.SSPMOccurrences}
-                </TableCell>
-                <TableCell align='right' sx={{ color: WHITE }}>
-                  {item.WBPMOccurrences}
-                </TableCell>
+    <>
+      <Box>
+        <TableContainer
+          component={Paper}
+          sx={{ backgroundColor: DARK_GREY, color: WHITE }}
+        >
+          <Table aria-label='simple table'>
+            <TableHead>
+              <TableRow>
+                {DETAIL_TABLE_COLUMNS.map((column, index) => {
+                  return (
+                    <TableCell
+                      key={column.headerName}
+                      align={index === 0 ? 'left' : 'right'}
+                      sx={{
+                        color: WHITE,
+                      }}
+                    >
+                      {column.headerName}
+                    </TableCell>
+                  );
+                })}
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Box>
+            </TableHead>
+            <TableBody>
+              {flaggedTerms.map((item) => (
+                <TableRow
+                  key={`${item.category}-${item.term}`}
+                  sx={{
+                    '&:last-child td, &:last-child th': { border: 0 },
+                  }}
+                >
+                  <TableCell component='th' scope='row' sx={{ color: WHITE }}>
+                    {item.term}
+                  </TableCell>
+                  <TableCell align='right' sx={{ color: WHITE }}>
+                    {item.category}
+                  </TableCell>
+                  <TableCell align='right' sx={{ color: WHITE }}>
+                    {item.SSPMOccurrences}
+                  </TableCell>
+                  <TableCell align='right' sx={{ color: WHITE }}>
+                    {item.WBPMOccurrences}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Box>
+    </>
   );
 }
 

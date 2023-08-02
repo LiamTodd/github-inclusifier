@@ -6,9 +6,11 @@ export const fetchData = (
   accessToken,
   handleSetRepoName,
   handleSetRawFileData,
-  handleSetErrorMessage
+  handleSetErrorMessage,
+  handleSetLoading
 ) => {
   handleSetErrorMessage(null);
+  handleSetLoading(true);
   const url = new URL(LOCAL_HOST_INCLUSIVE_LANGUAGE_REPORT_URL);
   const params = {
     'repo-owner': userName,
@@ -22,11 +24,13 @@ export const fetchData = (
     .then((res) => res.json())
     .then((data) => {
       if (data.error) {
+        handleSetLoading(false);
         handleSetErrorMessage(data.error);
         return;
       }
       handleSetRepoName(data.repo);
       handleSetRawFileData(data.data);
+      handleSetLoading(false);
     });
 
   // devving without backend
