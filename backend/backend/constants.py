@@ -11,6 +11,7 @@ GITHUB_URL_BITS = {
 REPO_OWNER_PARAM = "repo-owner"
 REPO_NAME_PARAM = "repo-name"
 ACCESS_TOKEN_PARAM = "access-token"
+GENERATE_GITHUB_ISSUE_PARAM = "generate-github-issue"
 
 PDF = "pdf"
 DEFAULT_UNREADABLE_FILE_TYPES = [

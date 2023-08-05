@@ -4,6 +4,7 @@ export const fetchData = (
   userName,
   repoName,
   accessToken,
+  generateGithubIssue,
   handleSetRepoName,
   handleSetRawFileData,
   handleSetErrorMessage,
@@ -17,6 +18,7 @@ export const fetchData = (
     'repo-owner': userName,
     'repo-name': repoName,
     'access-token': accessToken,
+    'generate-github-issue': generateGithubIssue,
   };
   Object.keys(params).forEach((key) =>
     url.searchParams.append(key, params[key])

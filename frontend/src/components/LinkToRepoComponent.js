@@ -1,5 +1,11 @@
 import TextField from '@mui/material/TextField';
-import { Button, CircularProgress, Typography } from '@mui/material';
+import {
+  Button,
+  Checkbox,
+  CircularProgress,
+  FormControlLabel,
+  Typography,
+} from '@mui/material';
 import Box from '@mui/material/Box';
 import { DARK_GREY, ERROR, LIGHT_PURPLE, WHITE } from '../constants';
 import { useState, useEffect, useCallback } from 'react';
@@ -13,6 +19,7 @@ function LinkToRepoComponent({
   const [userName, setUserName] = useState('');
   const [repoName, setRepoName] = useState('');
   const [accessToken, setAccessToken] = useState('');
+  const [generateGithubIssue, setGenerateGithubIssue] = useState(false);
   const [formReady, setFormReady] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
@@ -35,6 +42,7 @@ function LinkToRepoComponent({
       userName,
       repoName,
       accessToken,
+      generateGithubIssue,
       handleSetRepoName,
       handleSetRawFileData,
       wrapperSetErrorMessage,
@@ -171,6 +179,25 @@ function LinkToRepoComponent({
                 setAccessToken(e.target.value);
               }}
             />
+
+            <FormControlLabel
+              label='Report non-inclusive language with a GitHub issue'
+              labelPlacement='end'
+              control={
+                <Checkbox
+                  sx={{
+                    '&.Mui-checked': {
+                      color: LIGHT_PURPLE,
+                    },
+                    color: LIGHT_PURPLE,
+                  }}
+                  onChange={() => {
+                    setGenerateGithubIssue(!generateGithubIssue);
+                  }}
+                />
+              }
+            />
+
             <Button
               variant='outlined'
               sx={{

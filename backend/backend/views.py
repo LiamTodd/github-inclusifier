@@ -1,14 +1,16 @@
 import shutil
 
-from github import GithubException
+from github import GithubException, Github
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 import os
+from backend.utils.misc_utils import parse_boolean_string
 from backend.constants import (
     REPO_OWNER_PARAM,
     REPO_NAME_PARAM,
     ACCESS_TOKEN_PARAM,
+    GENERATE_GITHUB_ISSUE_PARAM,
 )
 from backend.utils.reconstruct_file_structure_utils import reconstruct_file_structure
 from backend.utils.language_analysis_utils import (
@@ -58,6 +60,16 @@ def get_inclusive_language_report(request):
 
     # reconstruct file structure
     result = reconstruct_file_structure(file_data, repo_name)
+
+    # generate issue response
+    generate_github_issue = parse_boolean_string(
+        request.query_params.get(GENERATE_GITHUB_ISSUE_PARAM, False)
+    )
+    if generate_github_issue:
+        g = Github(github_token)
+        repository = g.get_repo(f"{repo_owner}/{repo_name}")
+        issue = repository.create_issue(title="This is a new issue", body="test body")
+        issue.create_comment("this is a comment")
 
     # delete repo
     shutil.rmtree(repo_path)
