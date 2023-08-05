@@ -1,9 +1,11 @@
 import os
+from pypdf import PdfReader
 
 from backend.constants import (
     TEMP_REPO_STORAGE_LOCATION,
     DEFAULT_UNREADABLE_FILE_TYPES,
     FAILED_FILE_READ_WARNING,
+    PDF,
 )
 
 
@@ -48,8 +50,11 @@ def extract_file_contents(file_path, file_data, parent):
                     read_file = False
                     break
             if read_file:
-                with open(full_file_path) as f:
-                    content = f.read()
+                if file_path.endswith(PDF):
+                    content = get_pdf_contents(full_file_path)
+                else:
+                    with open(full_file_path) as f:
+                        content = f.read()
         except UnicodeDecodeError:
             content = FAILED_FILE_READ_WARNING
             print(f"DEVELOPER WARNING: Unreadable file not blacklisted: {file_path}")
@@ -61,3 +66,11 @@ def extract_file_contents(file_path, file_data, parent):
             "content": content,
             "is_dir": False,
         }
+
+
+def get_pdf_contents(file_path):
+    reader = PdfReader(file_path)
+    content = ""
+    for page in reader.pages:
+        content += f"\n{page.extract_text()}"
+    return content

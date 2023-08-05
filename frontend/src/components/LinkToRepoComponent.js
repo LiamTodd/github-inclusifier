@@ -165,7 +165,7 @@ function LinkToRepoComponent({
               required
               label='Access token'
               type='password'
-              placeholder="PLease enter a GitHub access token with 'repo' permissions."
+              placeholder="Please enter a GitHub access token with 'repo' permissions."
               value={accessToken}
               onChange={(e) => {
                 setAccessToken(e.target.value);

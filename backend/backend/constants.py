@@ -12,7 +12,7 @@ REPO_OWNER_PARAM = "repo-owner"
 REPO_NAME_PARAM = "repo-name"
 ACCESS_TOKEN_PARAM = "access-token"
 
-
+PDF = "pdf"
 DEFAULT_UNREADABLE_FILE_TYPES = [
     #    image formats
     "apng",
@@ -52,7 +52,6 @@ DEFAULT_UNREADABLE_FILE_TYPES = [
     "wmf",
     "xcf",
     #  misc
-    "pdf",
 ]
 
 FAILED_FILE_READ_WARNING = (
