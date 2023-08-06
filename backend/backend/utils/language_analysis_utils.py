@@ -1,5 +1,9 @@
-from backend.constants import FAILED_FILE_READ_WARNING
-from backend.constants import NON_INCLUSIVE_LANGUAGE_TERMS
+from backend.constants import (
+    FAILED_FILE_READ_WARNING,
+    NON_INCLUSIVE_LANGUAGE_TERMS,
+    SSPM,
+    WBPM,
+)
 import re
 
 
@@ -47,3 +51,30 @@ def word_boundary_pattern_match(file_data):
                             term
                         ] = matching_start_indexes
     return file_data
+
+
+def collate_term_matches(file_matches, file, report, algorithm):
+    if file_matches is not None:
+        for file_category, file_category_report in file_matches.items():
+            for term, matching_list in file_category_report.items():
+                report[file_category][term].append(
+                    {
+                        "file": file["file_path"],
+                        "count": len(matching_list),
+                        "algorithm": algorithm,
+                    }
+                )
+
+
+def generate_language_report(file_data):
+    report = {}
+    for category_name, category_list in NON_INCLUSIVE_LANGUAGE_TERMS.items():
+        report[category_name] = {}
+        for term in category_list:
+            report[category_name][term] = []
+
+    for file in file_data.values():
+        collate_term_matches(file.get("sspm_matches"), file, report, SSPM)
+        collate_term_matches(file.get("wbpm_matches"), file, report, WBPM)
+
+    return report

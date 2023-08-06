@@ -3,8 +3,15 @@ import os
 import requests
 from zipfile import ZipFile
 import io
+from backend.utils.language_analysis_utils import generate_language_report
 
-from backend.constants import GITHUB_URL_BITS, TEMP_REPO_STORAGE_LOCATION
+from backend.constants import (
+    GITHUB_URL_BITS,
+    TEMP_REPO_STORAGE_LOCATION,
+    INCLUSIVISER_COMMENT_WATERMARK,
+    ISSUE_BODY,
+    ISSUE_TITLE,
+)
 
 
 def generate_zip_url(repo_full_name):
@@ -33,3 +40,27 @@ def download_github_repo(repo_owner, repo_name, github_token):
         zip_file.extractall(clone_location)
 
     return repository.default_branch
+
+
+def post_language_report_to_github(github_token, repo_owner, repo_name, file_data):
+    g = Github(github_token)
+    repository = g.get_repo(f"{repo_owner}/{repo_name}")
+    # retrieve language report
+    language_report = generate_language_report(file_data)
+    issue = repository.create_issue(
+        title=ISSUE_TITLE,
+        body=ISSUE_BODY,
+    )
+    for category in language_report.keys():
+        no_uses = True
+        body = f"# Usage of {category.lower()}:\n"
+        for term, usages in language_report[category].items():
+            if len(usages) > 0:
+                no_uses = False
+                body += f"## Usage of the term **'{term}'**:\n"
+                for usage in usages:
+                    body += f"- {usage['algorithm']} algorithm found {usage['count']} occurrence(s) in {usage['file']}\n"
+        if no_uses:
+            body += f"No {category.lower()} detected."
+        body += INCLUSIVISER_COMMENT_WATERMARK
+        issue.create_comment(body)
