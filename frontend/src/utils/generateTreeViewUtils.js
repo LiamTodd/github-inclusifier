@@ -3,7 +3,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import TreeItem from '@mui/lab/TreeItem';
 import { Chip } from '@mui/material';
-import { LIGHT_PURPLE } from '../constants';
+import { BLACK, LIGHT_PURPLE } from '../constants';
 import { createElement } from 'react';
 import { generateMatchCountDisplay } from './stringUtils';
 
@@ -54,7 +54,11 @@ const generateTreeViewAux = (parent, handleSetSelectedFile) => {
                 handleSetSelectedFile(parent);
               }}
               variant='outlined'
-              sx={{ borderColor: LIGHT_PURPLE, color: LIGHT_PURPLE }}
+              sx={{
+                borderColor: LIGHT_PURPLE,
+                color: LIGHT_PURPLE,
+                '&&:hover': { color: BLACK, backgroundColor: LIGHT_PURPLE },
+              }}
             />
           ) : null}
         </div>

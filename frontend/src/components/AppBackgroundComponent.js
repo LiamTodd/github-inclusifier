@@ -4,6 +4,7 @@ import {
   BLACK,
   DARK_GREY,
   DEFAULT_BRANCH_KEY,
+  LIGHT_PURPLE,
   RAW_FILE_DATA_KEY,
   REPO_NAME_KEY,
   SELECTED_FILE_DATA_KEY,
@@ -20,6 +21,7 @@ import {
 } from '../utils/stringUtils';
 import LinkToRepoComponent from './LinkToRepoComponent';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { IconButton, Link } from '@mui/material';
 
 function AppBackgroundComponent() {
@@ -106,6 +108,9 @@ function AppBackgroundComponent() {
       >
         {selectedFileData ? (
           <Link
+            sx={{
+              '&:hover': { color: LIGHT_PURPLE },
+            }}
             href={generateFileUrl(
               repoName,
               defaultBranch,
@@ -119,7 +124,13 @@ function AppBackgroundComponent() {
             )}
           </Link>
         ) : repoName ? (
-          <Link href={generateRepoUrl(repoName)} color='inherit'>
+          <Link
+            sx={{
+              '&:hover': { color: LIGHT_PURPLE },
+            }}
+            href={generateRepoUrl(repoName)}
+            color='inherit'
+          >
             {repoName}
           </Link>
         ) : (
@@ -166,14 +177,40 @@ function AppBackgroundComponent() {
               />
             )}
           </Box>
-          <Box sx={{ alignItems: 'left', width: 1, paddingLeft: '1vw' }}>
+          <Box
+            sx={{
+              alignItems: 'left',
+              width: 1,
+              paddingLeft: '1vw',
+            }}
+          >
             <IconButton
               aria-label='back'
-              sx={{ color: WHITE }}
+              sx={{
+                color: WHITE,
+                fontSize: 'smaller',
+                '&:hover': { color: LIGHT_PURPLE },
+              }}
               onClick={handleBackClick}
               disabled={!backButtonActive}
             >
               <ArrowBackIcon fontSize='large' />
+              Back
+            </IconButton>
+            <IconButton
+              aria-label='back'
+              sx={{
+                color: WHITE,
+                fontSize: 'smaller',
+                '&:hover': { color: LIGHT_PURPLE },
+              }}
+              onClick={() => {
+                console.log('download csv');
+              }}
+              disabled={!backButtonActive}
+            >
+              <FileDownloadIcon fontSize='large' />
+              Export to CSV
             </IconButton>
           </Box>
         </Box>
