@@ -8,6 +8,10 @@ import {
   RAW_FILE_DATA_KEY,
   REPO_NAME_KEY,
   SELECTED_FILE_DATA_KEY,
+  SSPM_DATASET_KEY,
+  SSPM_NAME,
+  WBPM_DATASET_KEY,
+  WBPM_NAME,
   WHITE,
 } from '../constants';
 import Box from '@mui/material/Box';
@@ -23,6 +27,7 @@ import LinkToRepoComponent from './LinkToRepoComponent';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { IconButton, Link } from '@mui/material';
+import { exportCSV } from '../utils/csvUtils';
 
 function AppBackgroundComponent() {
   const [repoName, setRepoName] = useState(
@@ -205,12 +210,27 @@ function AppBackgroundComponent() {
                 '&:hover': { color: LIGHT_PURPLE },
               }}
               onClick={() => {
-                console.log('download csv');
+                exportCSV(repoName, rawFileData, SSPM_DATASET_KEY, SSPM_NAME);
               }}
               disabled={!backButtonActive}
             >
               <FileDownloadIcon fontSize='large' />
-              Export to CSV
+              Export sub-string pattern-matched data to CSV
+            </IconButton>
+            <IconButton
+              aria-label='back'
+              sx={{
+                color: WHITE,
+                fontSize: 'smaller',
+                '&:hover': { color: LIGHT_PURPLE },
+              }}
+              onClick={() => {
+                exportCSV(repoName, rawFileData, WBPM_DATASET_KEY, WBPM_NAME);
+              }}
+              disabled={!backButtonActive}
+            >
+              <FileDownloadIcon fontSize='large' />
+              Export word-boundary pattern-matched data to CSV
             </IconButton>
           </Box>
         </Box>
