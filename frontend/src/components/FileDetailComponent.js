@@ -1,5 +1,10 @@
 import { Box } from '@mui/material';
-import { DARK_GREY, DETAIL_TABLE_COLUMNS, WHITE } from '../constants';
+import {
+  DARK_GREY,
+  DETAIL_TABLE_COLUMNS,
+  LIGHT_PURPLE,
+  WHITE,
+} from '../constants';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -8,7 +13,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-function FileDetailComponent({ fileData }) {
+function FileDetailComponent({ fileData, handleSetSelectedTermData }) {
   const flaggedTerms = [];
   for (const category of [
     ...new Set([
@@ -18,18 +23,21 @@ function FileDetailComponent({ fileData }) {
   ]) {
     for (const term of Object.keys(fileData.sspm_matches[category])) {
       if (term) {
+        const SSPMOccurrences = fileData.sspm_matches[category][term]
+          ? fileData.sspm_matches[category][term].length
+          : 0;
+        const WBPMOccurrences = fileData.wbpm_matches[category][term]
+          ? fileData.wbpm_matches[category][term].length
+          : 0;
         flaggedTerms.push({
           category: category
             .charAt(0)
             .toUpperCase()
             .concat(category.slice(1).toLocaleLowerCase()),
+          rawCategory: category,
           term: term,
-          SSPMOccurrences: fileData.sspm_matches[category][term]
-            ? fileData.sspm_matches[category][term].length
-            : 0,
-          WBPMOccurrences: fileData.wbpm_matches[category][term]
-            ? fileData.wbpm_matches[category][term].length
-            : 0,
+          SSPMOccurrences: SSPMOccurrences - WBPMOccurrences, // because every wbpm occcurrence is also an sspm occurence
+          WBPMOccurrences: WBPMOccurrences,
         });
       }
     }
@@ -68,7 +76,17 @@ function FileDetailComponent({ fileData }) {
                     '&:last-child td, &:last-child th': { border: 0 },
                   }}
                 >
-                  <TableCell component='th' scope='row' sx={{ color: WHITE }}>
+                  <TableCell
+                    component='th'
+                    scope='row'
+                    sx={{ color: WHITE, '&:hover': { color: LIGHT_PURPLE } }}
+                    onClick={() =>
+                      handleSetSelectedTermData({
+                        term: item.term,
+                        category: item.rawCategory,
+                      })
+                    }
+                  >
                     {item.term}
                   </TableCell>
                   <TableCell align='right' sx={{ color: WHITE }}>

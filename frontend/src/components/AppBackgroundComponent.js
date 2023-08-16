@@ -8,6 +8,7 @@ import {
   RAW_FILE_DATA_KEY,
   REPO_NAME_KEY,
   SELECTED_FILE_DATA_KEY,
+  SELECTED_TERM_KEY,
   SSPM_DATASET_KEY,
   SSPM_NAME,
   WBPM_DATASET_KEY,
@@ -28,6 +29,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { IconButton, Link } from '@mui/material';
 import { exportCSV } from '../utils/csvUtils';
+import TermSuggestionsComponent from './TermSuggestionsComponent';
 
 function AppBackgroundComponent() {
   const [repoName, setRepoName] = useState(
@@ -38,6 +40,9 @@ function AppBackgroundComponent() {
   );
   const [selectedFileData, setSelectedFileData] = useState(
     JSON.parse(localStorage.getItem(SELECTED_FILE_DATA_KEY))
+  );
+  const [selectedTermData, setSelectedTermData] = useState(
+    JSON.parse(localStorage.getItem(SELECTED_TERM_KEY))
   );
   const [backButtonActive, setBackButtonActive] = useState(false);
   const [defaultBranch, setDefaultBranch] = useState(
@@ -59,13 +64,26 @@ function AppBackgroundComponent() {
       JSON.stringify(selectedFileData)
     );
     window.localStorage.setItem(
+      SELECTED_TERM_KEY,
+      JSON.stringify(selectedTermData)
+    );
+    window.localStorage.setItem(
       DEFAULT_BRANCH_KEY,
       JSON.stringify(defaultBranch)
     );
-  }, [repoName, rawFileData, selectedFileData, defaultBranch]);
+  }, [
+    repoName,
+    rawFileData,
+    selectedFileData,
+    selectedTermData,
+    defaultBranch,
+  ]);
 
   const handleBackClick = () => {
-    if (selectedFileData) {
+    if (selectedTermData) {
+      // on suggestions page
+      setSelectedTermData(null);
+    } else if (selectedFileData) {
       // if on file detail page
       setSelectedFileData(null);
     } else if (rawFileData && repoName) {
@@ -96,6 +114,10 @@ function AppBackgroundComponent() {
   const wrapperSetRawFileData = useCallback(
     (val) => setRawFileData(val),
     [setRawFileData]
+  );
+  const wrapperSetSelectedTermData = useCallback(
+    (val) => setSelectedTermData(val),
+    [setSelectedTermData]
   );
   return (
     <Box sx={{ backgroundColor: BLACK }}>
@@ -167,8 +189,16 @@ function AppBackgroundComponent() {
               paddingRight: '2%',
             }}
           >
-            {selectedFileData ? (
-              <FileDetailComponent fileData={selectedFileData} />
+            {selectedFileData && selectedTermData ? (
+              <TermSuggestionsComponent
+                selectedFileData={selectedFileData}
+                selectedTermData={selectedTermData}
+              ></TermSuggestionsComponent>
+            ) : selectedFileData && !selectedTermData ? (
+              <FileDetailComponent
+                fileData={selectedFileData}
+                handleSetSelectedTermData={wrapperSetSelectedTermData}
+              />
             ) : rawFileData ? (
               <RepoSummaryComponent
                 rawFileData={rawFileData}

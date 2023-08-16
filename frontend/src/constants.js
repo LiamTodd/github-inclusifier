@@ -16,6 +16,7 @@ export const REPO_NAME_KEY = 'repo-name';
 export const RAW_FILE_DATA_KEY = 'raw-file-date';
 export const SELECTED_FILE_DATA_KEY = 'selected-file';
 export const DEFAULT_BRANCH_KEY = 'default-branch';
+export const SELECTED_TERM_KEY = 'selected-term';
 
 export const DETAIL_TABLE_COLUMNS = [
   { field: 'term', headerName: 'Non-inclusive Term' },

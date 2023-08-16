@@ -17,3 +17,27 @@ export const generateFileUrl = (repoName, branchName, filePath) => {
 export const generateRepoUrl = (repoName) => {
   return `https://github.com/${repoName}`;
 };
+
+export const extractSentenceAtIndex = (text, index) => {
+  const sentences = text.replace(/([.?!])\s*(?=[A-Z])/g, '$1|').split('|');
+  for (const sentence of sentences) {
+    const sentenceStart = text.indexOf(sentence);
+    const sentenceEnd = sentenceStart + sentence.length - 1;
+    if (index >= sentenceStart && index <= sentenceEnd) {
+      return sentence;
+    }
+  }
+  return null;
+};
+
+export const extractIndexOfSentence = (text, index) => {
+  const sentences = text.replace(/([.?!])\s*(?=[A-Z])/g, '$1|').split('|');
+  for (const sentence of sentences) {
+    const sentenceStart = text.indexOf(sentence);
+    const sentenceEnd = sentenceStart + sentence.length - 1;
+    if (index >= sentenceStart && index <= sentenceEnd) {
+      return index - sentenceStart;
+    }
+  }
+  return null;
+};
