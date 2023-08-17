@@ -4,7 +4,7 @@ import {
   extractIndexOfSentence,
   extractSentenceAtIndex,
 } from '../utils/stringUtils';
-import { BLACK, SSPM_NAME, WBPM_NAME } from '../constants';
+import { SSPM_NAME, WBPM_NAME } from '../constants';
 
 function TermSuggestionsComponent({ selectedFileData, selectedTermData }) {
   console.log(selectedFileData);
@@ -25,10 +25,7 @@ function TermSuggestionsComponent({ selectedFileData, selectedTermData }) {
     <Box
       sx={{
         display: 'flex',
-        justifyContent: 'center',
-        backgroundColor: BLACK,
-        width: 1,
-        height: 1,
+        flexDirection: 'column',
       }}
     >
       {wbpmUsages.map((index) => {

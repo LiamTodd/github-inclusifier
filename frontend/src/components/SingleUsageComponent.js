@@ -7,7 +7,14 @@ import {
   CircularProgress,
   Box,
 } from '@mui/material';
-import { DARK_GREY, ERROR, LIGHT_PURPLE, WBPM_NAME, WHITE } from '../constants';
+import {
+  BLACK,
+  ERROR,
+  LIGHT_PURPLE,
+  SSPM_NAME,
+  WBPM_NAME,
+  WHITE,
+} from '../constants';
 import { useState } from 'react';
 
 function SingleUsageComponent({
@@ -29,8 +36,15 @@ function SingleUsageComponent({
     }, 5000);
   };
   return (
-    <Card sx={{ width: 0.4, backgroundColor: DARK_GREY, color: WHITE }}>
+    <Card
+      sx={{
+        backgroundColor: BLACK,
+        color: WHITE,
+        margin: '3vh',
+      }}
+    >
       <CardContent>
+        <Typography variant='subtitle1'>Original Text</Typography>
         <Typography variant='body' fontStyle='italic' component='div'>
           "{sentence.slice(0, sentencePosition)}
           <span style={{ color: ERROR }}>
@@ -39,11 +53,16 @@ function SingleUsageComponent({
           {sentence.slice(sentencePosition + term.length)}"
         </Typography>
         <br />
-        <Typography>
-          {fileName}, position {filePosition}
+        <Typography variant='caption'>
+          {fileName}, character position {filePosition}
           <br />
           Algorithm: {algorithm}
+          {algorithm === SSPM_NAME
+            ? ' (suggested changes not available)'
+            : null}
         </Typography>
+        <br />
+        <br />
         {loading ? (
           <Box
             sx={{
@@ -54,7 +73,7 @@ function SingleUsageComponent({
           </Box>
         ) : suggestedReplacement ? (
           <>
-            <br />
+            <Typography variant='subtitle1'>Suggested Changes</Typography>
             <Typography variant='body' fontStyle='italic'>
               "{suggestedReplacement}"
             </Typography>
