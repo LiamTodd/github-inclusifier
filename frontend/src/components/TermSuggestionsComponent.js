@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import SingleUsageComponent from './SingleUsageComponent';
 import {
-  extractIndexOfSentence,
+  extractIndexWithinSentence,
   extractSentenceAtIndex,
 } from '../utils/stringUtils';
 import { SSPM_NAME, WBPM_NAME } from '../constants';
@@ -34,7 +34,7 @@ function TermSuggestionsComponent({ selectedFileData, selectedTermData }) {
             algorithm={WBPM_NAME}
             fileName={selectedFileData.file_name}
             filePosition={index}
-            sentencePosition={extractIndexOfSentence(
+            sentencePosition={extractIndexWithinSentence(
               selectedFileData.content,
               index
             )}
@@ -51,7 +51,7 @@ function TermSuggestionsComponent({ selectedFileData, selectedTermData }) {
             fileName={selectedFileData.file_name}
             filePosition={index}
             term={selectedTermData.term}
-            sentencePosition={extractIndexOfSentence(
+            sentencePosition={extractIndexWithinSentence(
               selectedFileData.content,
               index
             )}

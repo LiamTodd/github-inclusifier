@@ -62,6 +62,8 @@ export const DETAIL_TABLE_COLUMNS = [
   },
 ];
 
+export const MAX_PROCESSABLE_SENTENCE_LENGTH = 512;
+
 export const NON_INCLUSIVE_LANGUAGE_TERMS = {
   'ABLEIST LANGUAGE': [
     'crazy',
