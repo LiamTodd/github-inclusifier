@@ -10,6 +10,8 @@ from backend.constants import (
     REPO_NAME_PARAM,
     ACCESS_TOKEN_PARAM,
     GENERATE_GITHUB_ISSUE_PARAM,
+    LLM_ENGINE_PARAM,
+    ORIGINAL_TEXT_PARAM,
 )
 from backend.utils.reconstruct_file_structure_utils import reconstruct_file_structure
 from backend.utils.language_analysis_utils import (
@@ -79,5 +81,17 @@ def get_inclusive_language_report(request):
             "repo": f"{repo_owner}/{repo_name}",
             "data": result,
             "default_branch": default_branch,
+        }
+    )
+
+
+@api_view(["POST"])
+def get_suggestion(request):
+    llm_engine = request.query_params.get(LLM_ENGINE_PARAM, None)
+    original_text = request.query_params.get(ORIGINAL_TEXT_PARAM, None)
+    return Response(
+        {
+            "message": f"Successfully generated suggestion using {llm_engine} engine.",
+            "data": f"({llm_engine} placeholder suggestion) {original_text}",
         }
     )

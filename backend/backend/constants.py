@@ -12,6 +12,8 @@ REPO_OWNER_PARAM = "repo-owner"
 REPO_NAME_PARAM = "repo-name"
 ACCESS_TOKEN_PARAM = "access-token"
 GENERATE_GITHUB_ISSUE_PARAM = "generate-github-issue"
+LLM_ENGINE_PARAM = "llm-engine"
+ORIGINAL_TEXT_PARAM = "original-text"
 
 SSPM = "Sub-string pattern matching"
 WBPM = "Word-boundary pattern matching"

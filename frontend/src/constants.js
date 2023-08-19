@@ -2,7 +2,7 @@ import { TextField } from '@mui/material';
 
 export const LOCAL_HOST_BACKEND_API_BASE_URL = 'http://localhost:8000/';
 export const LOCAL_HOST_INCLUSIVE_LANGUAGE_REPORT_URL = `${LOCAL_HOST_BACKEND_API_BASE_URL}get_inclusive_language_report/`;
-
+export const LOCAL_HOST_SUGGESTION_URL = `${LOCAL_HOST_BACKEND_API_BASE_URL}get_suggestion/`;
 export const APP_NAME = 'Inclusiviser v1';
 
 export const DARKEST_PURPLE = '#1F1B24';

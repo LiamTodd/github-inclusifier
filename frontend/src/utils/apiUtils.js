@@ -1,4 +1,7 @@
-import { LOCAL_HOST_INCLUSIVE_LANGUAGE_REPORT_URL } from '../constants';
+import {
+  LOCAL_HOST_INCLUSIVE_LANGUAGE_REPORT_URL,
+  LOCAL_HOST_SUGGESTION_URL,
+} from '../constants';
 
 export const fetchData = (
   userName,
@@ -36,8 +39,32 @@ export const fetchData = (
       handleSetLoading(false);
       handleSetDefaultBranch(data.default_branch);
     });
+};
 
-  // devving without backend
-  // handleSetRepoName(TEST_DATA.repo);
-  // handleSetRawFileData(TEST_DATA.data);
+export const fetchSuggestion = (
+  llmEngine,
+  originalText,
+  handleSetLoading,
+  handleSetErrorMessage,
+  handleSetSuggestion
+) => {
+  const url = new URL(LOCAL_HOST_SUGGESTION_URL);
+  const params = {
+    'llm-engine': llmEngine,
+    'original-text': originalText,
+  };
+  Object.keys(params).forEach((key) =>
+    url.searchParams.append(key, params[key])
+  );
+  fetch(url, { method: 'POST' })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.error) {
+        handleSetLoading(false);
+        handleSetErrorMessage(data.error);
+        return;
+      }
+      handleSetSuggestion(data.data);
+      handleSetLoading(false);
+    });
 };

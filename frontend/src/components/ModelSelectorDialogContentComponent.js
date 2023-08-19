@@ -17,11 +17,13 @@ import {
   MODEL_CHOICES,
   WHITE,
 } from '../constants';
+import { fetchSuggestion } from '../utils/apiUtils';
 
 function ModelSelectorDialogContentComponent({
   handleSetShowModelSelector,
   handleSetLoading,
   handleSetSuggestedReplacement,
+  originalText,
 }) {
   const [selectedModel, setSelectedModel] = useState('');
   const [formReady, setFormReady] = useState(false);
@@ -38,10 +40,14 @@ function ModelSelectorDialogContentComponent({
   const handleConfirm = () => {
     handleSetShowModelSelector(false);
     handleSetLoading(true);
-    setTimeout(() => {
-      handleSetSuggestedReplacement(`placeholder: ${selectedModel}`);
-      handleSetLoading(false);
-    }, 5000);
+    const handleSetErrorMessage = () => {}; // todo: implement
+    fetchSuggestion(
+      selectedModel,
+      originalText,
+      handleSetLoading,
+      handleSetErrorMessage,
+      handleSetSuggestedReplacement
+    );
   };
 
   return (

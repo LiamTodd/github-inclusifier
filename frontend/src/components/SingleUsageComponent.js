@@ -106,6 +106,7 @@ function SingleUsageComponent({
             }}
           >
             <ModelSelectorDialogContentComponent
+              originalText={sentence}
               handleSetShowModelSelector={wrapperSetShowModelSelector}
               handleSetLoading={wrapperSetLoading}
               handleSetSuggestedReplacement={wrapperSetSuggestedReplacement}
