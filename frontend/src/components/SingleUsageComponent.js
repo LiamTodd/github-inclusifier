@@ -6,6 +6,7 @@ import {
   Button,
   CircularProgress,
   Box,
+  Dialog,
 } from '@mui/material';
 import {
   BLACK,
@@ -15,7 +16,8 @@ import {
   WBPM_NAME,
   WHITE,
 } from '../constants';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
+import ModelSelectorDialogContentComponent from './ModelSelectorDialogContentComponent';
 
 function SingleUsageComponent({
   sentence,
@@ -27,14 +29,16 @@ function SingleUsageComponent({
 }) {
   const [suggestedReplacement, setSuggestedReplacement] = useState();
   const [loading, setLoading] = useState(false);
-
-  const handleSuggestChanges = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setSuggestedReplacement(`placeholder: ${sentence}`);
-      setLoading(false);
-    }, 5000);
-  };
+  const [showModelSelector, setShowModelSelector] = useState(false);
+  const wrapperSetSuggestedReplacement = useCallback(
+    (val) => setSuggestedReplacement(val),
+    [setSuggestedReplacement]
+  );
+  const wrapperSetLoading = useCallback((val) => setLoading(val), [setLoading]);
+  const wrapperSetShowModelSelector = useCallback(
+    (val) => setShowModelSelector(val),
+    [setShowModelSelector]
+  );
   return (
     <Card
       sx={{
@@ -82,9 +86,31 @@ function SingleUsageComponent({
       </CardContent>
       {algorithm === WBPM_NAME && (
         <CardActions>
-          <Button onClick={handleSuggestChanges} sx={{ color: LIGHT_PURPLE }}>
+          <Button
+            onClick={() => {
+              setShowModelSelector(true);
+            }}
+            sx={{ color: LIGHT_PURPLE }}
+          >
             Suggest Changes
           </Button>
+          <Dialog
+            open={showModelSelector}
+            onClose={() => {
+              setShowModelSelector(false);
+            }}
+            sx={{
+              '& .MuiDialog-paper': {
+                borderRadius: 0,
+              },
+            }}
+          >
+            <ModelSelectorDialogContentComponent
+              handleSetShowModelSelector={wrapperSetShowModelSelector}
+              handleSetLoading={wrapperSetLoading}
+              handleSetSuggestedReplacement={wrapperSetSuggestedReplacement}
+            />
+          </Dialog>
         </CardActions>
       )}
     </Card>

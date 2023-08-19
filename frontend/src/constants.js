@@ -1,3 +1,5 @@
+import { TextField } from '@mui/material';
+
 export const LOCAL_HOST_BACKEND_API_BASE_URL = 'http://localhost:8000/';
 export const LOCAL_HOST_INCLUSIVE_LANGUAGE_REPORT_URL = `${LOCAL_HOST_BACKEND_API_BASE_URL}get_inclusive_language_report/`;
 
@@ -17,6 +19,33 @@ export const RAW_FILE_DATA_KEY = 'raw-file-date';
 export const SELECTED_FILE_DATA_KEY = 'selected-file';
 export const DEFAULT_BRANCH_KEY = 'default-branch';
 export const SELECTED_TERM_KEY = 'selected-term';
+
+export const MODEL_CHOICES = {
+  'GPT-4': {
+    customInput: (
+      <TextField
+        autoFocus
+        label='API Key'
+        type='password'
+        fullWidth
+        sx={{ input: { color: WHITE } }}
+        InputLabelProps={{
+          style: {
+            color: WHITE,
+          },
+        }}
+        InputProps={{
+          sx: {
+            '&:focus-within fieldset, &:focus-visible fieldset': {
+              borderColor: `${LIGHT_PURPLE}!important`,
+            },
+          },
+        }}
+      />
+    ),
+  },
+  'llama-7b': {},
+};
 
 export const DETAIL_TABLE_COLUMNS = [
   { field: 'term', headerName: 'Non-inclusive Term' },

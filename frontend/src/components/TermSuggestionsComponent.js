@@ -7,7 +7,6 @@ import {
 import { SSPM_NAME, WBPM_NAME } from '../constants';
 
 function TermSuggestionsComponent({ selectedFileData, selectedTermData }) {
-  console.log(selectedFileData);
   const wbpmUsages =
     selectedFileData.wbpm_matches[selectedTermData.category][
       selectedTermData.term
