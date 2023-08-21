@@ -23,7 +23,10 @@ function ModelSelectorDialogContentComponent({
   handleSetShowModelSelector,
   handleSetLoading,
   handleSetSuggestedReplacement,
+  handleSetErrorMessage,
+  handleSetModelName,
   originalText,
+  term,
 }) {
   const [selectedModel, setSelectedModel] = useState('');
   const [formReady, setFormReady] = useState(false);
@@ -40,13 +43,14 @@ function ModelSelectorDialogContentComponent({
   const handleConfirm = () => {
     handleSetShowModelSelector(false);
     handleSetLoading(true);
-    const handleSetErrorMessage = () => {}; // todo: implement
     fetchSuggestion(
       selectedModel,
       originalText,
+      term,
       handleSetLoading,
       handleSetErrorMessage,
-      handleSetSuggestedReplacement
+      handleSetSuggestedReplacement,
+      handleSetModelName
     );
   };
 

@@ -4,6 +4,7 @@ from github import GithubException
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
+from backend.utils.llm_utils import LLM_ENGINE_FUNCTIONS
 from backend.utils.misc_utils import parse_boolean_string
 from backend.constants import (
     REPO_OWNER_PARAM,
@@ -12,6 +13,7 @@ from backend.constants import (
     GENERATE_GITHUB_ISSUE_PARAM,
     LLM_ENGINE_PARAM,
     ORIGINAL_TEXT_PARAM,
+    TERM_PARAM,
 )
 from backend.utils.reconstruct_file_structure_utils import reconstruct_file_structure
 from backend.utils.language_analysis_utils import (
@@ -89,9 +91,17 @@ def get_inclusive_language_report(request):
 def get_suggestion(request):
     llm_engine = request.query_params.get(LLM_ENGINE_PARAM, None)
     original_text = request.query_params.get(ORIGINAL_TEXT_PARAM, None)
+    term = request.query_params.get(TERM_PARAM, None)
+
+    llm_engine_function = LLM_ENGINE_FUNCTIONS.get(llm_engine, None)
+    if llm_engine_function is None:
+        error_response = {"error": "LLM is currently unavailable."}
+        return Response(error_response, status.HTTP_400_BAD_REQUEST)
+    result = llm_engine_function(original_text, term)
+
     return Response(
         {
             "message": f"Successfully generated suggestion using {llm_engine} engine.",
-            "data": f"({llm_engine} placeholder suggestion) {original_text}",
+            "data": result,
         }
     )

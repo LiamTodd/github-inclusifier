@@ -30,6 +30,8 @@ function SingleUsageComponent({
   const [suggestedReplacement, setSuggestedReplacement] = useState();
   const [loading, setLoading] = useState(false);
   const [showModelSelector, setShowModelSelector] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [modelName, setModelName] = useState('');
   const wrapperSetSuggestedReplacement = useCallback(
     (val) => setSuggestedReplacement(val),
     [setSuggestedReplacement]
@@ -38,6 +40,14 @@ function SingleUsageComponent({
   const wrapperSetShowModelSelector = useCallback(
     (val) => setShowModelSelector(val),
     [setShowModelSelector]
+  );
+  const wrapperSetErrorMessage = useCallback(
+    (val) => setErrorMessage(val),
+    [setErrorMessage]
+  );
+  const wrapperSetModelName = useCallback(
+    (val) => setModelName(val),
+    [setModelName]
   );
   return (
     <Card
@@ -81,7 +91,16 @@ function SingleUsageComponent({
             <Typography variant='body' fontStyle='italic'>
               "{suggestedReplacement}"
             </Typography>
+            <br />
+            <br />
+            <Typography variant='caption'>
+              Suggestion generated using {modelName}
+            </Typography>
           </>
+        ) : errorMessage ? (
+          <Typography color={ERROR} variant='body'>
+            {errorMessage}
+          </Typography>
         ) : null}
       </CardContent>
       {algorithm === WBPM_NAME && (
@@ -107,9 +126,12 @@ function SingleUsageComponent({
           >
             <ModelSelectorDialogContentComponent
               originalText={sentence}
+              term={term}
               handleSetShowModelSelector={wrapperSetShowModelSelector}
               handleSetLoading={wrapperSetLoading}
               handleSetSuggestedReplacement={wrapperSetSuggestedReplacement}
+              handleSetErrorMessage={wrapperSetErrorMessage}
+              handleSetModelName={wrapperSetModelName}
             />
           </Dialog>
         </CardActions>

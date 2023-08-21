@@ -45,6 +45,7 @@ export const MODEL_CHOICES = {
     ),
   },
   'llama-7b': {},
+  'GPT-3.5': {},
 };
 
 export const DETAIL_TABLE_COLUMNS = [

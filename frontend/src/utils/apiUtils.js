@@ -14,7 +14,7 @@ export const fetchData = (
   handleSetLoading,
   handleSetDefaultBranch
 ) => {
-  handleSetErrorMessage(null);
+  handleSetErrorMessage('');
   handleSetLoading(true);
   const url = new URL(LOCAL_HOST_INCLUSIVE_LANGUAGE_REPORT_URL);
   const params = {
@@ -44,14 +44,19 @@ export const fetchData = (
 export const fetchSuggestion = (
   llmEngine,
   originalText,
+  term,
   handleSetLoading,
   handleSetErrorMessage,
-  handleSetSuggestion
+  handleSetSuggestion,
+  handleSetModelName
 ) => {
+  handleSetErrorMessage('');
+  handleSetLoading(true);
   const url = new URL(LOCAL_HOST_SUGGESTION_URL);
   const params = {
     'llm-engine': llmEngine,
     'original-text': originalText,
+    term: term,
   };
   Object.keys(params).forEach((key) =>
     url.searchParams.append(key, params[key])
@@ -61,10 +66,12 @@ export const fetchSuggestion = (
     .then((data) => {
       if (data.error) {
         handleSetLoading(false);
-        handleSetErrorMessage(data.error);
+        handleSetSuggestion('');
+        handleSetErrorMessage(`${llmEngine} ${data.error}`);
         return;
       }
       handleSetSuggestion(data.data);
+      handleSetModelName(llmEngine);
       handleSetLoading(false);
     });
 };
