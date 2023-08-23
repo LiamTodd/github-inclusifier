@@ -18,6 +18,8 @@ GENERATE_GITHUB_ISSUE_PARAM = "generate-github-issue"
 LLM_ENGINE_PARAM = "llm-engine"
 ORIGINAL_TEXT_PARAM = "original-text"
 TERM_PARAM = "term"
+LANGUAGE_PARAM = "language"
+CODE_STRING_PARAM = "code-string"
 
 SSPM = "Sub-string pattern matching"
 WBPM = "Word-boundary pattern matching"

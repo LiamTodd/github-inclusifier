@@ -21,3 +21,5 @@ tzdata==2023.3
 urllib3==2.0.4
 wrapt==1.15.0
 pypdf==3.14.0
+slimit==0.8.1
+javalang==0.13.0

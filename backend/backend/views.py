@@ -14,6 +14,8 @@ from backend.constants import (
     LLM_ENGINE_PARAM,
     ORIGINAL_TEXT_PARAM,
     TERM_PARAM,
+    LANGUAGE_PARAM,
+    CODE_STRING_PARAM,
 )
 from backend.utils.reconstruct_file_structure_utils import reconstruct_file_structure
 from backend.utils.language_analysis_utils import (
@@ -21,6 +23,7 @@ from backend.utils.language_analysis_utils import (
     word_boundary_pattern_match,
 )
 from backend.utils.text_extraction_utils import get_repo_file_data
+from backend.utils.syntax_tree_utils import LANGUAGE_PROCESSORS
 from backend.constants import TEMP_REPO_STORAGE_LOCATION
 
 from backend.utils.github_api_utils import (
@@ -92,6 +95,7 @@ def get_suggestion(request):
     llm_engine = request.query_params.get(LLM_ENGINE_PARAM, None)
     original_text = request.query_params.get(ORIGINAL_TEXT_PARAM, None)
     term = request.query_params.get(TERM_PARAM, None)
+    # todo: error handling
 
     llm_engine_function = LLM_ENGINE_FUNCTIONS.get(llm_engine, None)
     if llm_engine_function is None:
@@ -104,4 +108,20 @@ def get_suggestion(request):
             "message": f"Successfully generated suggestion using {llm_engine} engine.",
             "data": result,
         }
+    )
+
+
+@api_view(["POST"])
+def get_code_analysis(request):
+    language = request.query_params.get(LANGUAGE_PARAM, None)
+    code_string = request.query_params.get(CODE_STRING_PARAM, None)
+
+    language_processor = LANGUAGE_PROCESSORS.get(language, None)
+    if language_processor is None:
+        error_response = {"error": "Language not currently supported."}
+        return Response(error_response, status=status.HTTP_400_BAD_REQUEST)
+    result = language_processor(code_string)
+
+    return Response(
+        {"message": "Successfully performed code analysis.", "data": result}
     )
