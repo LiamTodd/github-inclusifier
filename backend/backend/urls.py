@@ -21,5 +21,6 @@ from . import views
 urlpatterns = [
     path("get_inclusive_language_report/", views.get_inclusive_language_report),
     path("get_suggestion/", views.get_suggestion),
+    path("get_code_analysis/", views.get_code_analysis),
     path("admin/", admin.site.urls),
 ]

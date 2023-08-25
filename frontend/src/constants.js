@@ -3,6 +3,8 @@ import { TextField } from '@mui/material';
 export const LOCAL_HOST_BACKEND_API_BASE_URL = 'http://localhost:8000/';
 export const LOCAL_HOST_INCLUSIVE_LANGUAGE_REPORT_URL = `${LOCAL_HOST_BACKEND_API_BASE_URL}get_inclusive_language_report/`;
 export const LOCAL_HOST_SUGGESTION_URL = `${LOCAL_HOST_BACKEND_API_BASE_URL}get_suggestion/`;
+export const LOCAL_HOST_CODE_ANALYSIS_URL = `${LOCAL_HOST_BACKEND_API_BASE_URL}get_code_analysis/`;
+
 export const APP_NAME = 'Inclusiviser v1';
 
 export const DARKEST_PURPLE = '#1F1B24';
@@ -20,6 +22,8 @@ export const SELECTED_FILE_DATA_KEY = 'selected-file';
 export const DEFAULT_BRANCH_KEY = 'default-branch';
 export const SELECTED_TERM_KEY = 'selected-term';
 export const LANGUAGE_MODE_KEY = 'language-mode';
+
+export const SUPPORTED_CODE_FILE_EXTENSIONS = { java: '.java', python: '.py' };
 
 export const MODEL_CHOICES = {
   'GPT-4': {
@@ -210,6 +214,12 @@ export const NON_INCLUSIVE_LANGUAGE_TERMS = {
     'orphaned object',
   ],
 };
+
+export const FLAT_NON_INCLUSIVE_TERMS = [];
+Object.values(NON_INCLUSIVE_LANGUAGE_TERMS).forEach((termsList) => {
+  FLAT_NON_INCLUSIVE_TERMS.push(...termsList);
+});
+
 let csvHeaders = 'file name,file path,';
 for (const category in NON_INCLUSIVE_LANGUAGE_TERMS) {
   for (const term of NON_INCLUSIVE_LANGUAGE_TERMS[category]) {

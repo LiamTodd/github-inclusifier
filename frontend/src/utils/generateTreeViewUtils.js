@@ -3,7 +3,11 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import TreeItem from '@mui/lab/TreeItem';
 import { Chip } from '@mui/material';
-import { BLACK, LIGHT_PURPLE } from '../constants';
+import {
+  BLACK,
+  LIGHT_PURPLE,
+  SUPPORTED_CODE_FILE_EXTENSIONS,
+} from '../constants';
 import { createElement } from 'react';
 import { generateMatchCountDisplay } from './stringUtils';
 
@@ -41,7 +45,6 @@ const getLanguageAnalysisButton = (
   handleSetSelectedFile,
   handleSetLanguageMode
 ) => {
-  const SUPPORTED_CODE_FILE_EXTENSIONS = { java: '.java', python: '.py' };
   for (const [language, extension] of Object.entries(
     SUPPORTED_CODE_FILE_EXTENSIONS
   )) {

@@ -115,7 +115,7 @@ def get_suggestion(request):
 def get_code_analysis(request):
     language = request.query_params.get(LANGUAGE_PARAM, None)
     code_string = request.query_params.get(CODE_STRING_PARAM, None)
-
+    print("LANGUAGE: ", language)
     language_processor = LANGUAGE_PROCESSORS.get(language, None)
     if language_processor is None:
         error_response = {"error": "Language not currently supported."}
