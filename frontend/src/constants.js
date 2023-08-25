@@ -19,6 +19,7 @@ export const RAW_FILE_DATA_KEY = 'raw-file-date';
 export const SELECTED_FILE_DATA_KEY = 'selected-file';
 export const DEFAULT_BRANCH_KEY = 'default-branch';
 export const SELECTED_TERM_KEY = 'selected-term';
+export const LANGUAGE_MODE_KEY = 'language-mode';
 
 export const MODEL_CHOICES = {
   'GPT-4': {

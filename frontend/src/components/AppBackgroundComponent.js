@@ -14,6 +14,7 @@ import {
   WBPM_DATASET_KEY,
   WBPM_NAME,
   WHITE,
+  LANGUAGE_MODE_KEY,
 } from '../constants';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -30,6 +31,7 @@ import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { IconButton, Link } from '@mui/material';
 import { exportCSV } from '../utils/csvUtils';
 import TermSuggestionsComponent from './TermSuggestionsComponent';
+import CodeAnalysisComponent from './CodeAnalysisComponent';
 
 function AppBackgroundComponent() {
   const [repoName, setRepoName] = useState(
@@ -47,6 +49,9 @@ function AppBackgroundComponent() {
   const [backButtonActive, setBackButtonActive] = useState(false);
   const [defaultBranch, setDefaultBranch] = useState(
     JSON.parse(localStorage.getItem(DEFAULT_BRANCH_KEY))
+  );
+  const [languageMode, setLanguageMode] = useState(
+    JSON.parse(localStorage.getItem(LANGUAGE_MODE_KEY))
   );
 
   useEffect(() => {
@@ -71,16 +76,25 @@ function AppBackgroundComponent() {
       DEFAULT_BRANCH_KEY,
       JSON.stringify(defaultBranch)
     );
+    window.localStorage.setItem(
+      LANGUAGE_MODE_KEY,
+      JSON.stringify(languageMode)
+    );
   }, [
     repoName,
     rawFileData,
     selectedFileData,
     selectedTermData,
     defaultBranch,
+    languageMode,
   ]);
 
   const handleBackClick = () => {
-    if (selectedTermData) {
+    // on language analysis page
+    if (languageMode && selectedFileData) {
+      setSelectedFileData(null);
+      setLanguageMode(null);
+    } else if (selectedTermData) {
       // on suggestions page
       setSelectedTermData(null);
     } else if (selectedFileData) {
@@ -118,6 +132,10 @@ function AppBackgroundComponent() {
   const wrapperSetSelectedTermData = useCallback(
     (val) => setSelectedTermData(val),
     [setSelectedTermData]
+  );
+  const wrapperSetLanguageMode = useCallback(
+    (val) => setLanguageMode(val),
+    [setLanguageMode]
   );
   return (
     <Box sx={{ backgroundColor: BLACK }}>
@@ -189,7 +207,12 @@ function AppBackgroundComponent() {
               paddingRight: '2%',
             }}
           >
-            {selectedFileData && selectedTermData ? (
+            {selectedFileData && languageMode ? (
+              <CodeAnalysisComponent
+                languageMode={languageMode}
+                selectedFileData={selectedFileData}
+              />
+            ) : selectedFileData && selectedTermData ? (
               <TermSuggestionsComponent
                 selectedFileData={selectedFileData}
                 selectedTermData={selectedTermData}
@@ -203,6 +226,7 @@ function AppBackgroundComponent() {
               <RepoSummaryComponent
                 rawFileData={rawFileData}
                 handleSetSelectedFile={wrapperSetSelectedFile}
+                handleSetLanguageMode={wrapperSetLanguageMode}
               />
             ) : (
               <LinkToRepoComponent

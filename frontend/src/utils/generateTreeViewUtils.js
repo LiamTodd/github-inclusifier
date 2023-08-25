@@ -7,8 +7,16 @@ import { BLACK, LIGHT_PURPLE } from '../constants';
 import { createElement } from 'react';
 import { generateMatchCountDisplay } from './stringUtils';
 
-export const generateTreeView = (fileData, handleSetSelectedFile) => {
-  const tree = generateTreeViewAux(fileData[0], handleSetSelectedFile);
+export const generateTreeView = (
+  fileData,
+  handleSetSelectedFile,
+  handleSetLanguageMode
+) => {
+  const tree = generateTreeViewAux(
+    fileData[0],
+    handleSetSelectedFile,
+    handleSetLanguageMode
+  );
 
   return (
     <TreeView
@@ -28,11 +36,47 @@ export const generateTreeView = (fileData, handleSetSelectedFile) => {
   );
 };
 
-const generateTreeViewAux = (parent, handleSetSelectedFile) => {
+const getLanguageAnalysisButton = (
+  fileNode,
+  handleSetSelectedFile,
+  handleSetLanguageMode
+) => {
+  const SUPPORTED_CODE_FILE_EXTENSIONS = { java: '.java', python: '.py' };
+  for (const [language, extension] of Object.entries(
+    SUPPORTED_CODE_FILE_EXTENSIONS
+  )) {
+    if (fileNode.file_name.endsWith(extension)) {
+      return (
+        <Chip
+          label={`${language} code analysis`}
+          onClick={() => {
+            handleSetSelectedFile(fileNode);
+            handleSetLanguageMode(language);
+          }}
+          variant='outlined'
+          sx={{
+            borderColor: LIGHT_PURPLE,
+            color: LIGHT_PURPLE,
+            '&&:hover': { color: BLACK, backgroundColor: LIGHT_PURPLE },
+          }}
+        />
+      );
+    }
+  }
+  return null;
+};
+
+const generateTreeViewAux = (
+  parent,
+  handleSetSelectedFile,
+  handleSetLanguageMode
+) => {
   const children = [];
   if (parent.children) {
     for (const child of parent.children) {
-      children.push(generateTreeViewAux(child, handleSetSelectedFile));
+      children.push(
+        generateTreeViewAux(child, handleSetSelectedFile, handleSetLanguageMode)
+      );
     }
   }
 
@@ -61,6 +105,11 @@ const generateTreeViewAux = (parent, handleSetSelectedFile) => {
               }}
             />
           ) : null}
+          {getLanguageAnalysisButton(
+            parent,
+            handleSetSelectedFile,
+            handleSetLanguageMode
+          )}
         </div>
       ),
     },
