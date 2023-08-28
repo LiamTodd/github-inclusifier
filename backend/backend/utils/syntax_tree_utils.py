@@ -1,5 +1,6 @@
-import ast
+import ast_comments as ast
 import javalang
+from comment_parser import comment_parser
 
 
 # from slimit.parser import Parser
@@ -33,8 +34,8 @@ import javalang
 #     return generic_return(functions, variables)
 
 
-def generic_return(functions, variables):
-    return {"functions": functions, "variables": variables}
+def generic_return(functions, variables, comments):
+    return {"functions": functions, "variables": variables, "comments": comments}
 
 
 def python_processor(code):
@@ -42,19 +43,28 @@ def python_processor(code):
 
     functions = []
     variables = []
+    comments = []
 
     for node in ast.walk(tree):
         if isinstance(node, ast.FunctionDef) and node.name not in functions:
             functions.append(node.name)
         elif isinstance(node, ast.Name) and node.id not in variables:
             variables.append(node.id)
+        elif isinstance(node, ast.Comment):
+            comments.append(node.value)
 
-    return generic_return(functions, variables)
+    return generic_return(functions, variables, comments)
 
 
 def java_processor(code):
     functions = []
     variables = []
+    comments = [
+        comment.text()
+        for comment in comment_parser.extract_comments_from_str(
+            code, mime="text/x-java-source"
+        )
+    ]
 
     tree = javalang.parse.parse(code)
 
@@ -70,7 +80,7 @@ def java_processor(code):
         ):
             variables.append(node.name)
 
-    return generic_return(functions, variables)
+    return generic_return(functions, variables, comments)
 
 
 LANGUAGE_PROCESSORS = {

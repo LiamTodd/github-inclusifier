@@ -1,7 +1,4 @@
-import {
-  MAX_PROCESSABLE_SENTENCE_LENGTH,
-  NON_INCLUSIVE_LANGUAGE_TERMS,
-} from '../constants';
+import { MAX_PROCESSABLE_SENTENCE_LENGTH } from '../constants';
 
 export const generateHeaderFromDoubleRootPath = (repoName, doubleRootPath) => {
   const doubleRootPathComponents = doubleRootPath.split('/');

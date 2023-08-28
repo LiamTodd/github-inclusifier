@@ -69,7 +69,7 @@ function CodeAnalysisComponent({ languageMode, selectedFileData }) {
         <>
           <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
-              <Grid item xs={6}>
+              <Grid item xs={4}>
                 <Stack spacing={2}>
                   <Typography variant='h5'>Functions</Typography>
                   {codeAnalysis.functions.map((func) => {
@@ -78,14 +78,21 @@ function CodeAnalysisComponent({ languageMode, selectedFileData }) {
                       color = ERROR;
                     }
                     return (
-                      <ListItem key={`func-${func}`} color={color}>
+                      <ListItem
+                        key={`func-${func}`}
+                        sx={{
+                          color: { color },
+                          textOverflow: 'ellipsis',
+                          overflow: 'hidden',
+                        }}
+                      >
                         {func}
                       </ListItem>
                     );
                   })}
                 </Stack>
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={4}>
                 <Stack spacing={2}>
                   <Typography variant='h5'>Variables</Typography>
                   {codeAnalysis.variables.map((variable) => {
@@ -94,8 +101,31 @@ function CodeAnalysisComponent({ languageMode, selectedFileData }) {
                       color = ERROR;
                     }
                     return (
-                      <ListItem key={`variable-${variable}`} color={color}>
+                      <ListItem
+                        key={`variable-${variable}`}
+                        sx={{
+                          color: { color },
+                          textOverflow: 'ellipsis',
+                          overflow: 'hidden',
+                        }}
+                      >
                         {variable}
+                      </ListItem>
+                    );
+                  })}
+                </Stack>
+              </Grid>
+              <Grid item xs={4}>
+                <Stack spacing={2}>
+                  <Typography variant='h5'>Comments</Typography>
+                  {codeAnalysis.comments.map((comment) => {
+                    let color = WHITE;
+                    if (FLAT_NON_INCLUSIVE_TERMS.includes(comment)) {
+                      color = ERROR;
+                    }
+                    return (
+                      <ListItem key={`variable-${comment}`} color={color}>
+                        {comment}
                       </ListItem>
                     );
                   })}
