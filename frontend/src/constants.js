@@ -215,11 +215,6 @@ export const NON_INCLUSIVE_LANGUAGE_TERMS = {
   ],
 };
 
-export const FLAT_NON_INCLUSIVE_TERMS = [];
-Object.values(NON_INCLUSIVE_LANGUAGE_TERMS).forEach((termsList) => {
-  FLAT_NON_INCLUSIVE_TERMS.push(...termsList);
-});
-
 let csvHeaders = 'file name,file path,';
 for (const category in NON_INCLUSIVE_LANGUAGE_TERMS) {
   for (const term of NON_INCLUSIVE_LANGUAGE_TERMS[category]) {

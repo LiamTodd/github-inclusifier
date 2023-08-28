@@ -7,6 +7,18 @@ from backend.constants import (
 import re
 
 
+def single_term_classification(term):
+    non_inclusive = False
+    category = None
+    for non_inclusive_category, category_terms in NON_INCLUSIVE_LANGUAGE_TERMS.items():
+        for category_term in category_terms:
+            if term == category_term:
+                non_inclusive = True
+                category = non_inclusive_category
+                break
+    return {"term": term, "non_inclusive": non_inclusive, "category": category}
+
+
 def sub_string_pattern_match(file_data):
     for file in file_data.values():
         if (

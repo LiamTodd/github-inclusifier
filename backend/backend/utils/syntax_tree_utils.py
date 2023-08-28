@@ -1,6 +1,7 @@
 import ast_comments as ast
 import javalang
 from comment_parser import comment_parser
+from backend.utils.language_analysis_utils import single_term_classification
 
 
 # from slimit.parser import Parser
@@ -47,9 +48,9 @@ def python_processor(code):
 
     for node in ast.walk(tree):
         if isinstance(node, ast.FunctionDef) and node.name not in functions:
-            functions.append(node.name)
+            functions.append(single_term_classification(node.name))
         elif isinstance(node, ast.Name) and node.id not in variables:
-            variables.append(node.id)
+            variables.append(single_term_classification(node.id))
         elif isinstance(node, ast.Comment):
             comments.append(node.value)
 
@@ -73,12 +74,12 @@ def java_processor(code):
             isinstance(node, javalang.tree.MethodDeclaration)
             and node.name not in functions
         ):
-            functions.append(node.name)
+            functions.append(single_term_classification(node.name))
         elif (
             isinstance(node, javalang.tree.VariableDeclarator)
             and node.name not in variables
         ):
-            variables.append(node.name)
+            variables.append(single_term_classification(node.name))
 
     return generic_return(functions, variables, comments)
 

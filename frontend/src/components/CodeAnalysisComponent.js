@@ -1,15 +1,11 @@
 import { useState, useCallback, useEffect } from 'react';
 import { fetchCodeAnalysis } from '../utils/apiUtils';
-import { Box, CircularProgress, Grid, Stack, Typography } from '@mui/material';
-import {
-  BLACK,
-  ERROR,
-  FLAT_NON_INCLUSIVE_TERMS,
-  LIGHT_PURPLE,
-  WHITE,
-} from '../constants';
+import { Box, CircularProgress, Grid } from '@mui/material';
+import { BLACK, LIGHT_PURPLE } from '../constants';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
+import FuncVarCodeComponent from './FuncVarCodeComponent';
+import CommentCodeComponent from './CommentCodeComponent';
 
 function CodeAnalysisComponent({ languageMode, selectedFileData }) {
   const [loading, setLoading] = useState(false);
@@ -42,13 +38,6 @@ function CodeAnalysisComponent({ languageMode, selectedFileData }) {
     wrapperSetErrorMessage,
   ]);
 
-  const ListItem = styled(Paper)(({ color }) => ({
-    backgroundColor: BLACK,
-    padding: '2vh',
-    color: color,
-    fontFamily: 'Courier New',
-  }));
-
   return (
     <div>
       {loading ? (
@@ -69,68 +58,9 @@ function CodeAnalysisComponent({ languageMode, selectedFileData }) {
         <>
           <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
-              <Grid item xs={4}>
-                <Stack spacing={2}>
-                  <Typography variant='h5'>Functions</Typography>
-                  {codeAnalysis.functions.map((func) => {
-                    let color = WHITE;
-                    if (FLAT_NON_INCLUSIVE_TERMS.includes(func)) {
-                      color = ERROR;
-                    }
-                    return (
-                      <ListItem
-                        key={`func-${func}`}
-                        sx={{
-                          color: { color },
-                          textOverflow: 'ellipsis',
-                          overflow: 'hidden',
-                        }}
-                      >
-                        {func}
-                      </ListItem>
-                    );
-                  })}
-                </Stack>
-              </Grid>
-              <Grid item xs={4}>
-                <Stack spacing={2}>
-                  <Typography variant='h5'>Variables</Typography>
-                  {codeAnalysis.variables.map((variable) => {
-                    let color = WHITE;
-                    if (FLAT_NON_INCLUSIVE_TERMS.includes(variable)) {
-                      color = ERROR;
-                    }
-                    return (
-                      <ListItem
-                        key={`variable-${variable}`}
-                        sx={{
-                          color: { color },
-                          textOverflow: 'ellipsis',
-                          overflow: 'hidden',
-                        }}
-                      >
-                        {variable}
-                      </ListItem>
-                    );
-                  })}
-                </Stack>
-              </Grid>
-              <Grid item xs={4}>
-                <Stack spacing={2}>
-                  <Typography variant='h5'>Comments</Typography>
-                  {codeAnalysis.comments.map((comment) => {
-                    let color = WHITE;
-                    if (FLAT_NON_INCLUSIVE_TERMS.includes(comment)) {
-                      color = ERROR;
-                    }
-                    return (
-                      <ListItem key={`variable-${comment}`} color={color}>
-                        {comment}
-                      </ListItem>
-                    );
-                  })}
-                </Stack>
-              </Grid>
+              <FuncVarCodeComponent elements={codeAnalysis.functions} />
+              <FuncVarCodeComponent elements={codeAnalysis.variables} />
+              <CommentCodeComponent comments={codeAnalysis.comments} />
             </Grid>
           </Box>
         </>
