@@ -1,9 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { fetchCodeAnalysis } from '../utils/apiUtils';
 import { Box, CircularProgress, Grid } from '@mui/material';
-import { BLACK, LIGHT_PURPLE } from '../constants';
-import { styled } from '@mui/material/styles';
-import Paper from '@mui/material/Paper';
+import { LIGHT_PURPLE } from '../constants';
 import FuncVarCodeComponent from './FuncVarCodeComponent';
 import CommentCodeComponent from './CommentCodeComponent';
 
@@ -58,8 +56,14 @@ function CodeAnalysisComponent({ languageMode, selectedFileData }) {
         <>
           <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
-              <FuncVarCodeComponent elements={codeAnalysis.functions} />
-              <FuncVarCodeComponent elements={codeAnalysis.variables} />
+              <FuncVarCodeComponent
+                elements={codeAnalysis.functions}
+                elementType={'Functions'}
+              />
+              <FuncVarCodeComponent
+                elements={codeAnalysis.variables}
+                elementType={'Variables'}
+              />
               <CommentCodeComponent comments={codeAnalysis.comments} />
             </Grid>
           </Box>

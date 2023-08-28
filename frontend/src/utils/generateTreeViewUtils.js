@@ -7,6 +7,7 @@ import {
   BLACK,
   LIGHT_PURPLE,
   SUPPORTED_CODE_FILE_EXTENSIONS,
+  TURQOISE,
 } from '../constants';
 import { createElement } from 'react';
 import { generateMatchCountDisplay } from './stringUtils';
@@ -58,9 +59,9 @@ const getLanguageAnalysisButton = (
           }}
           variant='outlined'
           sx={{
-            borderColor: LIGHT_PURPLE,
-            color: LIGHT_PURPLE,
-            '&&:hover': { color: BLACK, backgroundColor: LIGHT_PURPLE },
+            borderColor: TURQOISE,
+            color: TURQOISE,
+            '&&:hover': { color: BLACK, backgroundColor: TURQOISE },
           }}
         />
       );
@@ -92,27 +93,37 @@ const generateTreeViewAux = (
       nodeId: parent.file_path,
       key: parent.file_path,
       label: (
-        <div style={{ paddingTop: '1vh' }}>
-          {parent.file_name}{' '}
+        <div
+          style={{
+            paddingTop: '1vh',
+            display: 'flex',
+            margin: '1vh',
+          }}
+        >
+          <div style={{ paddingRight: '1vw' }}>{parent.file_name}</div>
           {SSPMFlags > 0 ? (
-            <Chip
-              label={generateMatchCountDisplay(SSPMFlags, WBPMFlags)}
-              onClick={() => {
-                handleSetSelectedFile(parent);
-              }}
-              variant='outlined'
-              sx={{
-                borderColor: LIGHT_PURPLE,
-                color: LIGHT_PURPLE,
-                '&&:hover': { color: BLACK, backgroundColor: LIGHT_PURPLE },
-              }}
-            />
+            <div style={{ paddingRight: '1vw' }}>
+              <Chip
+                label={generateMatchCountDisplay(SSPMFlags, WBPMFlags)}
+                onClick={() => {
+                  handleSetSelectedFile(parent);
+                }}
+                variant='outlined'
+                sx={{
+                  borderColor: LIGHT_PURPLE,
+                  color: LIGHT_PURPLE,
+                  '&&:hover': { color: BLACK, backgroundColor: LIGHT_PURPLE },
+                }}
+              />
+            </div>
           ) : null}
-          {getLanguageAnalysisButton(
-            parent,
-            handleSetSelectedFile,
-            handleSetLanguageMode
-          )}
+          <div style={{ paddingRight: '1vw' }}>
+            {getLanguageAnalysisButton(
+              parent,
+              handleSetSelectedFile,
+              handleSetLanguageMode
+            )}
+          </div>
         </div>
       ),
     },

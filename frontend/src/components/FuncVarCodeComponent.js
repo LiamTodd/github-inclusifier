@@ -1,13 +1,23 @@
 import { Grid, Stack, Typography } from '@mui/material';
-import { ERROR, WHITE } from '../constants';
+import { DARK_GREY, ERROR, WHITE } from '../constants';
 import { CodeListItem } from './helpers/codeListItem';
 import { capitalizeFirstLetters } from '../utils/stringUtils';
 
-function FuncVarCodeComponent({ elements }) {
+function FuncVarCodeComponent({ elements, elementType }) {
   return (
     <Grid item xs={4}>
       <Stack spacing={2}>
-        <Typography variant='h5'>Variables</Typography>
+        <Typography
+          variant='h5'
+          sx={{
+            position: 'sticky',
+            top: 0,
+            backgroundColor: DARK_GREY,
+            padding: '1vh',
+          }}
+        >
+          {elementType}
+        </Typography>
         {elements.map((element) => {
           const color = element.non_inclusive ? ERROR : WHITE;
           return (

@@ -1,7 +1,10 @@
 import ast_comments as ast
 import javalang
 from comment_parser import comment_parser
-from backend.utils.language_analysis_utils import single_term_classification
+from backend.utils.language_analysis_utils import (
+    single_term_classification,
+    code_comment_wbpm,
+)
 
 
 # from slimit.parser import Parser
@@ -47,12 +50,16 @@ def python_processor(code):
     comments = []
 
     for node in ast.walk(tree):
-        if isinstance(node, ast.FunctionDef) and node.name not in functions:
+        if isinstance(node, ast.FunctionDef) and node.name not in [
+            function["term"] for function in functions
+        ]:
             functions.append(single_term_classification(node.name))
-        elif isinstance(node, ast.Name) and node.id not in variables:
+        elif isinstance(node, ast.Name) and node.id not in [
+            variable["term"] for variable in variables
+        ]:
             variables.append(single_term_classification(node.id))
         elif isinstance(node, ast.Comment):
-            comments.append(node.value)
+            comments.append(code_comment_wbpm(node.value))
 
     return generic_return(functions, variables, comments)
 
@@ -61,7 +68,7 @@ def java_processor(code):
     functions = []
     variables = []
     comments = [
-        comment.text()
+        code_comment_wbpm(comment.text())
         for comment in comment_parser.extract_comments_from_str(
             code, mime="text/x-java-source"
         )
@@ -70,15 +77,13 @@ def java_processor(code):
     tree = javalang.parse.parse(code)
 
     for _, node in tree:
-        if (
-            isinstance(node, javalang.tree.MethodDeclaration)
-            and node.name not in functions
-        ):
+        if isinstance(node, javalang.tree.MethodDeclaration) and node.name not in [
+            function["term"] for function in functions
+        ]:
             functions.append(single_term_classification(node.name))
-        elif (
-            isinstance(node, javalang.tree.VariableDeclarator)
-            and node.name not in variables
-        ):
+        elif isinstance(node, javalang.tree.VariableDeclarator) and node.name not in [
+            variable["term"] for variable in variables
+        ]:
             variables.append(single_term_classification(node.name))
 
     return generic_return(functions, variables, comments)

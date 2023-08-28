@@ -1,17 +1,28 @@
 import { Grid, Stack, Typography } from '@mui/material';
-import { WHITE } from '../constants';
+import { DARK_GREY, WHITE } from '../constants';
 import { CodeListItem } from './helpers/codeListItem';
+import { colourCodedComment } from './helpers/colourCodedComment';
 
 function CommentCodeComponent({ comments }) {
   return (
     <Grid item xs={4}>
       <Stack spacing={2}>
-        <Typography variant='h5'>Comments</Typography>
+        <Typography
+          variant='h5'
+          sx={{
+            position: 'sticky',
+            top: 0,
+            backgroundColor: DARK_GREY,
+            padding: '1vh',
+          }}
+        >
+          Comments
+        </Typography>
         {comments.map((comment) => {
           const color = WHITE;
           return (
-            <CodeListItem key={`variable-${comment}`} color={color}>
-              {comment}
+            <CodeListItem key={`variable-${comment.text}`} color={color}>
+              {colourCodedComment(comment).map((section) => section)}
             </CodeListItem>
           );
         })}

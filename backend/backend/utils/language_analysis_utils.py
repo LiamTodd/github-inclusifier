@@ -19,6 +19,21 @@ def single_term_classification(term):
     return {"term": term, "non_inclusive": non_inclusive, "category": category}
 
 
+def code_comment_wbpm(comment):
+    cleaned_comment = comment.lower()
+    analysis = {}
+    for category_name, category_list in NON_INCLUSIVE_LANGUAGE_TERMS.items():
+        analysis[category_name] = {}
+        for term in category_list:
+            # find start index of all word-boundary matches
+            matching_start_indexes = [
+                m.start() for m in re.finditer(rf"\b{term}\b", cleaned_comment)
+            ]
+            if len(matching_start_indexes) > 0:
+                analysis[category_name][term] = matching_start_indexes
+    return {"text": comment, "analysis": analysis}
+
+
 def sub_string_pattern_match(file_data):
     for file in file_data.values():
         if (
