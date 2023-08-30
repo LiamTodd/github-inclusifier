@@ -20,12 +20,18 @@ ORIGINAL_TEXT_PARAM = "original-text"
 TERM_PARAM = "term"
 LANGUAGE_PARAM = "language-mode"
 CODE_STRING_PARAM = "file-content"
+CODEBASE_ANALYSIS_PARAM = "codebase-analysis"
 
 SSPM = "Sub-string pattern matching"
 WBPM = "Word-boundary pattern matching"
 
 GPT4_ENGINE = "GPT-4"
 LLAMA7B_ENGINE = "llama-7b"
+
+SUPPORTED_LANGUAGES = {
+    "python": ".py",
+    "java": ".java",
+}
 
 RESPONSE_DELIMITER = "RESPONSE:"
 PROMPT_TEMPLATES = {

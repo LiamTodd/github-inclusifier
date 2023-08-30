@@ -57,7 +57,7 @@ def extract_file_contents(file_path, file_data, parent):
                         content = f.read()
         except UnicodeDecodeError:
             content = FAILED_FILE_READ_WARNING
-            print(f"DEVELOPER WARNING: Unreadable file not blacklisted: {file_path}")
+            print(f"DEVELOPER WARNING: Tried to read an unsupported type: {file_path}")
 
         file_data[file_path] = {
             "file_path": file_path,

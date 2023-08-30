@@ -16,6 +16,7 @@ from backend.constants import (
     TERM_PARAM,
     LANGUAGE_PARAM,
     CODE_STRING_PARAM,
+    CODEBASE_ANALYSIS_PARAM,
 )
 from backend.utils.reconstruct_file_structure_utils import reconstruct_file_structure
 from backend.utils.language_analysis_utils import (
@@ -25,6 +26,7 @@ from backend.utils.language_analysis_utils import (
 from backend.utils.text_extraction_utils import get_repo_file_data
 from backend.utils.syntax_tree_utils import LANGUAGE_PROCESSORS
 from backend.constants import TEMP_REPO_STORAGE_LOCATION
+from backend.utils.syntax_tree_utils import perform_codebase_analysis
 
 from backend.utils.github_api_utils import (
     download_github_repo,
@@ -63,6 +65,9 @@ def get_inclusive_language_report(request):
     # extract text
     file_data = get_repo_file_data(repo_name)
 
+    # perform codebase analysis
+    code_analysis = perform_codebase_analysis(file_data)
+
     # perform inclusive language analysis on text
     sub_string_pattern_match(file_data)
     word_boundary_pattern_match(file_data)
@@ -86,6 +91,7 @@ def get_inclusive_language_report(request):
             "repo": f"{repo_owner}/{repo_name}",
             "data": result,
             "default_branch": default_branch,
+            "codebase_analysis": code_analysis,
         }
     )
 

@@ -35,6 +35,7 @@ export const fetchData = (
         handleSetErrorMessage(data.error);
         return;
       }
+      console.log(data);
       handleSetRepoName(data.repo);
       handleSetRawFileData(data.data);
       handleSetLoading(false);
