@@ -13,7 +13,10 @@ def generic_return(functions, variables, comments):
 
 
 def python_processor(code, keep_duplicates=False, analyse_comments=True):
-    tree = ast.parse(code)
+    try:
+        tree = ast.parse(code)
+    except:
+        raise Exception(f"Unable to parse code.")
 
     functions = []
     variables = []
@@ -42,15 +45,17 @@ def java_processor(code, keep_duplicates=False, analyse_comments=True):
     functions = []
     variables = []
     comments = []
-    if analyse_comments is True:
-        comments = [
-            code_comment_wbpm(comment.text())
-            for comment in comment_parser.extract_comments_from_str(
-                code, mime="text/x-java-source"
-            )
-        ]
-
-    tree = javalang.parse.parse(code)
+    try:
+        if analyse_comments is True:
+            comments = [
+                code_comment_wbpm(comment.text())
+                for comment in comment_parser.extract_comments_from_str(
+                    code, mime="text/x-java-source"
+                )
+            ]
+        tree = javalang.parse.parse(code)
+    except:
+        raise Exception(f"Unable to parse code.")
 
     for _, node in tree:
         if isinstance(node, javalang.tree.MethodDeclaration):
@@ -92,9 +97,15 @@ def perform_codebase_analysis(file_data):
                 and file.get("content") != FAILED_FILE_READ_WARNING
                 and file.get("file_name").endswith(extension)
             ):
-                file_analysis = LANGUAGE_PROCESSORS[language](
-                    file.get("content"), keep_duplicates=True, analyse_comments=False
-                )
+                try:
+                    file_analysis = LANGUAGE_PROCESSORS[language](
+                        file.get("content"),
+                        keep_duplicates=True,
+                        analyse_comments=False,
+                    )
+                except:
+                    print(f"Unable to parse {file.get('file_name')}")
+                    continue
                 for variable in file_analysis["variables"]:
                     if variable["non_inclusive"]:
                         term_data = language_analysis["variables"].get(

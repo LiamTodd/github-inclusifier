@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { fetchCodeAnalysis } from '../utils/apiUtils';
-import { Box, CircularProgress, Grid } from '@mui/material';
-import { LIGHT_PURPLE } from '../constants';
+import { Box, CircularProgress, Grid, Typography } from '@mui/material';
+import { ERROR, LIGHT_PURPLE } from '../constants';
 import FuncVarCodeComponent from './FuncVarCodeComponent';
 import CommentCodeComponent from './CommentCodeComponent';
 
@@ -51,7 +51,18 @@ function CodeAnalysisComponent({ languageMode, selectedFileData }) {
           <CircularProgress color='inherit' size='5vw' />
         </Box>
       ) : errorMessage ? (
-        <div>{errorMessage}</div>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'col',
+            justifyContent: 'center',
+            paddingTop: '20vh',
+          }}
+        >
+          <Typography variant='h6' sx={{ color: ERROR }}>
+            {errorMessage}
+          </Typography>
+        </Box>
       ) : codeAnalysis ? (
         <>
           <Box sx={{ flexGrow: 1 }}>

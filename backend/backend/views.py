@@ -123,9 +123,14 @@ def get_code_analysis(request):
     code_string = request.query_params.get(CODE_STRING_PARAM, None)
     language_processor = LANGUAGE_PROCESSORS.get(language, None)
     if language_processor is None:
-        error_response = {"error": "Language not currently supported."}
-        return Response(error_response, status=status.HTTP_400_BAD_REQUEST)
-    result = language_processor(code_string)
+        return Response(
+            {"error": "Language not currently supported."},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+    try:
+        result = language_processor(code_string)
+    except Exception as e:
+        return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
     return Response(
         {"message": "Successfully performed code analysis.", "data": result}
