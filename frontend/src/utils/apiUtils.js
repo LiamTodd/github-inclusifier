@@ -13,7 +13,8 @@ export const fetchData = (
   handleSetRawFileData,
   handleSetErrorMessage,
   handleSetLoading,
-  handleSetDefaultBranch
+  handleSetDefaultBranch,
+  handleSetRepoCodeAnalysis
 ) => {
   handleSetErrorMessage('');
   handleSetLoading(true);
@@ -35,11 +36,11 @@ export const fetchData = (
         handleSetErrorMessage(data.error);
         return;
       }
-      console.log(data);
       handleSetRepoName(data.repo);
-      handleSetRawFileData(data.data);
+      handleSetRawFileData(data.general_report);
       handleSetLoading(false);
       handleSetDefaultBranch(data.default_branch);
+      handleSetRepoCodeAnalysis(data.codebase_analysis);
     });
 };
 

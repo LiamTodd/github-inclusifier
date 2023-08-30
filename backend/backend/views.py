@@ -89,7 +89,7 @@ def get_inclusive_language_report(request):
         {
             "message": f"Successful inclusive language analysis conducted on {repo_owner}/{repo_name}",
             "repo": f"{repo_owner}/{repo_name}",
-            "data": result,
+            "general_report": result,
             "default_branch": default_branch,
             "codebase_analysis": code_analysis,
         }

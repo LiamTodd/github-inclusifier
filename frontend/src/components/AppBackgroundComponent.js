@@ -15,6 +15,8 @@ import {
   WBPM_NAME,
   WHITE,
   LANGUAGE_MODE_KEY,
+  VIEW_CODE_ANALYSIS_KEY,
+  REPO_CODE_ANALYSIS_KEY,
 } from '../constants';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -28,10 +30,12 @@ import {
 import LinkToRepoComponent from './LinkToRepoComponent';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import CodeIcon from '@mui/icons-material/Code';
 import { IconButton, Link } from '@mui/material';
 import { exportCSV } from '../utils/csvUtils';
 import TermSuggestionsComponent from './TermSuggestionsComponent';
 import CodeAnalysisComponent from './CodeAnalysisComponent';
+import CodebaseAnalysisComponent from './CodebaseAnalysisComponent';
 
 function AppBackgroundComponent() {
   const [repoName, setRepoName] = useState(
@@ -52,6 +56,12 @@ function AppBackgroundComponent() {
   );
   const [languageMode, setLanguageMode] = useState(
     JSON.parse(localStorage.getItem(LANGUAGE_MODE_KEY))
+  );
+  const [viewCodeAnalysis, setViewCodeAnalysis] = useState(
+    JSON.parse(localStorage.getItem(VIEW_CODE_ANALYSIS_KEY))
+  );
+  const [repoCodeAnalysis, setRepoCodeAnalysis] = useState(
+    JSON.parse(localStorage.getItem(REPO_CODE_ANALYSIS_KEY))
   );
 
   useEffect(() => {
@@ -80,6 +90,14 @@ function AppBackgroundComponent() {
       LANGUAGE_MODE_KEY,
       JSON.stringify(languageMode)
     );
+    window.localStorage.setItem(
+      VIEW_CODE_ANALYSIS_KEY,
+      JSON.stringify(viewCodeAnalysis)
+    );
+    window.localStorage.setItem(
+      REPO_CODE_ANALYSIS_KEY,
+      JSON.stringify(repoCodeAnalysis)
+    );
   }, [
     repoName,
     rawFileData,
@@ -87,11 +105,17 @@ function AppBackgroundComponent() {
     selectedTermData,
     defaultBranch,
     languageMode,
+    viewCodeAnalysis,
+    repoCodeAnalysis,
   ]);
 
   const handleBackClick = () => {
+    // on code analysis page
+    if (viewCodeAnalysis) {
+      setViewCodeAnalysis(false);
+    }
     // on language analysis page
-    if (languageMode && selectedFileData) {
+    else if (languageMode && selectedFileData) {
       setSelectedFileData(null);
       setLanguageMode(null);
     } else if (selectedTermData) {
@@ -136,6 +160,10 @@ function AppBackgroundComponent() {
   const wrapperSetLanguageMode = useCallback(
     (val) => setLanguageMode(val),
     [setLanguageMode]
+  );
+  const wrapperSetRepoCodeAnalysis = useCallback(
+    (val) => setRepoCodeAnalysis(val),
+    [setRepoCodeAnalysis]
   );
   return (
     <Box sx={{ backgroundColor: BLACK }}>
@@ -222,7 +250,9 @@ function AppBackgroundComponent() {
                 fileData={selectedFileData}
                 handleSetSelectedTermData={wrapperSetSelectedTermData}
               />
-            ) : rawFileData ? (
+            ) : rawFileData && viewCodeAnalysis ? (
+              <CodebaseAnalysisComponent repoCodeAnalysis={repoCodeAnalysis} />
+            ) : rawFileData && !viewCodeAnalysis ? (
               <RepoSummaryComponent
                 rawFileData={rawFileData}
                 handleSetSelectedFile={wrapperSetSelectedFile}
@@ -233,6 +263,7 @@ function AppBackgroundComponent() {
                 handleSetRepoName={wrapperSetRepoName}
                 handleSetRawFileData={wrapperSetRawFileData}
                 handleSetDefaultBranch={wrapperSetDefaultBranch}
+                handleSetRepoCodeAnalysis={wrapperSetRepoCodeAnalysis}
               />
             )}
           </Box>
@@ -244,7 +275,6 @@ function AppBackgroundComponent() {
             }}
           >
             <IconButton
-              aria-label='back'
               sx={{
                 color: WHITE,
                 fontSize: 'smaller',
@@ -257,7 +287,6 @@ function AppBackgroundComponent() {
               Back
             </IconButton>
             <IconButton
-              aria-label='back'
               sx={{
                 color: WHITE,
                 fontSize: 'smaller',
@@ -272,7 +301,6 @@ function AppBackgroundComponent() {
               Export sub-string pattern-matched data to CSV
             </IconButton>
             <IconButton
-              aria-label='back'
               sx={{
                 color: WHITE,
                 fontSize: 'smaller',
@@ -285,6 +313,20 @@ function AppBackgroundComponent() {
             >
               <FileDownloadIcon fontSize='large' />
               Export word-boundary pattern-matched data to CSV
+            </IconButton>
+            <IconButton
+              sx={{
+                color: WHITE,
+                fontSize: 'smaller',
+                '&:hover': { color: LIGHT_PURPLE },
+              }}
+              onClick={() => {
+                setViewCodeAnalysis(true);
+              }}
+              disabled={!backButtonActive}
+            >
+              <CodeIcon fontSize='large' />
+              Repo-Wide Code Analysis
             </IconButton>
           </Box>
         </Box>

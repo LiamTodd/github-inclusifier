@@ -22,6 +22,8 @@ export const SELECTED_FILE_DATA_KEY = 'selected-file';
 export const DEFAULT_BRANCH_KEY = 'default-branch';
 export const SELECTED_TERM_KEY = 'selected-term';
 export const LANGUAGE_MODE_KEY = 'language-mode';
+export const VIEW_CODE_ANALYSIS_KEY = 'view-code-analysis';
+export const REPO_CODE_ANALYSIS_KEY = 'repo-code-analysis';
 
 export const SUPPORTED_CODE_FILE_EXTENSIONS = { java: '.java', python: '.py' };
 
