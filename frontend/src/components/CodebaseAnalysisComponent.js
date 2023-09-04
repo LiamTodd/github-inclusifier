@@ -4,9 +4,7 @@ import { DARK_GREY, ERROR, WHITE } from '../constants';
 import { capitalizeFirstLetters } from '../utils/stringUtils';
 
 function CodebaseAnalysisComponent({ repoCodeAnalysis }) {
-  Object.entries(repoCodeAnalysis).forEach((language) => {
-    console.log(language);
-  });
+  console.log(repoCodeAnalysis);
   return (
     <Grid container spacing={2} sx={{ border: '1px solid white' }}>
       {Object.entries(repoCodeAnalysis).map(([language, analysis]) => {

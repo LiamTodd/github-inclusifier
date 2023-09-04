@@ -16,7 +16,10 @@ from backend.constants import (
     TERM_PARAM,
     LANGUAGE_PARAM,
     CODE_STRING_PARAM,
-    CODEBASE_ANALYSIS_PARAM,
+    TEMP_REPO_STORAGE_LOCATION,
+    REFACTORED_REPO_STORAGE_LOCATION,
+    SUPPORTED_LANGUAGES_REFACTORING,
+    CHANGES_PARAM,
 )
 from backend.utils.reconstruct_file_structure_utils import reconstruct_file_structure
 from backend.utils.language_analysis_utils import (
@@ -24,9 +27,10 @@ from backend.utils.language_analysis_utils import (
     word_boundary_pattern_match,
 )
 from backend.utils.text_extraction_utils import get_repo_file_data
-from backend.utils.syntax_tree_utils import LANGUAGE_PROCESSORS
-from backend.constants import TEMP_REPO_STORAGE_LOCATION
-from backend.utils.syntax_tree_utils import perform_codebase_analysis
+from backend.utils.syntax_tree_utils import (
+    LANGUAGE_PROCESSORS,
+    perform_codebase_analysis,
+)
 
 from backend.utils.github_api_utils import (
     download_github_repo,
@@ -135,3 +139,45 @@ def get_code_analysis(request):
     return Response(
         {"message": "Successfully performed code analysis.", "data": result}
     )
+
+
+@api_view(["POST"])
+def refactor_codebase(request):
+    language = request.query_params.get(LANGUAGE_PARAM, None)
+    if language not in SUPPORTED_LANGUAGES_REFACTORING:  # todo: parameterise
+        return Response(
+            {"error": f"Refactoring not currently supported for {language}"},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+    # download specified repo
+    repo_owner = request.query_params.get(REPO_OWNER_PARAM, None)
+    repo_name = request.query_params.get(REPO_NAME_PARAM, None)
+    github_token = request.query_params.get(ACCESS_TOKEN_PARAM, None)
+    changes = request.query_params.get(CHANGES_PARAM, None)
+
+    if any([param is None for param in (repo_owner, repo_name, github_token)]):
+        error_response = {"error": "Insufficient credentials."}
+        return Response(error_response, status=status.HTTP_400_BAD_REQUEST)
+
+    repo_path = f"{REFACTORED_REPO_STORAGE_LOCATION}/{repo_name}"
+    try:
+        download_github_repo(
+            repo_name=repo_name, repo_owner=repo_owner, github_token=github_token
+        )
+    except GithubException as e:
+        if e.status == 401:
+            error_message = "Authentication failed. Please check that you entered the correct credentials."
+        elif e.status == 403:
+            error_message = "Forbidden. You may have reached the rate limit."
+        else:
+            error_message = "Something went wrong"
+
+        error_response = {"error": error_message}
+
+        return Response(error_response, status=e.status)
+
+    # refactor code
+    refactor_codebase(changes, repo_path)
+
+    # todo: create diffs, commit to repo (?)
+    # delete temp storage of repo

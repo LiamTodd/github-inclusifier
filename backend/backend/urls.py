@@ -22,5 +22,6 @@ urlpatterns = [
     path("get_inclusive_language_report/", views.get_inclusive_language_report),
     path("get_suggestion/", views.get_suggestion),
     path("get_code_analysis/", views.get_code_analysis),
+    path("refactor_code_base/", views.refactor_codebase),
     path("admin/", admin.site.urls),
 ]
