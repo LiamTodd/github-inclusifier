@@ -1,61 +1,81 @@
-import { Grid, Typography } from '@mui/material';
+import {
+  Divider,
+  Grid,
+  List,
+  ListItem,
+  ListItemText,
+  Typography,
+} from '@mui/material';
 import { Stack } from '@mui/system';
-import { DARK_GREY, ERROR, WHITE } from '../constants';
+import { BLACK, DARK_GREY, ERROR, WHITE } from '../constants';
 import { capitalizeFirstLetters } from '../utils/stringUtils';
 
 function CodebaseAnalysisComponent({ repoCodeAnalysis }) {
   console.log(repoCodeAnalysis);
   return (
-    <Grid container spacing={2} sx={{ border: '1px solid white' }}>
+    <Grid container spacing={2} sx={{ backgroundColor: DARK_GREY }}>
       {Object.entries(repoCodeAnalysis).map(([language, analysis]) => {
         return (
           <Grid
+            key={`${language}-analysis`}
             item
             xs={12 / Object.keys(repoCodeAnalysis).length}
-            sx={{ border: '1px solid white' }}
           >
-            <Stack spacing={2} sx={{ border: '1px solid white' }}>
+            <Stack spacing={2}>
               <Typography
                 variant='h5'
                 sx={{
                   position: 'sticky',
                   top: 0,
                   color: WHITE,
-                  backgroundColor: DARK_GREY,
                   padding: '1vh',
                 }}
               >
                 {capitalizeFirstLetters(language)}
               </Typography>
-              <Grid container sx={{ border: '1px solid white' }}>
+              <Divider color={WHITE} sx={{ width: '30vw' }} />
+
+              <Grid container>
                 {Object.entries(analysis).map(([type, terms]) => {
                   return (
-                    <Grid item xs={12 / Object.keys(analysis).length}>
-                      <Stack spacing={1} sx={{ border: '1px solid white' }}>
+                    <Grid
+                      key={`${language}-${type}`}
+                      item
+                      xs={12 / Object.keys(analysis).length}
+                    >
+                      <Stack spacing={1}>
                         <Typography
                           variant='h6'
                           sx={{
                             position: 'sticky',
                             top: 0,
                             color: WHITE,
-                            backgroundColor: DARK_GREY,
-                            padding: '1vh',
                           }}
                         >
                           {capitalizeFirstLetters(type)}
                         </Typography>
+                        <Divider color={WHITE} sx={{ width: '10vw' }} />
+
                         {Object.entries(terms).map(([term, details]) => {
                           return (
-                            <Typography variant='body1'>
-                              '<span style={{ color: ERROR }}>{term}</span>'
-                              occurred{' '}
-                              {details.occurrences > 1
-                                ? `${details.occurrences} times`
-                                : 'once'}{' '}
-                              {details.files.length > 1
-                                ? `in ${details.files.length} files`
-                                : null}
-                            </Typography>
+                            <List>
+                              <ListItemText>
+                                <Typography
+                                  variant='body1'
+                                  key={`${language}-${type}-${term}`}
+                                >
+                                  <span style={{ color: ERROR }}>{term}</span>{' '}
+                                  occurred{' '}
+                                  {details.occurrences > 1
+                                    ? `${details.occurrences} times`
+                                    : 'once'}{' '}
+                                  {details.files.length > 1
+                                    ? `in ${details.files.length} files`
+                                    : null}
+                                </Typography>
+                              </ListItemText>
+                              <Divider color={WHITE} sx={{ width: '15vw' }} />
+                            </List>
                           );
                         })}
                       </Stack>
