@@ -321,6 +321,9 @@ function AppBackgroundComponent() {
                 '&:hover': { color: LIGHT_PURPLE },
               }}
               onClick={() => {
+                setSelectedFileData(null);
+                setLanguageMode(null);
+                setSelectedTermData(null);
                 setViewCodeAnalysis(true);
               }}
               disabled={!backButtonActive}

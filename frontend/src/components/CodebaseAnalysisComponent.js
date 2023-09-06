@@ -4,7 +4,6 @@ import { DARK_GREY, ERROR, WHITE } from '../constants';
 import { capitalizeFirstLetters } from '../utils/stringUtils';
 
 function CodebaseAnalysisComponent({ repoCodeAnalysis }) {
-  console.log(repoCodeAnalysis);
   return (
     <Grid container spacing={2} sx={{ backgroundColor: DARK_GREY }}>
       {Object.entries(repoCodeAnalysis).map(([language, analysis]) => {
@@ -51,7 +50,7 @@ function CodebaseAnalysisComponent({ repoCodeAnalysis }) {
 
                         {Object.entries(terms).map(([term, details]) => {
                           return (
-                            <List>
+                            <List key={`${language}-${type}-${term}-list`}>
                               <ListItemText>
                                 <Typography
                                   variant='body1'
