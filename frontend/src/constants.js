@@ -26,6 +26,7 @@ export const VIEW_CODE_ANALYSIS_KEY = 'view-code-analysis';
 export const REPO_CODE_ANALYSIS_KEY = 'repo-code-analysis';
 
 export const SUPPORTED_CODE_FILE_EXTENSIONS = { java: '.java', python: '.py' };
+export const SUPPORTED_LANGUAGES_REFACTORING = ['python'];
 
 export const MODEL_CHOICES = {
   'GPT-4': {

@@ -32,6 +32,5 @@ export const colourCodedComment = (comment) => {
   segments.push(
     <span>{comment.text.slice(segmentEnd, comment.text.length)}</span>
   );
-  console.log(segments);
   return segments;
 };

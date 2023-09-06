@@ -37,6 +37,7 @@
     ]
   },
   "devDependencies": {
+    "'": "file:mui/icons-material/KeyboardDoubleArrowRight'",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.3",
