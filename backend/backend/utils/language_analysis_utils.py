@@ -10,9 +10,10 @@ import re
 def single_term_classification(term):
     non_inclusive = False
     category = None
+    cleaned_term = term.lower()
     for non_inclusive_category, category_terms in NON_INCLUSIVE_LANGUAGE_TERMS.items():
         for category_term in category_terms:
-            if term == category_term:
+            if cleaned_term == category_term:
                 non_inclusive = True
                 category = non_inclusive_category
                 break

@@ -70,12 +70,22 @@ function CodeAnalysisComponent({ languageMode, selectedFileData }) {
               <FuncVarCodeComponent
                 elements={codeAnalysis.functions}
                 elementType={'Functions'}
+                width={3}
               />
               <FuncVarCodeComponent
                 elements={codeAnalysis.variables}
                 elementType={'Variables'}
+                width={3}
               />
-              <CommentCodeComponent comments={codeAnalysis.comments} />
+              <FuncVarCodeComponent
+                elements={codeAnalysis.classes}
+                elementType={'Classes'}
+                width={3}
+              />
+              <CommentCodeComponent
+                comments={codeAnalysis.comments}
+                width={3}
+              />
             </Grid>
           </Box>
         </>

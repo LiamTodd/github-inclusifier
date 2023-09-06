@@ -1,13 +1,6 @@
-import {
-  Divider,
-  Grid,
-  List,
-  ListItem,
-  ListItemText,
-  Typography,
-} from '@mui/material';
+import { Divider, Grid, List, ListItemText, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
-import { BLACK, DARK_GREY, ERROR, WHITE } from '../constants';
+import { DARK_GREY, ERROR, WHITE } from '../constants';
 import { capitalizeFirstLetters } from '../utils/stringUtils';
 
 function CodebaseAnalysisComponent({ repoCodeAnalysis }) {
@@ -74,7 +67,7 @@ function CodebaseAnalysisComponent({ repoCodeAnalysis }) {
                                     : null}
                                 </Typography>
                               </ListItemText>
-                              <Divider color={WHITE} sx={{ width: '15vw' }} />
+                              <Divider color={WHITE} sx={{ width: '10vw' }} />
                             </List>
                           );
                         })}

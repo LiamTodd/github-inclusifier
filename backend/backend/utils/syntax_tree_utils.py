@@ -8,8 +8,13 @@ from backend.utils.language_analysis_utils import (
 )
 
 
-def generic_return(functions, variables, comments):
-    return {"functions": functions, "variables": variables, "comments": comments}
+def generic_return(functions, variables, classes, comments):
+    return {
+        "functions": functions,
+        "variables": variables,
+        "classes": classes,
+        "comments": comments,
+    }
 
 
 def python_processor(code, keep_duplicates=False, analyse_comments=True):
@@ -20,6 +25,7 @@ def python_processor(code, keep_duplicates=False, analyse_comments=True):
 
     functions = []
     variables = []
+    classes = []
     comments = []
 
     for node in ast.walk(tree):
@@ -35,15 +41,22 @@ def python_processor(code, keep_duplicates=False, analyse_comments=True):
                 and node.id not in [variable["term"] for variable in variables]
             ) or keep_duplicates is True:
                 variables.append(single_term_classification(node.id))
+        elif isinstance(node, ast.ClassDef):
+            if (
+                keep_duplicates is False
+                and node.name not in [class_def["term"] for class_def in classes]
+            ) or keep_duplicates is True:
+                classes.append(single_term_classification(node.name))
         elif isinstance(node, ast.Comment) and analyse_comments is True:
             comments.append(code_comment_wbpm(node.value))
 
-    return generic_return(functions, variables, comments)
+    return generic_return(functions, variables, classes, comments)
 
 
 def java_processor(code, keep_duplicates=False, analyse_comments=True):
     functions = []
     variables = []
+    classes = []
     comments = []
     try:
         if analyse_comments is True:
@@ -70,8 +83,14 @@ def java_processor(code, keep_duplicates=False, analyse_comments=True):
                 and node.name not in [variable["term"] for variable in variables]
             ) or keep_duplicates is True:
                 variables.append(single_term_classification(node.name))
+        elif isinstance(node, javalang.tree.ClassDeclaration):
+            if (
+                keep_duplicates is False
+                and node.name not in [class_dec["term"] for class_dec in classes]
+            ) or keep_duplicates is True:
+                classes.append(single_term_classification(node.name))
 
-    return generic_return(functions, variables, comments)
+    return generic_return(functions, variables, classes, comments)
 
 
 LANGUAGE_PROCESSORS = {
@@ -80,17 +99,28 @@ LANGUAGE_PROCESSORS = {
 }
 
 
+def perform_codebase_analysis_aux(file_analysis, language_analysis, file, element_type):
+    for element in file_analysis[element_type]:
+        if element["non_inclusive"]:
+            term_data = language_analysis["variables"].get(element["term"], None)
+            # first instance of term
+            if term_data is None:
+                language_analysis[element_type][element["term"]] = {
+                    "files": [file.get("file_path")],
+                    "occurrences": 1,
+                }
+            # term has been found before
+            else:
+                # term has not been found in this file before
+                if file.get("file_path") not in term_data["files"]:
+                    term_data["files"].append(file.get("file_path"))
+                term_data["occurrences"] += 1
+
+
 def perform_codebase_analysis(file_data):
-    # initialise an output structure
-    # for each supported language
-    #   initialise a structure for the language
-    #   traverse file tree, attend to relevant files
-    #       use the relevant language processor on the file
-    #       collate the language processor outputs with the maintained structure
-    #   add the language's structure to the output structure
     output = {}
     for language, extension in SUPPORTED_LANGUAGES.items():
-        language_analysis = {"variables": {}, "functions": {}}
+        language_analysis = {"variables": {}, "functions": {}, "classes": {}}
         for file in file_data.values():
             if (
                 file.get("content") is not None
@@ -106,40 +136,16 @@ def perform_codebase_analysis(file_data):
                 except:
                     print(f"Unable to parse {file.get('file_name')}")
                     continue
-                for variable in file_analysis["variables"]:
-                    if variable["non_inclusive"]:
-                        term_data = language_analysis["variables"].get(
-                            variable["term"], None
-                        )
-                        # first instance of term
-                        if term_data is None:
-                            language_analysis["variables"][variable["term"]] = {
-                                "files": [file.get("file_path")],
-                                "occurrences": 1,
-                            }
-                        # term has been found before
-                        else:
-                            # term has not been found in this file before
-                            if file.get("file_path") not in term_data["files"]:
-                                term_data["files"].append(file.get("file_path"))
-                            term_data["occurrences"] += 1
-                for function in file_analysis["functions"]:
-                    if function["non_inclusive"]:
-                        term_data = language_analysis["functions"].get(
-                            function["term"], None
-                        )
-                        # first instance of term
-                        if term_data is None:
-                            language_analysis["functions"][function["term"]] = {
-                                "files": [file.get("file_path")],
-                                "occurrences": 1,
-                            }
-                        # term has been found before
-                        else:
-                            # term has not been found in this file before
-                            if file.get("file_path") not in term_data["files"]:
-                                term_data["files"].append(file.get("file_path"))
-                            term_data["occurrences"] += 1
+                perform_codebase_analysis_aux(
+                    file_analysis, language_analysis, file, "variables"
+                )
+                perform_codebase_analysis_aux(
+                    file_analysis, language_analysis, file, "functions"
+                )
+                perform_codebase_analysis_aux(
+                    file_analysis, language_analysis, file, "classes"
+                )
+
             output[language] = language_analysis
 
     return output

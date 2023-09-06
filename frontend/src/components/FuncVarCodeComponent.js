@@ -3,9 +3,9 @@ import { DARK_GREY, ERROR, WHITE } from '../constants';
 import { CodeListItem } from './helpers/codeListItem';
 import { capitalizeFirstLetters } from '../utils/stringUtils';
 
-function FuncVarCodeComponent({ elements, elementType }) {
+function FuncVarCodeComponent({ elements, elementType, width }) {
   return (
-    <Grid item xs={4}>
+    <Grid item xs={width}>
       <Stack spacing={2}>
         <Typography
           variant='h5'

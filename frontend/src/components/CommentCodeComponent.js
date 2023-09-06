@@ -3,9 +3,9 @@ import { DARK_GREY, WHITE } from '../constants';
 import { CodeListItem } from './helpers/codeListItem';
 import { colourCodedComment } from './helpers/colourCodedComment';
 
-function CommentCodeComponent({ comments }) {
+function CommentCodeComponent({ comments, width }) {
   return (
-    <Grid item xs={4}>
+    <Grid item xs={width}>
       <Stack spacing={2}>
         <Typography
           variant='h5'
