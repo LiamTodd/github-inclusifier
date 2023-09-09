@@ -37,7 +37,7 @@ function CodeAnalysisComponent({ languageMode, selectedFileData }) {
   ]);
 
   return (
-    <div>
+    <>
       {loading ? (
         <Box
           sx={{
@@ -90,7 +90,7 @@ function CodeAnalysisComponent({ languageMode, selectedFileData }) {
           </Box>
         </>
       ) : null}
-    </div>
+    </>
   );
 }
 

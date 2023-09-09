@@ -2,6 +2,7 @@ import {
   LOCAL_HOST_INCLUSIVE_LANGUAGE_REPORT_URL,
   LOCAL_HOST_SUGGESTION_URL,
   LOCAL_HOST_CODE_ANALYSIS_URL,
+  LOCAL_HOST_REFACTOR_URL,
 } from '../constants';
 
 export const fetchData = (
@@ -106,6 +107,40 @@ export const fetchCodeAnalysis = (
         return;
       }
       handleSetCodeAnalysis(data.data);
+      handleSetLoading(false);
+    });
+};
+
+export const doCodeRefactors = (
+  handleSetLoading,
+  handleSetErrorMessage,
+  refactors,
+  language,
+  userName,
+  accessToken,
+  repoName
+) => {
+  handleSetErrorMessage('');
+  handleSetLoading(true);
+  const url = new URL(LOCAL_HOST_REFACTOR_URL);
+  const params = {
+    refactors: JSON.stringify(refactors),
+    'language-mode': language,
+    'repo-owner': userName,
+    'repo-name': repoName,
+    'access-token': accessToken,
+  };
+  Object.keys(params).forEach((key) =>
+    url.searchParams.append(key, params[key])
+  );
+  fetch(url, { method: 'POST' })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.error) {
+        handleSetLoading(false);
+        handleSetErrorMessage(data.error);
+        return;
+      }
       handleSetLoading(false);
     });
 };

@@ -18,7 +18,7 @@ def generate_zip_url(repo_full_name):
     return f"{GITHUB_URL_BITS.get('base')}{repo_full_name}{GITHUB_URL_BITS.get('zip_file_tail')}"
 
 
-def download_github_repo(repo_owner, repo_name, github_token):
+def download_github_repo(repo_owner, repo_name, github_token, location):
     # Initialize the PyGithub client
     if github_token:
         g = Github(github_token)
@@ -35,7 +35,7 @@ def download_github_repo(repo_owner, repo_name, github_token):
 
     # Extract the contents of the zip file to a desired location in your Django project
     # Replace 'your_desired_location' with the path where you want to save the repository
-    clone_location = os.path.join(TEMP_REPO_STORAGE_LOCATION, repository.name)
+    clone_location = os.path.join(location, repository.name)
     with ZipFile(io.BytesIO(response.content)) as zip_file:
         zip_file.extractall(clone_location)
 

@@ -4,6 +4,7 @@ export const LOCAL_HOST_BACKEND_API_BASE_URL = 'http://localhost:8000/';
 export const LOCAL_HOST_INCLUSIVE_LANGUAGE_REPORT_URL = `${LOCAL_HOST_BACKEND_API_BASE_URL}get_inclusive_language_report/`;
 export const LOCAL_HOST_SUGGESTION_URL = `${LOCAL_HOST_BACKEND_API_BASE_URL}get_suggestion/`;
 export const LOCAL_HOST_CODE_ANALYSIS_URL = `${LOCAL_HOST_BACKEND_API_BASE_URL}get_code_analysis/`;
+export const LOCAL_HOST_REFACTOR_URL = `${LOCAL_HOST_BACKEND_API_BASE_URL}refactor_code_base/`;
 
 export const APP_NAME = 'Inclusiviser v1';
 

@@ -2,15 +2,20 @@ import ast
 from rope.base.project import Project
 from rope.refactor.rename import Rename
 from rope.base.libutils import path_to_resource
+from backend.utils.misc_utils import get_code_files
+from backend.constants import SUPPORTED_LANGUAGES_REFACTORING
 
 
-def refactor_codebase(changes, root_path):
+def do_codebase_refactors(refactors, root_path, language):
     project = Project(root_path, ropefolder=None)
-    # get python files from codebase
-    # for each file
-    #   resource = path_to_resource(project, file_name)
-    #   for each change
-    #       refactor_file(file_name, change["old"], change["new"], project, resource)
+    code_files = get_code_files(root_path, SUPPORTED_LANGUAGES_REFACTORING[language])
+    for type in refactors.keys():
+        for refactor in refactors[type]:
+            for file in code_files:
+                resource = path_to_resource(project, file)
+                refactor_file(
+                    file, refactor["oldName"], refactor["newName"], project, resource
+                )
 
 
 def refactor_file(file_name, old_name, new_name, project, resource):
@@ -49,5 +54,5 @@ def refactor_file(file_name, old_name, new_name, project, resource):
                     project=project, resource=resource, offset=index
                 ).get_changes(new_name, docs=True)
                 rename_refactor.do()
-                # only change on occurrence at a time
+                # only change one occurrence at a time
                 break

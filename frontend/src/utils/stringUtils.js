@@ -20,6 +20,10 @@ export const generateRepoUrl = (repoName) => {
   return `https://github.com/${repoName}`;
 };
 
+export const getRepoNameFromExtendedName = (extendedName) => {
+  return extendedName.split('/')[1];
+};
+
 const getShortenedSentence = (sentence, sentenceIndex) => {
   const includeAllLeft = sentenceIndex <= MAX_PROCESSABLE_SENTENCE_LENGTH / 2;
   const includeAllRight =

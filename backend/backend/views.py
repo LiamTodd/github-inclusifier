@@ -1,4 +1,5 @@
 import shutil
+import json
 
 from github import GithubException
 from rest_framework.decorators import api_view
@@ -19,7 +20,7 @@ from backend.constants import (
     TEMP_REPO_STORAGE_LOCATION,
     REFACTORED_REPO_STORAGE_LOCATION,
     SUPPORTED_LANGUAGES_REFACTORING,
-    CHANGES_PARAM,
+    REFACTORS_PARAM,
 )
 from backend.utils.reconstruct_file_structure_utils import reconstruct_file_structure
 from backend.utils.language_analysis_utils import (
@@ -36,6 +37,7 @@ from backend.utils.github_api_utils import (
     download_github_repo,
     post_language_report_to_github,
 )
+from backend.utils.refactor_utils import do_codebase_refactors
 
 
 @api_view(["POST"])
@@ -52,7 +54,10 @@ def get_inclusive_language_report(request):
     repo_path = f"{TEMP_REPO_STORAGE_LOCATION}/{repo_name}"
     try:
         default_branch = download_github_repo(
-            repo_name=repo_name, repo_owner=repo_owner, github_token=github_token
+            repo_name=repo_name,
+            repo_owner=repo_owner,
+            github_token=github_token,
+            location=TEMP_REPO_STORAGE_LOCATION,
         )
     except GithubException as e:
         if e.status == 401:
@@ -144,7 +149,7 @@ def get_code_analysis(request):
 @api_view(["POST"])
 def refactor_codebase(request):
     language = request.query_params.get(LANGUAGE_PARAM, None)
-    if language not in SUPPORTED_LANGUAGES_REFACTORING:  # todo: parameterise
+    if language not in SUPPORTED_LANGUAGES_REFACTORING.keys():
         return Response(
             {"error": f"Refactoring not currently supported for {language}"},
             status=status.HTTP_400_BAD_REQUEST,
@@ -153,7 +158,9 @@ def refactor_codebase(request):
     repo_owner = request.query_params.get(REPO_OWNER_PARAM, None)
     repo_name = request.query_params.get(REPO_NAME_PARAM, None)
     github_token = request.query_params.get(ACCESS_TOKEN_PARAM, None)
-    changes = request.query_params.get(CHANGES_PARAM, None)
+    refactors = json.loads(request.query_params.get(REFACTORS_PARAM, None))
+
+    print(repo_owner, repo_name, github_token, refactors)
 
     if any([param is None for param in (repo_owner, repo_name, github_token)]):
         error_response = {"error": "Insufficient credentials."}
@@ -162,7 +169,10 @@ def refactor_codebase(request):
     repo_path = f"{REFACTORED_REPO_STORAGE_LOCATION}/{repo_name}"
     try:
         download_github_repo(
-            repo_name=repo_name, repo_owner=repo_owner, github_token=github_token
+            repo_name=repo_name,
+            repo_owner=repo_owner,
+            github_token=github_token,
+            location=REFACTORED_REPO_STORAGE_LOCATION,
         )
     except GithubException as e:
         if e.status == 401:
@@ -177,7 +187,7 @@ def refactor_codebase(request):
         return Response(error_response, status=e.status)
 
     # refactor code
-    refactor_codebase(changes, repo_path)
+    do_codebase_refactors(refactors, repo_path, language)
 
     # todo: create diffs, commit to repo (?)
     # delete temp storage of repo

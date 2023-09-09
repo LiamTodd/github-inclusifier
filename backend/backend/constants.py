@@ -24,7 +24,7 @@ TERM_PARAM = "term"
 LANGUAGE_PARAM = "language-mode"
 CODE_STRING_PARAM = "file-content"
 CODEBASE_ANALYSIS_PARAM = "codebase-analysis"
-CHANGES_PARAM = "changes"
+REFACTORS_PARAM = "refactors"
 
 SSPM = "Sub-string pattern matching"
 WBPM = "Word-boundary pattern matching"
@@ -36,7 +36,8 @@ SUPPORTED_LANGUAGES = {
     "python": ".py",
     "java": ".java",
 }
-SUPPORTED_LANGUAGES_REFACTORING = ["python"]
+SUPPORTED_LANGUAGES_REFACTORING = {"python": ".py"}
+
 
 RESPONSE_DELIMITER = "RESPONSE:"
 PROMPT_TEMPLATES = {
