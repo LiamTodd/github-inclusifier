@@ -10,7 +10,6 @@ def do_codebase_refactors(refactors, root_path, language):
     project = Project(root_path, ropefolder=None)
     code_files = get_code_files(root_path, SUPPORTED_LANGUAGES_REFACTORING[language])
     refactored_files = []
-    print(refactors)
     for type in refactors.keys():
         for refactor in refactors[type]:
             if refactor is not None:
@@ -25,7 +24,7 @@ def do_codebase_refactors(refactors, root_path, language):
                     )
                     if refactored_file:
                         refactored_files.append(file)
-    print(refactored_files)
+    return refactored_files
 
 
 def refactor_file(file_name, old_name, new_name, project, resource):

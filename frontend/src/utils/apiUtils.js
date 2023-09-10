@@ -118,7 +118,8 @@ export const doCodeRefactors = (
   language,
   userName,
   accessToken,
-  repoName
+  repoName,
+  commitMessage
 ) => {
   handleSetErrorMessage('');
   handleSetLoading(true);
@@ -129,6 +130,7 @@ export const doCodeRefactors = (
     'repo-owner': userName,
     'repo-name': repoName,
     'access-token': accessToken,
+    'commit-message': commitMessage,
   };
   Object.keys(params).forEach((key) =>
     url.searchParams.append(key, params[key])

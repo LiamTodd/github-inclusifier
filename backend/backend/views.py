@@ -1,5 +1,7 @@
 import shutil
 import json
+import os
+import uuid
 
 from github import GithubException
 from rest_framework.decorators import api_view
@@ -21,6 +23,7 @@ from backend.constants import (
     REFACTORED_REPO_STORAGE_LOCATION,
     SUPPORTED_LANGUAGES_REFACTORING,
     REFACTORS_PARAM,
+    COMMIT_MESSAGE_PARAM,
 )
 from backend.utils.reconstruct_file_structure_utils import reconstruct_file_structure
 from backend.utils.language_analysis_utils import (
@@ -36,6 +39,7 @@ from backend.utils.syntax_tree_utils import (
 from backend.utils.github_api_utils import (
     download_github_repo,
     post_language_report_to_github,
+    push_changes,
 )
 from backend.utils.refactor_utils import do_codebase_refactors
 
@@ -159,6 +163,7 @@ def refactor_codebase(request):
     repo_name = request.query_params.get(REPO_NAME_PARAM, None)
     github_token = request.query_params.get(ACCESS_TOKEN_PARAM, None)
     refactors = json.loads(request.query_params.get(REFACTORS_PARAM, None))
+    commit_message = request.query_params.get(COMMIT_MESSAGE_PARAM, None)
 
     if any([param is None for param in (repo_owner, repo_name, github_token)]):
         error_response = {"error": "Insufficient credentials."}
@@ -166,7 +171,7 @@ def refactor_codebase(request):
 
     repo_path = f"{REFACTORED_REPO_STORAGE_LOCATION}/{repo_name}"
     try:
-        download_github_repo(
+        default_branch = download_github_repo(
             repo_name=repo_name,
             repo_owner=repo_owner,
             github_token=github_token,
@@ -185,7 +190,24 @@ def refactor_codebase(request):
         return Response(error_response, status=e.status)
 
     # refactor code
-    do_codebase_refactors(refactors, repo_path, language)
+    refactored_files = do_codebase_refactors(refactors, repo_path, language)
 
-    # todo: create diffs, commit to repo (?)
-    # delete temp storage of repo
+    # push to repo
+    new_branch_name = push_changes(
+        github_token,
+        repo_owner,
+        repo_name,
+        default_branch,
+        refactored_files,
+        repo_path,
+        commit_message,
+    )
+
+    # delete repo
+    shutil.rmtree(repo_path)
+
+    return Response(
+        {
+            "message": f"Successfully refactored code and committed to branch {new_branch_name}",
+        }
+    )

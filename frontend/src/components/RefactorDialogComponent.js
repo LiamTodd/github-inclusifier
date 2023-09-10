@@ -34,6 +34,7 @@ function RefactorDialogComponent({
   });
   const [accessToken, setAccessToken] = useState('');
   const [userName, setUserName] = useState('');
+  const [commitMessage, setCommitMessage] = useState('');
   const [formReady, setFormReady] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -77,8 +78,10 @@ function RefactorDialogComponent({
         }
       }
     }
-    setFormReady(!allEmpty && userName && accessToken && noSpaces);
-  }, [refactors, userName, accessToken]);
+    setFormReady(
+      !allEmpty && userName && accessToken && noSpaces && commitMessage
+    );
+  }, [refactors, userName, accessToken, commitMessage]);
 
   const handleConfirm = () => {
     doCodeRefactors(
@@ -90,7 +93,8 @@ function RefactorDialogComponent({
       accessToken,
       getRepoNameFromExtendedName(
         JSON.parse(localStorage.getItem(REPO_NAME_KEY))
-      )
+      ),
+      commitMessage
     );
   };
 
@@ -169,6 +173,38 @@ function RefactorDialogComponent({
           );
         })}
       </DialogContent>
+      <Box sx={{ padding: '1vw' }}>
+        <TextField
+          sx={{
+            input: { color: WHITE },
+            width: 1,
+          }}
+          InputProps={{
+            sx: {
+              '&:focus-within fieldset, &:focus-visible fieldset': {
+                borderColor: `${LIGHT_PURPLE}!important`,
+              },
+            },
+          }}
+          InputLabelProps={{
+            style: {
+              color: WHITE,
+            },
+          }}
+          FormHelperTextProps={{
+            sx: {
+              color: ERROR,
+            },
+          }}
+          required
+          id='commit-message'
+          label='Commit message'
+          value={commitMessage}
+          onChange={(e) => {
+            setCommitMessage(e.target.value);
+          }}
+        />
+      </Box>
       <Box sx={{ display: 'flex', flexDirection: 'col', padding: '1vw' }}>
         <TextField
           sx={{
@@ -194,7 +230,6 @@ function RefactorDialogComponent({
           required
           id='username'
           label='GitHub username'
-          placeholder="Please enter the repo owner's GitHub username."
           value={userName}
           onChange={(e) => {
             setUserName(e.target.value);
@@ -223,12 +258,17 @@ function RefactorDialogComponent({
           required
           label='Access token'
           type='password'
-          placeholder="Please enter a GitHub access token with 'repo' permissions."
           value={accessToken}
           onChange={(e) => {
             setAccessToken(e.target.value);
           }}
         />
+      </Box>
+      <Box sx={{ padding: '1vw', maxWidth: 1 }}>
+        <Typography variant='body1'>
+          Changes will be committed to a new branch called
+          'inclusiviser-&lt;uuid&gt;
+        </Typography>
       </Box>
 
       <DialogActions sx={{ color: LIGHT_PURPLE }}>

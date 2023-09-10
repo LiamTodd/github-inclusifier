@@ -1,8 +1,9 @@
-from github import Github
+from github import Github, InputGitTreeElement
 import os
 import requests
 from zipfile import ZipFile
 import io
+import uuid
 from backend.utils.language_analysis_utils import generate_language_report
 
 from backend.constants import (
@@ -18,10 +19,59 @@ def generate_zip_url(repo_full_name):
     return f"{GITHUB_URL_BITS.get('base')}{repo_full_name}{GITHUB_URL_BITS.get('zip_file_tail')}"
 
 
+def get_github(github_token):
+    return Github(github_token)
+
+
+def push_changes(
+    github_token,
+    repo_owner,
+    repo_name,
+    default_branch,
+    refactored_files,
+    repo_path,
+    commit_message,
+):
+    g = Github(github_token)
+    repo = g.get_user(repo_owner).get_repo(repo_name)
+    branch_name = f"inclusiviser-{uuid.uuid1()}"
+    repo.create_git_ref(
+        f"refs/heads/{branch_name}", repo.get_branch(default_branch).commit.sha
+    )
+    tree_elements = []
+    for file in refactored_files:
+        with open(os.path.join(repo_path, file), "r") as f:
+            content = f.read()
+        # extract relative path within repo dir
+        split_file = file.split(f"{repo_name}-{default_branch}")
+        repo_relative_path = split_file[-1].replace("\\", "/")[1:]
+        blob = repo.create_git_blob(content=content, encoding="utf-8")
+        tree_elements.append(
+            InputGitTreeElement(
+                path=repo_relative_path, mode="100644", type="blob", sha=blob.sha
+            )
+        )
+
+    tree = repo.create_git_tree(
+        tree=tree_elements, base_tree=repo.get_git_tree(sha=branch_name)
+    )
+
+    commit = repo.create_git_commit(
+        message=commit_message,
+        tree=repo.get_git_tree(sha=tree.sha),
+        parents=[repo.get_git_commit(repo.get_branch(branch_name).commit.sha)],
+    )
+
+    branch_ref = repo.get_git_ref(ref=f"heads/{branch_name}")
+
+    branch_ref.edit(sha=commit.sha)
+
+    return branch_name
+
+
 def download_github_repo(repo_owner, repo_name, github_token, location):
     # Initialize the PyGithub client
-    if github_token:
-        g = Github(github_token)
+    g = get_github(github_token)
 
     # Get the repository by URL
     repository = g.get_repo(f"{repo_owner}/{repo_name}")
