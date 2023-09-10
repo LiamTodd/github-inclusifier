@@ -9,16 +9,27 @@ from backend.constants import SUPPORTED_LANGUAGES_REFACTORING
 def do_codebase_refactors(refactors, root_path, language):
     project = Project(root_path, ropefolder=None)
     code_files = get_code_files(root_path, SUPPORTED_LANGUAGES_REFACTORING[language])
+    refactored_files = []
+    print(refactors)
     for type in refactors.keys():
         for refactor in refactors[type]:
-            for file in code_files:
-                resource = path_to_resource(project, file)
-                refactor_file(
-                    file, refactor["oldName"], refactor["newName"], project, resource
-                )
+            if refactor is not None:
+                for file in code_files:
+                    resource = path_to_resource(project, file)
+                    refactored_file = refactor_file(
+                        file,
+                        refactor["oldName"],
+                        refactor["newName"],
+                        project,
+                        resource,
+                    )
+                    if refactored_file:
+                        refactored_files.append(file)
+    print(refactored_files)
 
 
 def refactor_file(file_name, old_name, new_name, project, resource):
+    refactored_file = False
     node_found = True
     while node_found:
         file_contents = ""
@@ -36,6 +47,7 @@ def refactor_file(file_name, old_name, new_name, project, resource):
                 or (isinstance(node, ast.ClassDef) and node.name == old_name)
             ):
                 node_found = True
+                refactored_file = True
                 col_offset = node.col_offset
                 line_number = node.lineno
                 index = (
@@ -56,3 +68,4 @@ def refactor_file(file_name, old_name, new_name, project, resource):
                 rename_refactor.do()
                 # only change one occurrence at a time
                 break
+    return refactored_file

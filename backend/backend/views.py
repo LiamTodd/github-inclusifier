@@ -160,8 +160,6 @@ def refactor_codebase(request):
     github_token = request.query_params.get(ACCESS_TOKEN_PARAM, None)
     refactors = json.loads(request.query_params.get(REFACTORS_PARAM, None))
 
-    print(repo_owner, repo_name, github_token, refactors)
-
     if any([param is None for param in (repo_owner, repo_name, github_token)]):
         error_response = {"error": "Insufficient credentials."}
         return Response(error_response, status=status.HTTP_400_BAD_REQUEST)

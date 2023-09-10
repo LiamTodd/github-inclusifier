@@ -53,7 +53,7 @@ function RefactorDialogComponent({
         type: type,
       };
     } else {
-      updatedValues[type].pop(index);
+      updatedValues[type][index] = null;
     }
     setRefactors(updatedValues);
   };
@@ -61,15 +61,17 @@ function RefactorDialogComponent({
   useEffect(() => {
     let allEmpty = true;
     for (const list of Object.values(refactors)) {
-      if (list.length > 0) {
-        allEmpty = false;
-        break;
+      for (const element of list) {
+        if (element !== undefined && element !== null) {
+          allEmpty = false;
+          break;
+        }
       }
     }
     let noSpaces = true;
     for (const list of Object.values(refactors)) {
       for (const refactor of list) {
-        if (refactor.newName.includes(' ')) {
+        if (refactor && refactor.newName.includes(' ')) {
           noSpaces = false;
           break;
         }
