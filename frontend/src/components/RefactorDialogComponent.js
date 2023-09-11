@@ -285,7 +285,7 @@ function RefactorDialogComponent({
           }}
         />
       </Box>
-      <Box sx={{ padding: '1vw', maxWidth: 1 }}>
+      <Box sx={{ padding: '2vw', maxWidth: 1 }}>
         <Typography variant='body1'>
           Changes will be committed to a new branch named
           <br />
@@ -304,7 +304,7 @@ function RefactorDialogComponent({
         </Box>
       )}
       {branchUrl && (
-        <Box sx={{ padding: '1vw', maxWidth: 1 }}>
+        <Box sx={{ padding: '2vw', maxWidth: 1 }}>
           <Typography variant='body1'>
             Success!
             <br />
@@ -320,6 +320,11 @@ function RefactorDialogComponent({
             </Link>
             .
           </Typography>
+        </Box>
+      )}
+      {errorMessage && (
+        <Box sx={{ padding: '2vw', maxWidth: 1 }}>
+          <Typography color={ERROR}>{errorMessage}</Typography>
         </Box>
       )}
 
