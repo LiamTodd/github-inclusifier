@@ -26,6 +26,7 @@ CODE_STRING_PARAM = "file-content"
 CODEBASE_ANALYSIS_PARAM = "codebase-analysis"
 REFACTORS_PARAM = "refactors"
 COMMIT_MESSAGE_PARAM = "commit-message"
+UUID_PARAM = "uuid"
 
 SSPM = "Sub-string pattern matching"
 WBPM = "Word-boundary pattern matching"

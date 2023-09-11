@@ -24,6 +24,7 @@ from backend.constants import (
     SUPPORTED_LANGUAGES_REFACTORING,
     REFACTORS_PARAM,
     COMMIT_MESSAGE_PARAM,
+    UUID_PARAM,
 )
 from backend.utils.reconstruct_file_structure_utils import reconstruct_file_structure
 from backend.utils.language_analysis_utils import (
@@ -164,6 +165,7 @@ def refactor_codebase(request):
     github_token = request.query_params.get(ACCESS_TOKEN_PARAM, None)
     refactors = json.loads(request.query_params.get(REFACTORS_PARAM, None))
     commit_message = request.query_params.get(COMMIT_MESSAGE_PARAM, None)
+    uuid = request.query_params.get(UUID_PARAM, None)
 
     if any([param is None for param in (repo_owner, repo_name, github_token)]):
         error_response = {"error": "Insufficient credentials."}
@@ -201,6 +203,7 @@ def refactor_codebase(request):
         refactored_files,
         repo_path,
         commit_message,
+        uuid,
     )
 
     # delete repo

@@ -44,6 +44,7 @@
     "@mui/lab": "^5.0.0-alpha.137",
     "@mui/material": "^5.14.2",
     "@mui/x-data-grid": "^6.10.2",
-    "react-router-dom": "^6.14.2"
+    "react-router-dom": "^6.14.2",
+    "uuid": "^9.0.0"
   }
 }

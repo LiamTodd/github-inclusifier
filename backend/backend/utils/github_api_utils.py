@@ -3,12 +3,10 @@ import os
 import requests
 from zipfile import ZipFile
 import io
-import uuid
 from backend.utils.language_analysis_utils import generate_language_report
 
 from backend.constants import (
     GITHUB_URL_BITS,
-    TEMP_REPO_STORAGE_LOCATION,
     INCLUSIVISER_COMMENT_WATERMARK,
     ISSUE_BODY,
     ISSUE_TITLE,
@@ -31,10 +29,11 @@ def push_changes(
     refactored_files,
     repo_path,
     commit_message,
+    uuid,
 ):
     g = Github(github_token)
     repo = g.get_user(repo_owner).get_repo(repo_name)
-    branch_name = f"inclusiviser-{uuid.uuid1()}"
+    branch_name = f"inclusiviser-{uuid}"
     repo.create_git_ref(
         f"refs/heads/{branch_name}", repo.get_branch(default_branch).commit.sha
     )

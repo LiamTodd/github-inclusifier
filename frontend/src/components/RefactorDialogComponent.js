@@ -17,6 +17,7 @@ import {
   REPO_NAME_KEY,
   WHITE,
 } from '../constants';
+import { v4 as uuidv4 } from 'uuid';
 import { capitalizeFirstLetters } from '../utils/stringUtils';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import { doCodeRefactors } from '../utils/apiUtils';
@@ -35,6 +36,7 @@ function RefactorDialogComponent({
   const [accessToken, setAccessToken] = useState('');
   const [userName, setUserName] = useState('');
   const [commitMessage, setCommitMessage] = useState('');
+  const [uuid, setUuid] = useState('');
   const [formReady, setFormReady] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -58,6 +60,10 @@ function RefactorDialogComponent({
     }
     setRefactors(updatedValues);
   };
+
+  useEffect(() => {
+    setUuid(uuidv4());
+  }, []);
 
   useEffect(() => {
     let allEmpty = true;
@@ -94,7 +100,8 @@ function RefactorDialogComponent({
       getRepoNameFromExtendedName(
         JSON.parse(localStorage.getItem(REPO_NAME_KEY))
       ),
-      commitMessage
+      commitMessage,
+      uuid
     );
   };
 
@@ -267,7 +274,8 @@ function RefactorDialogComponent({
       <Box sx={{ padding: '1vw', maxWidth: 1 }}>
         <Typography variant='body1'>
           Changes will be committed to a new branch called
-          'inclusiviser-&lt;uuid&gt;
+          <br />
+          'inclusiviser-{uuid}'
         </Typography>
       </Box>
 
