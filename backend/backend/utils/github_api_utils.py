@@ -7,7 +7,7 @@ from backend.utils.language_analysis_utils import generate_language_report
 
 from backend.constants import (
     GITHUB_URL_BITS,
-    INCLUSIVISER_COMMENT_WATERMARK,
+    INCLUSIFIER_COMMENT_WATERMARK,
     ISSUE_BODY,
     ISSUE_TITLE,
 )
@@ -33,7 +33,7 @@ def push_changes(
 ):
     g = Github(github_token)
     repo = g.get_user(repo_owner).get_repo(repo_name)
-    branch_name = f"inclusiviser-{uuid}"
+    branch_name = f"inclusifier-{uuid}"
     repo.create_git_ref(
         f"refs/heads/{branch_name}", repo.get_branch(default_branch).commit.sha
     )
@@ -65,7 +65,7 @@ def push_changes(
 
     branch_ref.edit(sha=commit.sha)
 
-    return branch_name
+    return branch_name, commit.sha
 
 
 def download_github_repo(repo_owner, repo_name, github_token, location):
@@ -111,5 +111,5 @@ def post_language_report_to_github(github_token, repo_owner, repo_name, file_dat
                     body += f"- {usage['algorithm']} algorithm found {usage['count']} occurrence(s) in {usage['file']}\n"
         if no_uses:
             body += f"No {category.lower()} detected."
-        body += INCLUSIVISER_COMMENT_WATERMARK
+        body += INCLUSIFIER_COMMENT_WATERMARK
         issue.create_comment(body)

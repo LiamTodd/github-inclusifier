@@ -120,7 +120,8 @@ export const doCodeRefactors = (
   accessToken,
   repoName,
   commitMessage,
-  uuid
+  uuid,
+  handleSetBranchUrl
 ) => {
   handleSetErrorMessage('');
   handleSetLoading(true);
@@ -145,6 +146,7 @@ export const doCodeRefactors = (
         handleSetErrorMessage(data.error);
         return;
       }
+      handleSetBranchUrl(data.branch_url);
       handleSetLoading(false);
     });
 };

@@ -195,7 +195,7 @@ def refactor_codebase(request):
     refactored_files = do_codebase_refactors(refactors, repo_path, language)
 
     # push to repo
-    new_branch_name = push_changes(
+    new_branch_name, commit_sha = push_changes(
         github_token,
         repo_owner,
         repo_name,
@@ -212,5 +212,6 @@ def refactor_codebase(request):
     return Response(
         {
             "message": f"Successfully refactored code and committed to branch {new_branch_name}",
+            "branch_url": f"https://github.com/{repo_owner}/{repo_name}/commit/{commit_sha}",
         }
     )

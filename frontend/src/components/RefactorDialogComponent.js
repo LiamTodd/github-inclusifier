@@ -6,6 +6,7 @@ import {
   DialogContent,
   DialogTitle,
   Divider,
+  Link,
   TextField,
   Typography,
 } from '@mui/material';
@@ -39,12 +40,17 @@ function RefactorDialogComponent({
   const [uuid, setUuid] = useState('');
   const [formReady, setFormReady] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [branchUrl, setBranchUrl] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
   const wrapperSetLoading = useCallback((val) => setLoading(val), [setLoading]);
   const wrapperSetErrorMessage = useCallback(
     (val) => setErrorMessage(val),
     [setErrorMessage]
+  );
+  const wrapperSetBranchUrl = useCallback(
+    (val) => setBranchUrl(val),
+    [setBranchUrl]
   );
 
   const handleRenameChange = (newValue, term, type, index) => {
@@ -101,12 +107,20 @@ function RefactorDialogComponent({
         JSON.parse(localStorage.getItem(REPO_NAME_KEY))
       ),
       commitMessage,
-      uuid
+      uuid,
+      wrapperSetBranchUrl
     );
   };
 
   return (
-    <Box sx={{ backgroundColor: DARK_GREY, color: WHITE }}>
+    <Box
+      sx={{
+        backgroundColor: DARK_GREY,
+        color: WHITE,
+        paddingLeft: '2vw',
+        paddingRight: '2vw',
+      }}
+    >
       <DialogTitle>Refactor {language} code</DialogTitle>
       <DialogContent>
         {Object.entries(codeAnalysis).map(([type, terms]) => {
@@ -273,11 +287,41 @@ function RefactorDialogComponent({
       </Box>
       <Box sx={{ padding: '1vw', maxWidth: 1 }}>
         <Typography variant='body1'>
-          Changes will be committed to a new branch called
+          Changes will be committed to a new branch named
           <br />
-          'inclusiviser-{uuid}'
+          'inclusifier-{uuid}'
         </Typography>
       </Box>
+      {loading && (
+        <Box
+          sx={{
+            color: LIGHT_PURPLE,
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+        >
+          <CircularProgress color='inherit'></CircularProgress>
+        </Box>
+      )}
+      {branchUrl && (
+        <Box sx={{ padding: '1vw', maxWidth: 1 }}>
+          <Typography variant='body1'>
+            Success!
+            <br />
+            View changes{' '}
+            <Link
+              sx={{
+                '&:hover': { color: LIGHT_PURPLE },
+              }}
+              href={branchUrl}
+              color='inherit'
+            >
+              here
+            </Link>
+            .
+          </Typography>
+        </Box>
+      )}
 
       <DialogActions sx={{ color: LIGHT_PURPLE }}>
         <Button
