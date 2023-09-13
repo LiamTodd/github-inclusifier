@@ -192,7 +192,7 @@ def refactor_codebase(request):
         return Response(error_response, status=e.status)
 
     # refactor code
-    refactored_files = do_codebase_refactors(refactors, repo_path, language)
+    code_files = do_codebase_refactors(refactors, repo_path, language)
 
     # push to repo
     new_branch_name, commit_sha = push_changes(
@@ -200,7 +200,7 @@ def refactor_codebase(request):
         repo_owner,
         repo_name,
         default_branch,
-        refactored_files,
+        code_files,
         repo_path,
         commit_message,
         uuid,
