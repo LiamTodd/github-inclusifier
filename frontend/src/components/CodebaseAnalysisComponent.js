@@ -104,7 +104,7 @@ function CodebaseAnalysisComponent({ repoCodeAnalysis }) {
                           >
                             {capitalizeFirstLetters(type)}
                           </Typography>
-                          <Divider color={WHITE} sx={{ width: '10vw' }} />
+                          <Divider color={WHITE} sx={{ width: '8vw' }} />
 
                           {Object.entries(terms).map(([term, details]) => {
                             return (
@@ -124,7 +124,7 @@ function CodebaseAnalysisComponent({ repoCodeAnalysis }) {
                                       : null}
                                   </Typography>
                                 </ListItemText>
-                                <Divider color={WHITE} sx={{ width: '10vw' }} />
+                                <Divider color={WHITE} sx={{ width: '8vw' }} />
                               </List>
                             );
                           })}

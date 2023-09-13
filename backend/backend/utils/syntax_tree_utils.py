@@ -1,7 +1,11 @@
 import ast_comments as ast
 import javalang
 from comment_parser import comment_parser
-from backend.constants import FAILED_FILE_READ_WARNING, SUPPORTED_LANGUAGES
+from backend.constants import (
+    FAILED_FILE_READ_WARNING,
+    SUPPORTED_LANGUAGES,
+    LANGUAGE_ADDONS,
+)
 from backend.utils.language_analysis_utils import (
     single_term_classification,
     code_comment_wbpm,
@@ -26,8 +30,9 @@ def python_processor(code, keep_duplicates=False, analyse_comments=True):
     functions = []
     variables = []
     classes = []
+    aliases = []
     comments = []
-
+    print(code)
     for node in ast.walk(tree):
         if isinstance(node, ast.FunctionDef):
             if (
@@ -36,11 +41,18 @@ def python_processor(code, keep_duplicates=False, analyse_comments=True):
             ) or keep_duplicates is True:
                 functions.append(single_term_classification(node.name))
         elif isinstance(node, ast.Name):
+            if isinstance(node.ctx, ast.Store):
+                if (
+                    keep_duplicates is False
+                    and node.id not in [variable["term"] for variable in variables]
+                ) or keep_duplicates is True:
+                    variables.append(single_term_classification(node.id))
+        elif isinstance(node, ast.alias):
             if (
                 keep_duplicates is False
-                and node.id not in [variable["term"] for variable in variables]
+                and node.name not in [alias["term"] for alias in aliases]
             ) or keep_duplicates is True:
-                variables.append(single_term_classification(node.id))
+                aliases.append(single_term_classification(node.name))
         elif isinstance(node, ast.ClassDef):
             if (
                 keep_duplicates is False
@@ -50,7 +62,10 @@ def python_processor(code, keep_duplicates=False, analyse_comments=True):
         elif isinstance(node, ast.Comment) and analyse_comments is True:
             comments.append(code_comment_wbpm(node.value))
 
-    return generic_return(functions, variables, classes, comments)
+    return {
+        **generic_return(functions, variables, classes, comments),
+        "aliases": aliases,
+    }
 
 
 def java_processor(code, keep_duplicates=False, analyse_comments=True):
@@ -102,7 +117,7 @@ LANGUAGE_PROCESSORS = {
 def perform_codebase_analysis_aux(file_analysis, language_analysis, file, element_type):
     for element in file_analysis[element_type]:
         if element["non_inclusive"]:
-            term_data = language_analysis["variables"].get(element["term"], None)
+            term_data = language_analysis[element_type].get(element["term"], None)
             # first instance of term
             if term_data is None:
                 language_analysis[element_type][element["term"]] = {
@@ -117,10 +132,20 @@ def perform_codebase_analysis_aux(file_analysis, language_analysis, file, elemen
                 term_data["occurrences"] += 1
 
 
+BASE_ANALYSIS = ["variables", "functions", "classes"]
+PYTHON_ANALYSIS_ADDONS = ["aliases"]
+
+
 def perform_codebase_analysis(file_data):
     output = {}
     for language, extension in SUPPORTED_LANGUAGES.items():
-        language_analysis = {"variables": {}, "functions": {}, "classes": {}}
+        language_analysis = {
+            "variables": {},
+            "functions": {},
+            "classes": {},
+        }
+        for addon in LANGUAGE_ADDONS[language]:
+            language_analysis[addon] = {}
         for file in file_data.values():
             if (
                 file.get("content") is not None
@@ -136,15 +161,10 @@ def perform_codebase_analysis(file_data):
                 except:
                     print(f"Unable to parse {file.get('file_name')}")
                     continue
-                perform_codebase_analysis_aux(
-                    file_analysis, language_analysis, file, "variables"
-                )
-                perform_codebase_analysis_aux(
-                    file_analysis, language_analysis, file, "functions"
-                )
-                perform_codebase_analysis_aux(
-                    file_analysis, language_analysis, file, "classes"
-                )
+                for element_type in language_analysis.keys():
+                    perform_codebase_analysis_aux(
+                        file_analysis, language_analysis, file, element_type
+                    )
 
             output[language] = language_analysis
 

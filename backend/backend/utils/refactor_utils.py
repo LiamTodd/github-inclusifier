@@ -28,6 +28,7 @@ def do_codebase_refactors(refactors, root_path, language):
 
 
 def refactor_file(file_name, old_name, new_name, project, resource):
+    # hardcoded to python
     refactored_file = False
     node_found = True
     while node_found:

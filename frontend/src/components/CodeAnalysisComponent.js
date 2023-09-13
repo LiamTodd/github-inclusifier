@@ -70,21 +70,28 @@ function CodeAnalysisComponent({ languageMode, selectedFileData }) {
               <FuncVarCodeComponent
                 elements={codeAnalysis.functions}
                 elementType={'Functions'}
-                width={3}
+                width={12 / Object.keys(codeAnalysis).length}
               />
               <FuncVarCodeComponent
                 elements={codeAnalysis.variables}
                 elementType={'Variables'}
-                width={3}
+                width={12 / Object.keys(codeAnalysis).length}
               />
               <FuncVarCodeComponent
                 elements={codeAnalysis.classes}
                 elementType={'Classes'}
-                width={3}
+                width={12 / Object.keys(codeAnalysis).length}
               />
+              {codeAnalysis.aliases && (
+                <FuncVarCodeComponent
+                  elements={codeAnalysis.aliases}
+                  elementType={'Aliases'}
+                  width={12 / Object.keys(codeAnalysis).length}
+                />
+              )}
               <CommentCodeComponent
                 comments={codeAnalysis.comments}
-                width={3}
+                width={12 / Object.keys(codeAnalysis).length}
               />
             </Grid>
           </Box>

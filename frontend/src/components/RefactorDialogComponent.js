@@ -29,6 +29,7 @@ function RefactorDialogComponent({
   handleSetShowModal,
   codeAnalysis,
 }) {
+  // for now, this is hard-coded to python only as refactoring is only available for python
   const [refactors, setRefactors] = useState({
     functions: [],
     variables: [],
@@ -123,76 +124,82 @@ function RefactorDialogComponent({
     >
       <DialogTitle>Refactor {language} code</DialogTitle>
       <DialogContent>
-        {Object.entries(codeAnalysis).map(([type, terms]) => {
-          return (
-            <>
-              <Typography
-                sx={{
-                  color: WHITE,
-                }}
-              >
-                {capitalizeFirstLetters(type)}
-              </Typography>
-              <Divider color={WHITE} />
-              {Object.keys(terms).map((term, index) => {
-                return (
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      padding: '1vh',
-                    }}
-                    key={`${type}-${index}`}
-                  >
-                    <span style={{ color: ERROR }}>{term}</span>
-                    <KeyboardDoubleArrowRightIcon />
-                    <TextField
+        {Object.entries(codeAnalysis)
+          .filter(([type, _]) => {
+            // unable to refactor aliases
+            return type !== 'aliases';
+          })
+          .map(([type, terms]) => {
+            return (
+              <>
+                <Typography
+                  sx={{
+                    color: WHITE,
+                  }}
+                >
+                  {capitalizeFirstLetters(type)}
+                </Typography>
+                <Divider color={WHITE} />
+                {Object.keys(terms).map((term, index) => {
+                  return (
+                    <Box
                       sx={{
-                        input: { color: WHITE },
-                        '& .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline':
-                          {
-                            borderColor: ERROR,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        padding: '1vh',
+                      }}
+                      key={`${type}-${index}`}
+                    >
+                      <span style={{ color: ERROR }}>{term}</span>
+                      <KeyboardDoubleArrowRightIcon />
+                      <TextField
+                        sx={{
+                          input: { color: WHITE },
+                          '& .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline':
+                            {
+                              borderColor: ERROR,
+                            },
+                          '& .MuiFormHelperText-root.Mui-error': {
+                            color: ERROR,
                           },
-                        '& .MuiFormHelperText-root.Mui-error': {
-                          color: ERROR,
-                        },
-                      }}
-                      InputProps={{
-                        sx: {
-                          '&:focus-within fieldset, &:focus-visible fieldset': {
-                            borderColor: `${LIGHT_PURPLE}!important`,
+                        }}
+                        InputProps={{
+                          sx: {
+                            '&:focus-within fieldset, &:focus-visible fieldset':
+                              {
+                                borderColor: `${LIGHT_PURPLE}!important`,
+                              },
                           },
-                        },
-                      }}
-                      InputLabelProps={{
-                        style: {
-                          color: WHITE,
-                        },
-                      }}
-                      error={
-                        refactors[type][index]
-                          ? refactors[type][index].newName.includes(' ')
-                          : false
-                      }
-                      helperText={
-                        refactors[type][index]
-                          ? refactors[type][index].newName.includes(' ')
-                            ? 'New names cannot include spaces.'
+                        }}
+                        InputLabelProps={{
+                          style: {
+                            color: WHITE,
+                          },
+                        }}
+                        error={
+                          refactors[type][index]
+                            ? refactors[type][index].newName.includes(' ')
+                            : false
+                        }
+                        helperText={
+                          refactors[type][index]
+                            ? refactors[type][index].newName.includes(' ')
+                              ? 'New names cannot include spaces.'
+                              : null
                             : null
-                          : null
-                      }
-                      placeholder='New name'
-                      onChange={(e) => {
-                        handleRenameChange(e.target.value, term, type, index);
-                      }}
-                    />
-                  </Box>
-                );
-              })}
-            </>
-          );
-        })}
+                        }
+                        placeholder='New name'
+                        onChange={(e) => {
+                          handleRenameChange(e.target.value, term, type, index);
+                        }}
+                      />
+                    </Box>
+                  );
+                })}
+              </>
+            );
+          })}
       </DialogContent>
       <Box sx={{ padding: '1vw' }}>
         <TextField

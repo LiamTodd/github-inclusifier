@@ -38,6 +38,10 @@ SUPPORTED_LANGUAGES = {
     "python": ".py",
     "java": ".java",
 }
+LANGUAGE_ADDONS = {
+    "python": ["aliases"],
+    "java": [],
+}
 SUPPORTED_LANGUAGES_REFACTORING = {"python": ".py"}
 
 
