@@ -10,14 +10,37 @@ import re
 def single_term_classification(term):
     non_inclusive = False
     category = None
+    algorithm = None
     cleaned_term = term.lower()
+    # must search for all wbpm matches first, as some terms are substrings of other terms.
     for non_inclusive_category, category_terms in NON_INCLUSIVE_LANGUAGE_TERMS.items():
         for category_term in category_terms:
-            if cleaned_term == category_term:
+            wbpm_matches = [
+                m.start() for m in re.finditer(rf"\b{category_term}\b", cleaned_term)
+            ]
+            if len(wbpm_matches) > 0:
                 non_inclusive = True
                 category = non_inclusive_category
+                algorithm = WBPM
                 break
-    return {"term": term, "non_inclusive": non_inclusive, "category": category}
+        # only look for sub-string matches if no word-boundary matches are found
+        if non_inclusive == False:
+            for (
+                non_inclusive_category,
+                category_terms,
+            ) in NON_INCLUSIVE_LANGUAGE_TERMS.items():
+                for category_term in category_terms:
+                    if category_term in cleaned_term:
+                        non_inclusive = True
+                        category = non_inclusive_category
+                        algorithm = SSPM
+                        break
+    return {
+        "term": term,
+        "non_inclusive": non_inclusive,
+        "category": category,
+        "algorithm": algorithm,
+    }
 
 
 def code_comment_wbpm(comment):

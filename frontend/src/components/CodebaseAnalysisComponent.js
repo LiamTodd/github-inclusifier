@@ -15,7 +15,9 @@ import {
   ERROR,
   LIGHT_PURPLE,
   SUPPORTED_LANGUAGES_REFACTORING,
+  WBPM_NAME,
   WHITE,
+  YELLOW,
 } from '../constants';
 import { capitalizeFirstLetters } from '../utils/stringUtils';
 import { useCallback, useState } from 'react';
@@ -107,14 +109,18 @@ function CodebaseAnalysisComponent({ repoCodeAnalysis }) {
                           <Divider color={WHITE} sx={{ width: '8vw' }} />
 
                           {Object.entries(terms).map(([term, details]) => {
+                            const colour =
+                              details.algorithm === WBPM_NAME ? ERROR : YELLOW;
                             return (
                               <List key={`${language}-${type}-${term}-list`}>
                                 <ListItemText>
                                   <Typography
-                                    variant='body1'
+                                    variant='body2'
                                     key={`${language}-${type}-${term}`}
                                   >
-                                    <span style={{ color: ERROR }}>{term}</span>{' '}
+                                    <span style={{ color: colour }}>
+                                      {term}
+                                    </span>{' '}
                                     occurred{' '}
                                     {details.occurrences > 1
                                       ? `${details.occurrences} times`

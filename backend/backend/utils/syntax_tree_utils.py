@@ -32,7 +32,6 @@ def python_processor(code, keep_duplicates=False, analyse_comments=True):
     classes = []
     aliases = []
     comments = []
-    print(code)
     for node in ast.walk(tree):
         if isinstance(node, ast.FunctionDef):
             if (
@@ -123,6 +122,7 @@ def perform_codebase_analysis_aux(file_analysis, language_analysis, file, elemen
                 language_analysis[element_type][element["term"]] = {
                     "files": [file.get("file_path")],
                     "occurrences": 1,
+                    "algorithm": element["algorithm"],
                 }
             # term has been found before
             else:

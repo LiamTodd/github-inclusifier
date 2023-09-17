@@ -119,7 +119,7 @@ def get_suggestion(request):
 
     llm_engine_function = LLM_ENGINE_FUNCTIONS.get(llm_engine, None)
     if llm_engine_function is None:
-        error_response = {"error": "LLM is currently unavailable."}
+        error_response = {"error": "large language model is currently unavailable."}
         return Response(error_response, status.HTTP_400_BAD_REQUEST)
     result = llm_engine_function(original_text, term)
 

@@ -39,4 +39,4 @@ def llama7b_engine(original_text, term):
     return processed_output.lstrip()
 
 
-LLM_ENGINE_FUNCTIONS = {GPT4_ENGINE: gpt4_engine, LLAMA7B_ENGINE: llama7b_engine}
+LLM_ENGINE_FUNCTIONS = {LLAMA7B_ENGINE: llama7b_engine}

@@ -14,7 +14,7 @@ def do_codebase_refactors(refactors, root_path, language):
             if refactor is not None:
                 for file in code_files:
                     resource = path_to_resource(project, file)
-                    refactored_files = refactor_file(
+                    refactor_file(
                         file,
                         refactor["oldName"],
                         refactor["newName"],

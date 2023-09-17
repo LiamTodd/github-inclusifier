@@ -16,6 +16,7 @@ export const BLACK = '#000000';
 export const LIGHT_PURPLE = '#BB86FC';
 export const DARK_PURPLE = '#3700B3';
 export const TURQOISE = '#03DAC6';
+export const YELLOW = '#F7F181';
 
 export const REPO_NAME_KEY = 'repo-name';
 export const RAW_FILE_DATA_KEY = 'raw-file-date';
@@ -222,7 +223,7 @@ export const NON_INCLUSIVE_LANGUAGE_TERMS = {
 let csvHeaders = 'file name,file path,';
 for (const category in NON_INCLUSIVE_LANGUAGE_TERMS) {
   for (const term of NON_INCLUSIVE_LANGUAGE_TERMS[category]) {
-    csvHeaders += `${term} (occurrences),`;
+    csvHeaders += `${term},`;
   }
 }
 export const CSV_HEADERS = csvHeaders + '\n';

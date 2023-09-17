@@ -1,5 +1,5 @@
 import { Grid, Stack, Typography } from '@mui/material';
-import { DARK_GREY, ERROR, WHITE } from '../constants';
+import { DARK_GREY, ERROR, WBPM_NAME, WHITE, YELLOW } from '../constants';
 import { CodeListItem } from './helpers/codeListItem';
 import { capitalizeFirstLetters } from '../utils/stringUtils';
 
@@ -19,7 +19,11 @@ function FuncVarCodeComponent({ elements, elementType, width }) {
           {elementType}
         </Typography>
         {elements.map((element) => {
-          const color = element.non_inclusive ? ERROR : WHITE;
+          const color = !element.non_inclusive
+            ? WHITE
+            : element.algorithm === WBPM_NAME
+            ? ERROR
+            : YELLOW;
           return (
             <CodeListItem
               key={`variable-${element.term}`}

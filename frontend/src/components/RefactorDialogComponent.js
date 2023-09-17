@@ -16,7 +16,9 @@ import {
   ERROR,
   LIGHT_PURPLE,
   REPO_NAME_KEY,
+  WBPM_NAME,
   WHITE,
+  YELLOW,
 } from '../constants';
 import { v4 as uuidv4 } from 'uuid';
 import { capitalizeFirstLetters } from '../utils/stringUtils';
@@ -43,6 +45,7 @@ function RefactorDialogComponent({
   const [loading, setLoading] = useState(false);
   const [branchUrl, setBranchUrl] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [confirmed, setConfirmed] = useState(false);
 
   const wrapperSetLoading = useCallback((val) => setLoading(val), [setLoading]);
   const wrapperSetErrorMessage = useCallback(
@@ -52,6 +55,10 @@ function RefactorDialogComponent({
   const wrapperSetBranchUrl = useCallback(
     (val) => setBranchUrl(val),
     [setBranchUrl]
+  );
+  const wrapperSetConfirmed = useCallback(
+    (val) => setConfirmed(val),
+    [setConfirmed]
   );
 
   const handleRenameChange = (newValue, term, type, index) => {
@@ -92,9 +99,14 @@ function RefactorDialogComponent({
       }
     }
     setFormReady(
-      !allEmpty && userName && accessToken && noSpaces && commitMessage
+      !allEmpty &&
+        userName &&
+        accessToken &&
+        noSpaces &&
+        commitMessage &&
+        !confirmed
     );
-  }, [refactors, userName, accessToken, commitMessage]);
+  }, [refactors, userName, accessToken, commitMessage, confirmed]);
 
   const handleConfirm = () => {
     doCodeRefactors(
@@ -109,7 +121,8 @@ function RefactorDialogComponent({
       ),
       commitMessage,
       uuid,
-      wrapperSetBranchUrl
+      wrapperSetBranchUrl,
+      wrapperSetConfirmed
     );
   };
 
@@ -140,7 +153,7 @@ function RefactorDialogComponent({
                   {capitalizeFirstLetters(type)}
                 </Typography>
                 <Divider color={WHITE} />
-                {Object.keys(terms).map((term, index) => {
+                {Object.entries(terms).map(([term, details], index) => {
                   return (
                     <Box
                       sx={{
@@ -149,9 +162,16 @@ function RefactorDialogComponent({
                         justifyContent: 'space-between',
                         padding: '1vh',
                       }}
-                      key={`${type}-${index}`}
+                      key={`${type}-${term}-${index}`}
                     >
-                      <span style={{ color: ERROR }}>{term}</span>
+                      <span
+                        style={{
+                          color:
+                            details.algorithm === WBPM_NAME ? ERROR : YELLOW,
+                        }}
+                      >
+                        {term}
+                      </span>
                       <KeyboardDoubleArrowRightIcon />
                       <TextField
                         sx={{

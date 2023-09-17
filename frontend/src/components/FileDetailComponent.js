@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import {
   DARK_GREY,
   DETAIL_TABLE_COLUMNS,
@@ -62,7 +62,7 @@ function FileDetailComponent({ fileData, handleSetSelectedTermData }) {
                         color: WHITE,
                       }}
                     >
-                      {column.headerName}
+                      <Typography variant='h6'>{column.headerName}</Typography>
                     </TableCell>
                   );
                 })}
@@ -79,7 +79,6 @@ function FileDetailComponent({ fileData, handleSetSelectedTermData }) {
                   <TableCell
                     component='th'
                     scope='row'
-                    sx={{ color: WHITE, '&:hover': { color: LIGHT_PURPLE } }}
                     onClick={() =>
                       handleSetSelectedTermData({
                         term: item.term,
@@ -87,16 +86,29 @@ function FileDetailComponent({ fileData, handleSetSelectedTermData }) {
                       })
                     }
                   >
-                    {item.term}
+                    <Typography
+                      variant='body1'
+                      sx={{
+                        color: WHITE,
+                        '&:hover': {
+                          color: LIGHT_PURPLE,
+                          textDecoration: `underline ${LIGHT_PURPLE}`,
+                        },
+                        textDecoration: `underline ${WHITE}`,
+                        cursor: 'pointer',
+                      }}
+                    >
+                      {item.term}
+                    </Typography>
                   </TableCell>
                   <TableCell align='right' sx={{ color: WHITE }}>
-                    {item.category}
+                    <Typography>{item.category}</Typography>
                   </TableCell>
                   <TableCell align='right' sx={{ color: WHITE }}>
-                    {item.SSPMOccurrences}
+                    <Typography>{item.SSPMOccurrences}</Typography>
                   </TableCell>
                   <TableCell align='right' sx={{ color: WHITE }}>
-                    {item.WBPMOccurrences}
+                    <Typography>{item.WBPMOccurrences}</Typography>
                   </TableCell>
                 </TableRow>
               ))}

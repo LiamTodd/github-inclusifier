@@ -121,10 +121,12 @@ export const doCodeRefactors = (
   repoName,
   commitMessage,
   uuid,
-  handleSetBranchUrl
+  handleSetBranchUrl,
+  handleSetConfirmed
 ) => {
   handleSetErrorMessage('');
   handleSetLoading(true);
+  handleSetConfirmed(true);
   const url = new URL(LOCAL_HOST_REFACTOR_URL);
   const params = {
     refactors: JSON.stringify(refactors),
@@ -143,6 +145,7 @@ export const doCodeRefactors = (
     .then((data) => {
       if (data.error) {
         handleSetLoading(false);
+        handleSetConfirmed(false);
         handleSetErrorMessage(data.error);
         return;
       }

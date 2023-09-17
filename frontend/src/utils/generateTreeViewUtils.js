@@ -84,8 +84,8 @@ const generateTreeViewAux = (
     }
   }
 
-  const SSPMFlags = countSSPMFlags(parent);
   const WBPMFlags = countWBPMFlags(parent);
+  const SSPMFlags = countSSPMFlags(parent) - WBPMFlags;
 
   return createElement(
     TreeItem,

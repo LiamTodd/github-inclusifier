@@ -28,8 +28,8 @@ REFACTORS_PARAM = "refactors"
 COMMIT_MESSAGE_PARAM = "commit-message"
 UUID_PARAM = "uuid"
 
-SSPM = "Sub-string pattern matching"
-WBPM = "Word-boundary pattern matching"
+SSPM = "Sub-String Pattern Matching"
+WBPM = "Word-Boundary Pattern Matching"
 
 GPT4_ENGINE = "GPT-4"
 LLAMA7B_ENGINE = "llama-7b"

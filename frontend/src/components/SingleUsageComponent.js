@@ -15,6 +15,7 @@ import {
   SSPM_NAME,
   WBPM_NAME,
   WHITE,
+  YELLOW,
 } from '../constants';
 import { useCallback, useState } from 'react';
 import ModelSelectorDialogContentComponent from './ModelSelectorDialogContentComponent';
@@ -60,12 +61,15 @@ function SingleUsageComponent({
       <CardContent>
         <Typography variant='subtitle1'>Original Text</Typography>
         <Typography variant='body' fontStyle='italic' component='div'>
-          "{sentence.slice(0, sentencePosition)}
-          <span style={{ color: ERROR }}>
-            {sentence.slice(sentencePosition, sentencePosition + term.length)}
-          </span>
-          {sentence.slice(sentencePosition + term.length)}"
+          <pre>
+            "{sentence.slice(0, sentencePosition)}
+            <span style={{ color: algorithm === WBPM_NAME ? ERROR : YELLOW }}>
+              {sentence.slice(sentencePosition, sentencePosition + term.length)}
+            </span>
+            {sentence.slice(sentencePosition + term.length)}"
+          </pre>
         </Typography>
+
         <br />
         <Typography variant='caption'>
           {fileName}, character position {filePosition}
