@@ -10,7 +10,6 @@ import {
   TURQOISE,
 } from '../constants';
 import { createElement } from 'react';
-import { generateMatchCountDisplay } from './stringUtils';
 
 export const generateTreeView = (
   fileData,
@@ -84,8 +83,7 @@ const generateTreeViewAux = (
     }
   }
 
-  const WBPMFlags = countWBPMFlags(parent);
-  const SSPMFlags = countSSPMFlags(parent) - WBPMFlags;
+  const showFlagAction = countWBPMFlags(parent) || countSSPMFlags(parent);
 
   return createElement(
     TreeItem,
@@ -101,10 +99,10 @@ const generateTreeViewAux = (
           }}
         >
           <div style={{ paddingRight: '1vw' }}>{parent.file_name}</div>
-          {SSPMFlags > 0 ? (
+          {showFlagAction ? (
             <div style={{ paddingRight: '1vw' }}>
               <Chip
-                label={generateMatchCountDisplay(SSPMFlags, WBPMFlags)}
+                label={'Non-inclusive language analysis'}
                 onClick={() => {
                   handleSetSelectedFile(parent);
                 }}
