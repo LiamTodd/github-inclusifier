@@ -13,11 +13,12 @@ import {
   ERROR,
   LIGHT_PURPLE,
   SSPM_NAME,
+  SUPPORTED_CODE_FILE_EXTENSIONS,
   WBPM_NAME,
   WHITE,
   YELLOW,
 } from '../constants';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import ModelSelectorDialogContentComponent from './ModelSelectorDialogContentComponent';
 
 function SingleUsageComponent({
@@ -33,6 +34,8 @@ function SingleUsageComponent({
   const [showModelSelector, setShowModelSelector] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [modelName, setModelName] = useState('');
+  const [isCodeFile, setIsCodeFile] = useState(false);
+  const [termInContext, setTermInContext] = useState('');
   const wrapperSetSuggestedReplacement = useCallback(
     (val) => setSuggestedReplacement(val),
     [setSuggestedReplacement]
@@ -50,6 +53,25 @@ function SingleUsageComponent({
     (val) => setModelName(val),
     [setModelName]
   );
+  useEffect(() => {
+    for (const extension of Object.values(SUPPORTED_CODE_FILE_EXTENSIONS)) {
+      if (fileName.endsWith(extension)) {
+        setIsCodeFile(true);
+        break;
+      }
+    }
+  }, [fileName]);
+  useEffect(() => {
+    setTermInContext(
+      <>
+        "{sentence.slice(0, sentencePosition)}
+        <span style={{ color: algorithm === WBPM_NAME ? ERROR : YELLOW }}>
+          {sentence.slice(sentencePosition, sentencePosition + term.length)}
+        </span>
+        {sentence.slice(sentencePosition + term.length)}"
+      </>
+    );
+  }, [sentence, sentencePosition, algorithm, term]);
   return (
     <Card
       sx={{
@@ -61,13 +83,11 @@ function SingleUsageComponent({
       <CardContent>
         <Typography variant='subtitle1'>Original Text</Typography>
         <Typography variant='body' fontStyle='italic' component='div'>
-          <pre>
-            "{sentence.slice(0, sentencePosition)}
-            <span style={{ color: algorithm === WBPM_NAME ? ERROR : YELLOW }}>
-              {sentence.slice(sentencePosition, sentencePosition + term.length)}
-            </span>
-            {sentence.slice(sentencePosition + term.length)}"
-          </pre>
+          {isCodeFile ? (
+            <pre style={{ whiteSpace: 'pre-wrap' }}>{termInContext}</pre>
+          ) : (
+            <>{termInContext}</>
+          )}
         </Typography>
 
         <br />
