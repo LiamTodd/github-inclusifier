@@ -30,6 +30,45 @@ export const REPO_CODE_ANALYSIS_KEY = 'repo-code-analysis';
 export const SUPPORTED_CODE_FILE_EXTENSIONS = { java: '.java', python: '.py' };
 export const SUPPORTED_LANGUAGES_REFACTORING = ['python'];
 
+export const PYTHON_KEYWORDS = [
+  'False',
+  'None',
+  'True',
+  '__peg_parser__',
+  'and',
+  'as',
+  'assert',
+  'async',
+  'await',
+  'break',
+  'class',
+  'continue',
+  'def',
+  'del',
+  'elif',
+  'else',
+  'except',
+  'finally',
+  'for',
+  'from',
+  'global',
+  'if',
+  'import',
+  'in',
+  'is',
+  'lambda',
+  'nonlocal',
+  'not',
+  'or',
+  'pass',
+  'raise',
+  'return',
+  'try',
+  'while',
+  'with',
+  'yield',
+];
+
 export const MODEL_CHOICES = {
   'GPT-4': {
     customInput: (

@@ -1,4 +1,4 @@
-import { MAX_PROCESSABLE_SENTENCE_LENGTH } from '../constants';
+import { MAX_PROCESSABLE_SENTENCE_LENGTH, PYTHON_KEYWORDS } from '../constants';
 
 export const generateHeaderFromDoubleRootPath = (repoName, doubleRootPath) => {
   const doubleRootPathComponents = doubleRootPath.split('/');
@@ -18,6 +18,32 @@ export const generateRepoUrl = (repoName) => {
 
 export const getRepoNameFromExtendedName = (extendedName) => {
   return extendedName.split('/')[1];
+};
+
+export const isPythonNameIllegal = (newName) => {
+  if (!newName.match(/^[a-zA-Z0-9_]*$/)) {
+    return true;
+  }
+  if (PYTHON_KEYWORDS.includes(newName)) {
+    return true;
+  }
+  if (newName.match(/^\d/)) {
+    return true;
+  }
+  return false;
+};
+
+export const getPythonNameErrorText = (newName) => {
+  if (!newName.match(/^[a-zA-Z0-9_]*$/)) {
+    return 'New name contains illegal characters.';
+  }
+  if (PYTHON_KEYWORDS.includes(newName)) {
+    return 'New name cannot be a keyword.';
+  }
+  if (newName.match(/^\d/)) {
+    return 'New name cannot begin with a number.';
+  }
+  return null;
 };
 
 const getShortenedSentence = (sentence, sentenceIndex) => {

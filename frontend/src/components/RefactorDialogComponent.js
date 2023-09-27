@@ -21,7 +21,11 @@ import {
   YELLOW,
 } from '../constants';
 import { v4 as uuidv4 } from 'uuid';
-import { capitalizeFirstLetters } from '../utils/stringUtils';
+import {
+  capitalizeFirstLetters,
+  getPythonNameErrorText,
+  isPythonNameIllegal,
+} from '../utils/stringUtils';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import { doCodeRefactors } from '../utils/apiUtils';
 import { getRepoNameFromExtendedName } from '../utils/stringUtils';
@@ -89,11 +93,11 @@ function RefactorDialogComponent({
         }
       }
     }
-    let noSpaces = true;
+    let legalName = true;
     for (const list of Object.values(refactors)) {
       for (const refactor of list) {
-        if (refactor && refactor.newName.includes(' ')) {
-          noSpaces = false;
+        if (refactor && isPythonNameIllegal(refactor.newName)) {
+          legalName = false;
           break;
         }
       }
@@ -102,7 +106,7 @@ function RefactorDialogComponent({
       !allEmpty &&
         userName &&
         accessToken &&
-        noSpaces &&
+        legalName &&
         commitMessage &&
         !confirmed
     );
@@ -199,14 +203,16 @@ function RefactorDialogComponent({
                         }}
                         error={
                           refactors[type][index]
-                            ? refactors[type][index].newName.includes(' ')
+                            ? isPythonNameIllegal(
+                                refactors[type][index].newName
+                              )
                             : false
                         }
                         helperText={
                           refactors[type][index]
-                            ? refactors[type][index].newName.includes(' ')
-                              ? 'New names cannot include spaces.'
-                              : null
+                            ? getPythonNameErrorText(
+                                refactors[type][index].newName
+                              )
                             : null
                         }
                         placeholder='New name'
