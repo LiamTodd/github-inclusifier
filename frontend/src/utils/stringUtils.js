@@ -20,7 +20,18 @@ export const getRepoNameFromExtendedName = (extendedName) => {
   return extendedName.split('/')[1];
 };
 
-export const isPythonNameIllegal = (newName) => {
+const flattenAllNames = (allNames) => {
+  const flattenedNames = [];
+  for (const type of Object.values(allNames)) {
+    for (const usedName of Object.keys(type)) {
+      if (!flattenedNames.includes(usedName)) {
+        flattenedNames.push(usedName);
+      }
+    }
+  }
+  return flattenedNames;
+};
+export const isPythonNameIllegal = (newName, allNames) => {
   if (!newName.match(/^[a-zA-Z0-9_]*$/)) {
     return true;
   }
@@ -30,10 +41,13 @@ export const isPythonNameIllegal = (newName) => {
   if (newName.match(/^\d/)) {
     return true;
   }
+  if (allNames && flattenAllNames(allNames).includes(newName)) {
+    return true;
+  }
   return false;
 };
 
-export const getPythonNameErrorText = (newName) => {
+export const getPythonNameErrorText = (newName, allNames) => {
   if (!newName.match(/^[a-zA-Z0-9_]*$/)) {
     return 'New name contains illegal characters.';
   }
@@ -42,6 +56,9 @@ export const getPythonNameErrorText = (newName) => {
   }
   if (newName.match(/^\d/)) {
     return 'New name cannot begin with a number.';
+  }
+  if (flattenAllNames(allNames).includes(newName)) {
+    return 'This name is already in use.';
   }
   return null;
 };

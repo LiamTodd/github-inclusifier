@@ -23,7 +23,7 @@ import { capitalizeFirstLetters } from '../utils/stringUtils';
 import { useCallback, useState } from 'react';
 import RefactorDialogComponent from './RefactorDialogComponent';
 
-function CodebaseAnalysisComponent({ repoCodeAnalysis }) {
+function CodebaseAnalysisComponent({ repoCodeAnalysis, allNames }) {
   const [showRefactorModal, setShowRefactorModal] = useState(false);
   const [refactorLanguage, setRefactorLanguage] = useState(null);
   const handleRefactorClick = (language) => {
@@ -158,6 +158,7 @@ function CodebaseAnalysisComponent({ repoCodeAnalysis }) {
         <RefactorDialogComponent
           language={refactorLanguage}
           codeAnalysis={repoCodeAnalysis[refactorLanguage]}
+          allNames={allNames[refactorLanguage]}
           handleSetShowModal={wrapperSetShowRefactorModal}
         ></RefactorDialogComponent>
       </Dialog>

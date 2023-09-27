@@ -17,6 +17,7 @@ import {
   LANGUAGE_MODE_KEY,
   VIEW_CODE_ANALYSIS_KEY,
   REPO_CODE_ANALYSIS_KEY,
+  ALL_NAMES_KEY,
 } from '../constants';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -63,6 +64,9 @@ function AppBackgroundComponent() {
   const [repoCodeAnalysis, setRepoCodeAnalysis] = useState(
     JSON.parse(localStorage.getItem(REPO_CODE_ANALYSIS_KEY))
   );
+  const [allNames, setAllNames] = useState(
+    JSON.parse(localStorage.getItem(ALL_NAMES_KEY))
+  );
 
   useEffect(() => {
     setBackButtonActive(
@@ -98,6 +102,7 @@ function AppBackgroundComponent() {
       REPO_CODE_ANALYSIS_KEY,
       JSON.stringify(repoCodeAnalysis)
     );
+    window.localStorage.setItem(ALL_NAMES_KEY, JSON.stringify(allNames));
   }, [
     repoName,
     rawFileData,
@@ -107,6 +112,7 @@ function AppBackgroundComponent() {
     languageMode,
     viewCodeAnalysis,
     repoCodeAnalysis,
+    allNames,
   ]);
 
   const handleBackClick = () => {
@@ -164,6 +170,12 @@ function AppBackgroundComponent() {
   const wrapperSetRepoCodeAnalysis = useCallback(
     (val) => setRepoCodeAnalysis(val),
     [setRepoCodeAnalysis]
+  );
+  const wrapperSetAllNames = useCallback(
+    (val) => {
+      setAllNames(val);
+    },
+    [setAllNames]
   );
   return (
     <Box sx={{ backgroundColor: BLACK }}>
@@ -251,7 +263,10 @@ function AppBackgroundComponent() {
                 handleSetSelectedTermData={wrapperSetSelectedTermData}
               />
             ) : rawFileData && viewCodeAnalysis ? (
-              <CodebaseAnalysisComponent repoCodeAnalysis={repoCodeAnalysis} />
+              <CodebaseAnalysisComponent
+                repoCodeAnalysis={repoCodeAnalysis}
+                allNames={allNames}
+              />
             ) : rawFileData && !viewCodeAnalysis ? (
               <RepoSummaryComponent
                 rawFileData={rawFileData}
@@ -264,6 +279,7 @@ function AppBackgroundComponent() {
                 handleSetRawFileData={wrapperSetRawFileData}
                 handleSetDefaultBranch={wrapperSetDefaultBranch}
                 handleSetRepoCodeAnalysis={wrapperSetRepoCodeAnalysis}
+                handleSetAllNames={wrapperSetAllNames}
               />
             )}
           </Box>

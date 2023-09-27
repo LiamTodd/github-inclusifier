@@ -16,6 +16,7 @@ function LinkToRepoComponent({
   handleSetRawFileData,
   handleSetDefaultBranch,
   handleSetRepoCodeAnalysis,
+  handleSetAllNames,
 }) {
   const [userName, setUserName] = useState('');
   const [repoName, setRepoName] = useState('');
@@ -49,7 +50,8 @@ function LinkToRepoComponent({
       wrapperSetErrorMessage,
       wrapperSetLoading,
       handleSetDefaultBranch,
-      handleSetRepoCodeAnalysis
+      handleSetRepoCodeAnalysis,
+      handleSetAllNames
     );
   };
 

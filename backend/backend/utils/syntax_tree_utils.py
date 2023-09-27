@@ -169,3 +169,55 @@ def perform_codebase_analysis(file_data):
             output[language] = language_analysis
 
     return output
+
+
+def get_all_codebase_names_aux(file_analysis, language_analysis, file, element_type):
+    for element in file_analysis[element_type]:
+        term_data = language_analysis[element_type].get(element["term"], None)
+        # first instance of term
+        if term_data is None:
+            language_analysis[element_type][element["term"]] = {
+                "files": [file.get("file_path")],
+                "occurrences": 1,
+            }
+        # term has been found before
+        else:
+            # term has not been found in this file before
+            if file.get("file_path") not in term_data["files"]:
+                term_data["files"].append(file.get("file_path"))
+            term_data["occurrences"] += 1
+
+
+def get_all_codebase_names(file_data):
+    output = {}
+    for language, extension in SUPPORTED_LANGUAGES.items():
+        language_analysis = {
+            "variables": {},
+            "functions": {},
+            "classes": {},
+        }
+        for addon in LANGUAGE_ADDONS[language]:
+            language_analysis[addon] = {}
+        for file in file_data.values():
+            if (
+                file.get("content") is not None
+                and file.get("content") != FAILED_FILE_READ_WARNING
+                and file.get("file_name").endswith(extension)
+            ):
+                try:
+                    file_analysis = LANGUAGE_PROCESSORS[language](
+                        file.get("content"),
+                        keep_duplicates=True,
+                        analyse_comments=False,
+                    )
+                except:
+                    print(f"Unable to parse {file.get('file_name')}")
+                    continue
+                for element_type in language_analysis.keys():
+                    get_all_codebase_names_aux(
+                        file_analysis, language_analysis, file, element_type
+                    )
+
+            output[language] = language_analysis
+
+    return output

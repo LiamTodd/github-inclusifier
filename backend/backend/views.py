@@ -35,6 +35,7 @@ from backend.utils.text_extraction_utils import get_repo_file_data
 from backend.utils.syntax_tree_utils import (
     LANGUAGE_PROCESSORS,
     perform_codebase_analysis,
+    get_all_codebase_names,
 )
 
 from backend.utils.github_api_utils import (
@@ -81,6 +82,7 @@ def get_inclusive_language_report(request):
 
     # perform codebase analysis
     code_analysis = perform_codebase_analysis(file_data)
+    all_names = get_all_codebase_names(file_data)
 
     # perform inclusive language analysis on text
     sub_string_pattern_match(file_data)
@@ -106,6 +108,7 @@ def get_inclusive_language_report(request):
             "general_report": result,
             "default_branch": default_branch,
             "codebase_analysis": code_analysis,
+            "all_names": all_names,
         }
     )
 

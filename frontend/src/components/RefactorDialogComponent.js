@@ -34,6 +34,7 @@ function RefactorDialogComponent({
   language,
   handleSetShowModal,
   codeAnalysis,
+  allNames,
 }) {
   // for now, this is hard-coded to python only as refactoring is only available for python
   const [refactors, setRefactors] = useState({
@@ -204,14 +205,16 @@ function RefactorDialogComponent({
                         error={
                           refactors[type][index]
                             ? isPythonNameIllegal(
-                                refactors[type][index].newName
+                                refactors[type][index].newName,
+                                allNames
                               )
                             : false
                         }
                         helperText={
                           refactors[type][index]
                             ? getPythonNameErrorText(
-                                refactors[type][index].newName
+                                refactors[type][index].newName,
+                                allNames
                               )
                             : null
                         }

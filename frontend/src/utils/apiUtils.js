@@ -15,7 +15,8 @@ export const fetchData = (
   handleSetErrorMessage,
   handleSetLoading,
   handleSetDefaultBranch,
-  handleSetRepoCodeAnalysis
+  handleSetRepoCodeAnalysis,
+  handleSetAllNames
 ) => {
   handleSetErrorMessage('');
   handleSetLoading(true);
@@ -42,6 +43,7 @@ export const fetchData = (
       handleSetLoading(false);
       handleSetDefaultBranch(data.default_branch);
       handleSetRepoCodeAnalysis(data.codebase_analysis);
+      handleSetAllNames(data.all_names);
     });
 };
 
