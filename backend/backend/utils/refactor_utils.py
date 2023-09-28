@@ -117,6 +117,14 @@ def refactor_variables(root_path, refactors):
             new_variable_name = refactor["newName"]
             original_content = {}
 
+            def update_function_parameters(node):
+                if isinstance(node, ast.FunctionDef):
+                    for param in node.args.args:
+                        if param.arg == old_variable_name:
+                            param.arg = new_variable_name
+                for child_node in ast.iter_child_nodes(node):
+                    update_function_parameters(child_node)
+
             for root, _, files in os.walk(root_path):
                 for file in files:
                     if file.endswith(".py"):
@@ -171,6 +179,8 @@ def refactor_variables(root_path, refactors):
 
                         transformer = RenameVariables()
                         new_tree = transformer.visit(tree)
+
+                        update_function_parameters(new_tree)
 
                         modified_code = ast.unparse(new_tree)
 
