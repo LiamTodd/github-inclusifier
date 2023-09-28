@@ -1,7 +1,9 @@
+from _ast import AST, Constant
 import ast
 import os
 from io import StringIO
 from contextlib import redirect_stderr
+from typing import Any
 import pyflakes.api as flakes
 from pyflakes.reporter import Reporter
 import autopep8
@@ -53,7 +55,6 @@ def refactor_functions(root_path, refactors):
                 for child_node in ast.iter_child_nodes(node):
                     update_function_calls(child_node)
 
-            # first pass: modify function defs and calls
             for root, _, files in os.walk(root_path):
                 for file in files:
                     if file.endswith(".py"):
@@ -64,6 +65,8 @@ def refactor_functions(root_path, refactors):
 
                         original_content[file_path] = content
                         tree = ast.parse(content)
+
+                        # first pass: modify function defs and calls
 
                         class RenameFunctions(ast.NodeTransformer):
                             def visit_FunctionDef(seld, node):
@@ -81,11 +84,7 @@ def refactor_functions(root_path, refactors):
                         with open(file_path, "w") as f:
                             f.write(modified_code)
 
-            # second pass: modify imports
-            for root, _, files in os.walk(root_path):
-                for file in files:
-                    if file.endswith(".py"):
-                        file_path = os.path.join(root, file)
+                        # second pass: modify imports
 
                         with open(file_path, "r") as f:
                             content = f.read()
@@ -98,11 +97,7 @@ def refactor_functions(root_path, refactors):
                             with open(file_path, "w") as f:
                                 f.write(modified_content)
 
-            # third pass: check with linter
-            for root, _, files in os.walk(root_path):
-                for file in files:
-                    if file.endswith(".py"):
-                        file_path = os.path.join(root, file)
+                        # third pass: check with linter
                         with open(file_path, "r") as f:
                             content = f.read()
                         if len(find_refactor_errors(content, file_path)) > 0:
@@ -144,7 +139,7 @@ def refactor_variables(root_path, refactors):
                                         and target.id == old_variable_name
                                     ):
                                         target.id = new_variable_name
-                                    return node
+                                return node
 
                             def visit_FunctionDef(self, node):
                                 if node.name != old_variable_name:
@@ -195,10 +190,7 @@ def refactor_variables(root_path, refactors):
                         if content != modified_content:
                             with open(file_path, "w") as f:
                                 f.write(modified_content)
-            for root, _, files in os.walk(root_path):
-                for file in files:
-                    if file.endswith(".py"):
-                        file_path = os.path.join(root, file)
+
                         with open(file_path, "r") as f:
                             content = f.read()
                         if len(find_refactor_errors(content, file_path)) > 0:
@@ -207,7 +199,60 @@ def refactor_variables(root_path, refactors):
 
 
 def refactor_classes(root_path, refactors):
-    pass
+    for refactor in refactors:
+        if refactor is not None:
+            old_class_name = refactor["oldName"]
+            new_class_name = refactor["newName"]
+            original_content = {}
+            for root, _, files in os.walk(root_path):
+                for file in files:
+                    if file.endswith(".py"):
+                        file_path = os.path.join(root, file)
+
+                        with open(file_path, "r") as f:
+                            content = f.read()
+                            original_content[file_path] = content
+
+                        tree = ast.parse(content)
+
+                        class RenameClasses(ast.NodeTransformer):
+                            def visitFunctionDef(self, node):
+                                if node.name != old_class_name:
+                                    self.generic_visit(node)
+                                return node
+
+                            def visit_ClassDef(self, node):
+                                if node.name == old_class_name:
+                                    node.name = new_class_name
+                                return node
+
+                            def visit_Name(self, node):
+                                if node.id == old_class_name:
+                                    node.id = new_class_name
+                                return node
+
+                        transformer = RenameClasses()
+                        new_tree = transformer.visit(tree)
+
+                        modified_code = ast.unparse(new_tree)
+
+                        with open(file_path, "w") as f:
+                            f.write(modified_code)
+
+                        content = modified_code
+                        modified_content = content.replace(
+                            f"import {old_class_name}", f"import {new_class_name}"
+                        )
+
+                        if content != modified_content:
+                            with open(file_path, "w") as f:
+                                f.write(modified_content)
+
+                        with open(file_path, "r") as f:
+                            content = f.read()
+                        if len(find_refactor_errors(content, file_path)) > 0:
+                            with open(file_path, "w"):
+                                f.write(original_content[file_path])
 
 
 def format_files(root_path):
