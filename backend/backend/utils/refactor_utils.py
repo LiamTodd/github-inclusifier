@@ -1,9 +1,7 @@
-from _ast import AST, Constant
-import ast
+import ast_comments as ast
 import os
 from io import StringIO
 from contextlib import redirect_stderr
-from typing import Any
 import pyflakes.api as flakes
 from pyflakes.reporter import Reporter
 import autopep8
