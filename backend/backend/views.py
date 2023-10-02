@@ -41,7 +41,7 @@ from backend.utils.syntax_tree_utils import (
 from backend.utils.github_api_utils import (
     download_github_repo,
     post_language_report_to_github,
-    push_changes,
+    make_pull_request,
 )
 from backend.utils.refactor_utils import do_codebase_refactors
 
@@ -195,10 +195,10 @@ def refactor_codebase(request):
         return Response(error_response, status=e.status)
 
     # refactor code
-    code_files = do_codebase_refactors(refactors, repo_path, language)
+    code_files, demodified_files = do_codebase_refactors(refactors, repo_path, language)
 
     # push to repo
-    new_branch_name, commit_sha = push_changes(
+    new_branch_name, commit_sha, pr_number = make_pull_request(
         github_token,
         repo_owner,
         repo_name,
@@ -207,6 +207,8 @@ def refactor_codebase(request):
         repo_path,
         commit_message,
         uuid,
+        demodified_files,
+        refactors,
     )
 
     # delete repo
@@ -216,5 +218,6 @@ def refactor_codebase(request):
         {
             "message": f"Successfully refactored code and committed to branch {new_branch_name}",
             "branch_url": f"https://github.com/{repo_owner}/{repo_name}/commit/{commit_sha}",
+            "pr_url": f"https://github.com/{repo_owner}/{repo_name}/pull/{pr_number}",
         }
     )

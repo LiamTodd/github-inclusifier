@@ -34,6 +34,7 @@ def find_refactor_errors(code_str, file_path):
 
 
 def refactor_functions(root_path, refactors):
+    demodified_files = []
     for refactor in refactors:
         if refactor is not None:
             old_function_name = refactor["oldName"]
@@ -101,9 +102,12 @@ def refactor_functions(root_path, refactors):
                         if len(find_refactor_errors(content, file_path)) > 0:
                             with open(file_path, "w") as f:
                                 f.write(original_content[file_path])
+                                demodified_files.append(file_path)
+    return demodified_files
 
 
 def refactor_variables(root_path, refactors):
+    demodified_files = []
     for refactor in refactors:
         if refactor is not None:
             old_variable_name = refactor["oldName"]
@@ -194,9 +198,12 @@ def refactor_variables(root_path, refactors):
                         if len(find_refactor_errors(content, file_path)) > 0:
                             with open(file_path, "w") as f:
                                 f.write(original_content[file_path])
+                                demodified_files.append(file_path)
+    return demodified_files
 
 
 def refactor_classes(root_path, refactors):
+    demodified_files = []
     for refactor in refactors:
         if refactor is not None:
             old_class_name = refactor["oldName"]
@@ -251,6 +258,8 @@ def refactor_classes(root_path, refactors):
                         if len(find_refactor_errors(content, file_path)) > 0:
                             with open(file_path, "w"):
                                 f.write(original_content[file_path])
+                                demodified_files.append(file_path)
+    return demodified_files
 
 
 def format_files(root_path):
@@ -268,9 +277,13 @@ def format_files(root_path):
 
 
 def do_codebase_refactors(refactors, root_path, language):
+    demodified_files = []
     # currently hardcoded to python
-    refactor_functions(root_path, refactors["functions"])
-    refactor_variables(root_path, refactors["variables"])
-    refactor_classes(root_path, refactors["classes"])
+    demodified_files += refactor_functions(root_path, refactors["functions"])
+    demodified_files += refactor_variables(root_path, refactors["variables"])
+    demodified_files += refactor_classes(root_path, refactors["classes"])
+
     format_files(root_path)
-    return get_code_files(root_path, SUPPORTED_LANGUAGES_REFACTORING[language])
+    return get_code_files(root_path, SUPPORTED_LANGUAGES_REFACTORING[language]), set(
+        demodified_files
+    )
