@@ -123,7 +123,7 @@ export const doCodeRefactors = (
   repoName,
   commitMessage,
   uuid,
-  handleSetBranchUrl,
+  handleSetPullRequestUrl,
   handleSetConfirmed
 ) => {
   handleSetErrorMessage('');
@@ -151,7 +151,7 @@ export const doCodeRefactors = (
         handleSetErrorMessage(data.error);
         return;
       }
-      handleSetBranchUrl(data.branch_url);
+      handleSetPullRequestUrl(data.pr_url);
       handleSetLoading(false);
     });
 };

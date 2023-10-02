@@ -31,7 +31,13 @@ const flattenAllNames = (allNames) => {
   }
   return flattenedNames;
 };
-export const isPythonNameIllegal = (newName, allNames) => {
+export const isPythonNameIllegal = (
+  newName,
+  oldName,
+  allNames,
+  refactors,
+  type
+) => {
   if (!newName.match(/^[a-zA-Z0-9_]*$/)) {
     return true;
   }
@@ -44,10 +50,26 @@ export const isPythonNameIllegal = (newName, allNames) => {
   if (allNames && flattenAllNames(allNames).includes(newName)) {
     return true;
   }
+  for (const refactor of refactors[type]) {
+    if (
+      refactor !== undefined &&
+      refactor !== null &&
+      refactor.oldName !== oldName &&
+      refactor.newName === newName
+    ) {
+      return true;
+    }
+  }
   return false;
 };
 
-export const getPythonNameErrorText = (newName, allNames) => {
+export const getPythonNameErrorText = (
+  newName,
+  oldName,
+  allNames,
+  refactors,
+  type
+) => {
   if (!newName.match(/^[a-zA-Z0-9_]*$/)) {
     return 'New name contains illegal characters.';
   }
@@ -59,6 +81,16 @@ export const getPythonNameErrorText = (newName, allNames) => {
   }
   if (flattenAllNames(allNames).includes(newName)) {
     return 'This name is already in use.';
+  }
+  for (const refactor of refactors[type]) {
+    if (
+      refactor !== undefined &&
+      refactor !== null &&
+      refactor.oldName !== oldName &&
+      refactor.newName === newName
+    ) {
+      return 'This name is already in use for this type.';
+    }
   }
   return null;
 };

@@ -48,7 +48,7 @@ function RefactorDialogComponent({
   const [uuid, setUuid] = useState('');
   const [formReady, setFormReady] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [branchUrl, setBranchUrl] = useState('');
+  const [pullRequestUrl, setPullRequestUrl] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [confirmed, setConfirmed] = useState(false);
 
@@ -57,9 +57,9 @@ function RefactorDialogComponent({
     (val) => setErrorMessage(val),
     [setErrorMessage]
   );
-  const wrapperSetBranchUrl = useCallback(
-    (val) => setBranchUrl(val),
-    [setBranchUrl]
+  const wrapperSetPullRequestUrl = useCallback(
+    (val) => setPullRequestUrl(val),
+    [setPullRequestUrl]
   );
   const wrapperSetConfirmed = useCallback(
     (val) => setConfirmed(val),
@@ -95,14 +95,24 @@ function RefactorDialogComponent({
       }
     }
     let legalName = true;
-    for (const list of Object.values(refactors)) {
-      for (const refactor of list) {
-        if (refactor && isPythonNameIllegal(refactor.newName)) {
+    for (const type of Object.keys(refactors)) {
+      for (const refactor of refactors[type]) {
+        if (
+          refactor &&
+          isPythonNameIllegal(
+            refactor.newName,
+            refactor.oldName,
+            allNames,
+            refactors,
+            type
+          )
+        ) {
           legalName = false;
           break;
         }
       }
     }
+
     setFormReady(
       !allEmpty &&
         userName &&
@@ -111,7 +121,7 @@ function RefactorDialogComponent({
         commitMessage &&
         !confirmed
     );
-  }, [refactors, userName, accessToken, commitMessage, confirmed]);
+  }, [refactors, userName, accessToken, commitMessage, confirmed, allNames]);
 
   const handleConfirm = () => {
     doCodeRefactors(
@@ -126,7 +136,7 @@ function RefactorDialogComponent({
       ),
       commitMessage,
       uuid,
-      wrapperSetBranchUrl,
+      wrapperSetPullRequestUrl,
       wrapperSetConfirmed
     );
   };
@@ -206,7 +216,10 @@ function RefactorDialogComponent({
                           refactors[type][index]
                             ? isPythonNameIllegal(
                                 refactors[type][index].newName,
-                                allNames
+                                refactors[type][index].oldName,
+                                allNames,
+                                refactors,
+                                type
                               )
                             : false
                         }
@@ -214,7 +227,10 @@ function RefactorDialogComponent({
                           refactors[type][index]
                             ? getPythonNameErrorText(
                                 refactors[type][index].newName,
-                                allNames
+                                refactors[type][index].oldName,
+                                allNames,
+                                refactors,
+                                type
                               )
                             : null
                         }
@@ -325,8 +341,9 @@ function RefactorDialogComponent({
         <Typography variant='body1'>
           Changes will be committed to a new branch named
           <br />
-          'inclusifier-{uuid}'
+          'inclusifier-{uuid}',
         </Typography>
+        and a pull request will be raised.
       </Box>
       {loading && (
         <Box
@@ -339,17 +356,17 @@ function RefactorDialogComponent({
           <CircularProgress color='inherit'></CircularProgress>
         </Box>
       )}
-      {branchUrl && (
+      {pullRequestUrl && (
         <Box sx={{ padding: '2vw', maxWidth: 1 }}>
           <Typography variant='body1'>
             Success!
             <br />
-            View changes{' '}
+            Review and merge changes{' '}
             <Link
               sx={{
                 '&:hover': { color: LIGHT_PURPLE },
               }}
-              href={branchUrl}
+              href={pullRequestUrl}
               color='inherit'
             >
               here
