@@ -8,15 +8,20 @@ export const LOCAL_HOST_REFACTOR_URL = `${LOCAL_HOST_BACKEND_API_BASE_URL}refact
 
 export const APP_NAME = 'Inclusifier v1';
 
-export const DARKEST_PURPLE = '#1F1B24';
-export const DARK_GREY = '#121212';
-export const ERROR = '#CF6679';
-export const WHITE = '#FFFFFF';
-export const BLACK = '#000000';
-export const LIGHT_PURPLE = '#BB86FC';
-export const DARK_PURPLE = '#3700B3';
-export const TURQOISE = '#03DAC6';
-export const YELLOW = '#F7F181';
+// export const DARK_GREY = '#121212';
+export const DARK_GREY = '#FFFFFF';
+// export const ERROR = '#CF6679';
+export const ERROR = '#FF0000';
+// export const WHITE = '#FFFFFF';
+export const WHITE = '#000000';
+// export const BLACK = '#000000';
+export const BLACK = '#E5E5E5';
+// export const LIGHT_PURPLE = '#BB86FC';
+export const LIGHT_PURPLE = '#018786';
+// export const TURQOISE = '#03DAC6';
+export const TURQOISE = '#EF6D0F';
+// export const YELLOW = '#F7F181';
+export const YELLOW = '#3700B3';
 
 export const REPO_NAME_KEY = 'repo-name';
 export const RAW_FILE_DATA_KEY = 'raw-file-date';
