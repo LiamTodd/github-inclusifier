@@ -340,8 +340,7 @@ function RefactorDialogComponent({
       <Box sx={{ padding: '2vw', maxWidth: 1 }}>
         <Typography variant='body1'>
           Changes will be committed to a new branch named
-          <br />
-          'inclusifier-{uuid}',
+          <br />'<strong>inclusifier-{uuid}</strong>',
         </Typography>
         and a pull request will be raised.
       </Box>

@@ -165,8 +165,19 @@ def perform_codebase_analysis(file_data):
                     perform_codebase_analysis_aux(
                         file_analysis, language_analysis, file, element_type
                     )
-
-            output[language] = language_analysis
+            store_analysis = False
+            if (
+                len(language_analysis["variables"]) > 0
+                or len(language_analysis["functions"]) > 0
+                or len(language_analysis["classes"]) > 0
+            ):
+                store_analysis = True
+            if store_analysis is False:
+                for addon in LANGUAGE_ADDONS[language]:
+                    if len(language_analysis[addon]) > 0:
+                        store_analysis = True
+            if store_analysis:
+                output[language] = language_analysis
 
     return output
 

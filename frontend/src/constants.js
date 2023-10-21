@@ -6,7 +6,7 @@ export const LOCAL_HOST_SUGGESTION_URL = `${LOCAL_HOST_BACKEND_API_BASE_URL}get_
 export const LOCAL_HOST_CODE_ANALYSIS_URL = `${LOCAL_HOST_BACKEND_API_BASE_URL}get_code_analysis/`;
 export const LOCAL_HOST_REFACTOR_URL = `${LOCAL_HOST_BACKEND_API_BASE_URL}refactor_code_base/`;
 
-export const APP_NAME = 'Inclusifier v1';
+export const APP_NAME = 'GitHubInclusifer';
 
 // export const DARK_GREY = '#121212';
 export const DARK_GREY = '#FFFFFF';

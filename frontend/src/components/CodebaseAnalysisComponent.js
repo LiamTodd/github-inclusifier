@@ -85,7 +85,12 @@ function CodebaseAnalysisComponent({ repoCodeAnalysis, allNames }) {
                     )}
                   </Box>
                 </Typography>
-                <Divider color={WHITE} sx={{ width: '30vw' }} />
+                <Divider
+                  color={WHITE}
+                  sx={{
+                    width: `${30 / Object.keys(repoCodeAnalysis).length}vw`,
+                  }}
+                />
 
                 <Grid container>
                   {Object.entries(analysis).map(([type, terms]) => {
@@ -106,7 +111,14 @@ function CodebaseAnalysisComponent({ repoCodeAnalysis, allNames }) {
                           >
                             {capitalizeFirstLetters(type)}
                           </Typography>
-                          <Divider color={WHITE} sx={{ width: '8vw' }} />
+                          <Divider
+                            color={WHITE}
+                            sx={{
+                              width: `${
+                                16 / Object.keys(repoCodeAnalysis).length
+                              }vw`,
+                            }}
+                          />
 
                           {Object.entries(terms).map(([term, details]) => {
                             const colour =
@@ -130,7 +142,14 @@ function CodebaseAnalysisComponent({ repoCodeAnalysis, allNames }) {
                                       : null}
                                   </Typography>
                                 </ListItemText>
-                                <Divider color={WHITE} sx={{ width: '8vw' }} />
+                                <Divider
+                                  color={WHITE}
+                                  sx={{
+                                    width: `${
+                                      16 / Object.keys(repoCodeAnalysis).length
+                                    }vw`,
+                                  }}
+                                />
                               </List>
                             );
                           })}
