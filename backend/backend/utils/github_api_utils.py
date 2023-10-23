@@ -126,7 +126,11 @@ def download_github_repo(repo_owner, repo_name, github_token, location):
     # Replace 'your_desired_location' with the path where you want to save the repository
     clone_location = os.path.join(location, repository.name)
     with ZipFile(io.BytesIO(response.content)) as zip_file:
-        zip_file.extractall(clone_location)
+        for file in zip_file.namelist():
+            try:
+                zip_file.extract(file, path=clone_location)
+            except:
+                print(f"Unable to extract file {file}")
 
     return repository.default_branch
 
